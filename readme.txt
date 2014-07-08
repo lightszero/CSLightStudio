@@ -1,0 +1,2 @@
+因为googlecode被封的太厉害，很多同学提意见，于是把CSLightStudio迁移到GitHub
+这是第一次提交2014-7-8
