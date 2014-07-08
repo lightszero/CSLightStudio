@@ -1,0 +1,16 @@
+﻿//4002 loops
+
+List<int> ints =new List<int>();
+for(int i=0;i<100;i++)
+{
+	ints.Add(i);
+}
+foreach(int k in ints)
+{
+	if(k%3==0)
+		testCallAdd(k,1);
+	else
+		testCallAdd(k,3);
+}
+testCallAdd(99,99);
+return "foreach";

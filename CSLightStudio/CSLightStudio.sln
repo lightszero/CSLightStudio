@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLight", "CSLight\CSLight.csproj", "{CE211682-B7E0-450A-821C-72E1DA78390E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLScriptTestor", "CLScriptTestor\CLScriptTestor.csproj", "{76074628-FC6D-4B22-B3FA-BFCD879DAE16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightFramework", "CSLightFramework\CSLightFramework.csproj", "{8F113F97-6D3C-450B-AEC3-9B4A6BB8EED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightFrameworkDemo", "CSLightFrameworkDemo\CSLightFrameworkDemo.csproj", "{4A3027F9-BFFE-4C2F-A501-CD5C313D8759}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE211682-B7E0-450A-821C-72E1DA78390E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE211682-B7E0-450A-821C-72E1DA78390E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE211682-B7E0-450A-821C-72E1DA78390E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE211682-B7E0-450A-821C-72E1DA78390E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F113F97-6D3C-450B-AEC3-9B4A6BB8EED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F113F97-6D3C-450B-AEC3-9B4A6BB8EED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F113F97-6D3C-450B-AEC3-9B4A6BB8EED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F113F97-6D3C-450B-AEC3-9B4A6BB8EED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3027F9-BFFE-4C2F-A501-CD5C313D8759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3027F9-BFFE-4C2F-A501-CD5C313D8759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3027F9-BFFE-4C2F-A501-CD5C313D8759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3027F9-BFFE-4C2F-A501-CD5C313D8759}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

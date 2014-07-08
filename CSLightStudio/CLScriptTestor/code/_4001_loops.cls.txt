@@ -1,0 +1,30 @@
+﻿//4001 loops
+
+int b=50;
+for(int i=0;i<100;i++)
+{
+   if(i%2==0)
+   {
+		continue;
+   }
+   trace("i="+i);
+   b++;
+   if(b>71)
+   {
+      break;
+   }
+}
+List<int> ints =new List<int>();
+ints.Add(1);
+ints.Add(2);
+ints.Add(3);
+for(int j=0;j<ints.Count;j++)
+{
+   testCallAdd(j,0);
+}
+
+foreach(int k in ints)
+{
+	testCallAdd(k,1);
+}
+return b;
