@@ -92,7 +92,7 @@ namespace CSLight
         ICLS_Expression OptimizeSingle(ICLS_Expression expr, CLS_Content content)
         {
 
-            if (expr is CLS_Expression_Math2Value)
+            if (expr is CLS_Expression_Math2Value || expr is CLS_Expression_Math2ValueAndOr || expr is CLS_Expression_Math2ValueLogic)
             {
 
                 if (expr.listParam[0] is ICLS_Value &&
@@ -103,18 +103,24 @@ namespace CSLight
                     {
                         CLS_Value_Value<bool> value = new CLS_Value_Value<bool>();
                         value.value_value = (bool)result.value;
+                        value.tokenBegin = expr.listParam[0].tokenBegin;
+                        value.tokenEnd =expr.listParam[1].tokenEnd;
                         return value;
                     }
                     else
                     {
                         ICLS_Type v = content.environment.GetType(result.type);
                         ICLS_Value value = v.MakeValue(result.value);
+                        value.tokenBegin = expr.listParam[0].tokenBegin;
+                        value.tokenEnd = expr.listParam[1].tokenEnd;
+
                         return value;
                     }
 
               
                 }
             }
+
             return expr;
         }
     }

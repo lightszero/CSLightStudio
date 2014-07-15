@@ -32,12 +32,12 @@ namespace CSLight
         public int tokenBegin
         {
             get;
-            private set;
+            set;
         }
         public int tokenEnd
         {
             get;
-            private set;
+            set;
         }
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
@@ -81,12 +81,12 @@ namespace CSLight
         public int tokenBegin
         {
             get;
-            private set;
+            set;
         }
         public int tokenEnd
         {
             get;
-            private set;
+            set;
         }
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
@@ -129,12 +129,12 @@ namespace CSLight
         public int tokenBegin
         {
             get;
-            private set;
+            set;
         }
         public int tokenEnd
         {
             get;
-            private set;
+            set;
         }
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {

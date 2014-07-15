@@ -17,6 +17,16 @@ namespace CSLight
         {
             get;
         }
+        int tokenBegin
+        {
+            get;
+            set;
+        }
+        int tokenEnd
+        {
+            get;
+            set;
+        }
     }
 	//表达式是一个值
     public interface ICLS_Expression 
