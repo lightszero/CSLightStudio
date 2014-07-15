@@ -257,12 +257,28 @@ namespace CSLight
                     }
                     else
                     {
-                        CLS_Expression_Math2Value value = new CLS_Expression_Math2Value(left,rightend);
-                        value.listParam.Add(valueleft);
-                        value.listParam.Add(valueright);
-                        value.mathop = tlist[oppos].text[0];
+                        char mathop=tlist[oppos].text[0];
+                        if (mathop == '?')
+                        {
+                            CLS_Expression_Math3Value value = new CLS_Expression_Math3Value(left, rightend);
+                            value.listParam.Add(valueleft);
 
-                        return value;
+                            CLS_Expression_Math2Value vvright = valueright as CLS_Expression_Math2Value;
+                            if (vvright.mathop != ':')
+                                throw new Exception("三元表达式异常");
+                            value.listParam.Add(vvright.listParam[0]);
+                            value.listParam.Add(vvright.listParam[1]);
+                            return value;
+                        }
+                        else
+                        {
+                            CLS_Expression_Math2Value value = new CLS_Expression_Math2Value(left, rightend);
+                            value.listParam.Add(valueleft);
+                            value.listParam.Add(valueright);
+                            value.mathop =mathop;
+                            return value;
+                        }
+                   
                     }
 
 

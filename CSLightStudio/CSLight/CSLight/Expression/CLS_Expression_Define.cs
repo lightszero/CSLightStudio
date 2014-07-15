@@ -54,7 +54,7 @@ namespace CSLight
                     val = content.environment.GetType(v.type).ConvertTo(content.environment, v.value, value_type);
                    
                 }
-                
+
                 content.DefineAndSet(value_name, value_type, val);
             }
             else

@@ -18,10 +18,10 @@ namespace CSLight
             int expend = FindCodeBlock(tlist, expbegin);
             if (expend != tlist.Count - 1)
             {
-                LogError(tlist,"CodeBlock 识别问题,异常结尾",expbegin,expend);
+                LogError(tlist, "CodeBlock 识别问题,异常结尾", expbegin, expend);
                 return null;
             }
-            bool succ = Compiler_Expression_Block(tlist,content, expbegin, expend, out value);
+            bool succ = Compiler_Expression_Block(tlist, content, expbegin, expend, out value);
             if (succ)
             {
                 if (value == null)
@@ -33,7 +33,7 @@ namespace CSLight
             }
             else
             {
-                LogError(tlist,"编译失败:" , expbegin ,expend);
+                LogError(tlist, "编译失败:", expbegin, expend);
                 return null;
             }
 
@@ -46,7 +46,7 @@ namespace CSLight
             ICLS_Expression value;
             int expbegin = 0;
             int expend = tlist.Count - 1;
-            bool succ = Compiler_Expression(tlist,content, expbegin, expend, out value);
+            bool succ = Compiler_Expression(tlist, content, expbegin, expend, out value);
             if (succ)
             {
                 if (value == null)
@@ -58,13 +58,13 @@ namespace CSLight
             }
             else
             {
-                LogError(tlist,"编译失败:", expbegin ,expend);
+                LogError(tlist, "编译失败:", expbegin, expend);
                 return null;
             }
 
 
         }
-        public ICLS_Expression Optimize(ICLS_Expression value,CLS_Content content)
+        public ICLS_Expression Optimize(ICLS_Expression value, CLS_Content content)
         {
             ICLS_Expression expr = value as ICLS_Expression;
             if (expr == null) return value;
@@ -104,7 +104,7 @@ namespace CSLight
                         CLS_Value_Value<bool> value = new CLS_Value_Value<bool>();
                         value.value_value = (bool)result.value;
                         value.tokenBegin = expr.listParam[0].tokenBegin;
-                        value.tokenEnd =expr.listParam[1].tokenEnd;
+                        value.tokenEnd = expr.listParam[1].tokenEnd;
                         return value;
                     }
                     else
@@ -117,7 +117,19 @@ namespace CSLight
                         return value;
                     }
 
-              
+
+                }
+            }
+            if (expr is CLS_Expression_Math3Value)
+            {
+                CLS_Content.Value result = expr.listParam[0].ComputeValue(content);
+                if (result.type == typeof(bool))
+                {
+                    bool bv = (bool)result.value;
+                    if (bv)
+                        return expr.listParam[1];
+                    else
+                        return expr.listParam[2];
                 }
             }
 

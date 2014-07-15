@@ -263,7 +263,7 @@ namespace CSLight
             depstyle = 0;
             for (int i = pos; i < tokens.Count; i++)
             {
-              
+
                 if (tokens[i].type == TokenType.COMMENT) //注释忽略
                 {
                     continue;
@@ -271,13 +271,13 @@ namespace CSLight
                 if (start == null)
                 {
                     start = tokens[i];
-                   
+
                     pos = i;
                     if (start.Value.type == TokenType.PUNCTUATION)
                     {
                         if (start.Value.text == "{")
                             depstyle = 2;
-                        if(start.Value.text == "(")
+                        if (start.Value.text == "(")
                             depstyle = 1;
                         if (start.Value.text == "[")
                             depstyle = 1;
@@ -285,7 +285,7 @@ namespace CSLight
                     }
                     if (start.Value.type == TokenType.KEYWORD)
                     {
-                        if(start.Value.text == "for")
+                        if (start.Value.text == "for")
                         {
                             return FindCodeKeyWord_For(tokens, i);
                         }
@@ -293,15 +293,15 @@ namespace CSLight
                         {
                             return FindCodeKeyWord_ForEach(tokens, i);
                         }
-                        if(start.Value.text == "if")
+                        if (start.Value.text == "if")
                         {
                             return FindCodeKeyWord_If(tokens, i);
-                                
+
                         }
-                        if(start.Value.text =="return")
+                        if (start.Value.text == "return")
                         {
                             return FindCodeKeyWord_Return(tokens, i);
-                           
+
                         }
                     }
                     //if (start.Value.type == TokenType.TYPE && i < tokens.Count-1)
@@ -324,9 +324,9 @@ namespace CSLight
                     if (tokens[i].text == "}")
                     {
                         dep--;
-                        if (depstyle==2&&dep==0)
+                        if (depstyle == 2 && dep == 0)
                         {
-                                return i;
+                            return i;
                         }
                         if (dep < 0)
                             return i - 1;
@@ -617,7 +617,7 @@ namespace CSLight
                 return tokens.Count - 1;
         }
 
-        int FindCodeKeyWord_For(IList<Token>tokens,int pos)
+        int FindCodeKeyWord_For(IList<Token> tokens, int pos)
         {
             int b1;
             int fs1 = pos + 1;
@@ -639,7 +639,7 @@ namespace CSLight
             int fe2 = FindCodeAny(tokens, ref fs2, out b2);
             return fe2;
         }
-        int FindCodeKeyWord_If(IList<Token>tokens,int pos)
+        int FindCodeKeyWord_If(IList<Token> tokens, int pos)
         {
             int b1;
             int fs1 = pos + 1;
@@ -667,7 +667,7 @@ namespace CSLight
         }
         int FindCodeKeyWord_Return(IList<Token> tokens, int pos)
         {
-            
+
             int fs = pos + 1;
             if (tokens[fs].type == TokenType.PUNCTUATION && tokens[fs].text == ";")
                 return pos;
@@ -682,14 +682,14 @@ namespace CSLight
             List<int> listt = new List<int>();
             int dep = 0;
             int skip = 0;
-            for (int i = pos; i <= posend ; i++)
+            for (int i = pos; i <= posend; i++)
             {
-                if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type ==TokenType.KEYWORD&&tokens[i].text=="as"))
+                if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as"))
                 {
                     if (tokens[i].text == "(")
                     {
-                      
-                        if(dep==0&&(i==pos||tokens[i-1].type== TokenType.PUNCTUATION ) &&i+1<=posend && tokens[i+1].type== TokenType.TYPE)
+
+                        if (dep == 0 && (i == pos || tokens[i - 1].type == TokenType.PUNCTUATION) && i + 1 <= posend && tokens[i + 1].type == TokenType.TYPE)
                         {
                             list.Add(i);
                         }
@@ -697,13 +697,13 @@ namespace CSLight
                         skip = i + 1;
                         continue;
                     }
-                    else if(tokens[i].text == "{" )
+                    else if (tokens[i].text == "{")
                     {
                         dep++;
                         skip = i + 1;
                         continue;
                     }
-                        else if (tokens[i].text == "[")
+                    else if (tokens[i].text == "[")
                     {
                         if (dep == 0)
                         {
@@ -721,10 +721,10 @@ namespace CSLight
                     }
 
                 }
-                
-                if (dep == 0&&i>pos&&i<posend&&i!=skip)
+
+                if (dep == 0 && i > pos && i < posend && i != skip)
                 {
-                    if (tokens[i].type == TokenType.PUNCTUATION|| (tokens[i].type ==TokenType.KEYWORD&&tokens[i].text=="as"))
+                    if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as"))
                     {
                         if (tokens[i].text == "." && tokens[i - 1].type == TokenType.TYPE)
                         {
@@ -736,7 +736,7 @@ namespace CSLight
                         }
                         skip = i + 1;
                     }
-                   
+
                 }
             }
             return list.Count > 0 ? list : listt;
@@ -750,6 +750,12 @@ namespace CSLight
                 int max = 0;
                 switch (tokens[i].text)
                 {
+                    case "?":
+                        max = -1;
+                        break;
+                    case ":":
+                        max = 0;
+                        break;
                     case "<":
                         max = 6;
                         break;

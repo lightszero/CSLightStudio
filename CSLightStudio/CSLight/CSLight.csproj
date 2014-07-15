@@ -70,6 +70,7 @@
     <Compile Include="CSLight\Expression\Loop\CLS_Expression_LoopFor.cs" />
     <Compile Include="CSLight\Expression\Loop\CLS_Expression_LoopIf.cs" />
     <Compile Include="CSLight\Expression\Loop\CLS_Expression_LoopReturn.cs" />
+    <Compile Include="CSLight\Expression\Math\CLS_Expression_Math3Value.cs" />
     <Compile Include="CSLight\Expression\Math\CLS_Expression_Math2Value.cs" />
     <Compile Include="CSLight\Expression\Math\CLS_Expression_Math2ValueAndOR.cs" />
     <Compile Include="CSLight\Expression\Math\CLS_Expression_Math2ValueLogic.cs" />
