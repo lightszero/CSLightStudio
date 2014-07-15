@@ -126,7 +126,7 @@ namespace CSLight
                     return (int)left > (int)right.value;
                 else if (code == logictoken.more_equal)
                     return (int)left >= (int)right.value;
-                else if (code == logictoken.more_equal)
+                else if (code == logictoken.not_equal)
                     return (int)left != (int)right.value;
             }
             else if (right.type == typeof(uint))
@@ -141,7 +141,7 @@ namespace CSLight
                     return (int)left > (uint)right.value;
                 else if (code == logictoken.more_equal)
                     return (int)left >= (uint)right.value;
-                else if (code == logictoken.more_equal)
+                else if (code == logictoken.not_equal)
                     return (int)left != (uint)right.value;
             }
             else if (right.type == typeof(double))
@@ -156,7 +156,7 @@ namespace CSLight
                     return (int)left > (double)right.value;
                 else if (code == logictoken.more_equal)
                     return (int)left >= (double)right.value;
-                else if (code == logictoken.more_equal)
+                else if (code == logictoken.not_equal)
                     return (int)left != (double)right.value;
             }
             else if (right.type == typeof(float))
@@ -171,7 +171,7 @@ namespace CSLight
                     return (int)left > (float)right.value;
                 else if (code == logictoken.more_equal)
                     return (int)left >= (float)right.value;
-                else if (code == logictoken.more_equal)
+                else if (code == logictoken.not_equal)
                     return (int)left != (float)right.value;
             }
             throw new NotImplementedException();
