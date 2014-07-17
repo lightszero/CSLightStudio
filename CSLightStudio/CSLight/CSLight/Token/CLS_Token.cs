@@ -122,7 +122,7 @@ namespace CSLight
                     nsub = line.IndexOf('\\', nsub + 2);
 
                 }
-
+                if (nend - nstart + 1 < 1) throw new Exception("查找字符串失败");
                 t.type = TokenType.STRING;
                 int pos = nend + 1;
                 t.text = line.Substring(nstart, nend - nstart + 1);
