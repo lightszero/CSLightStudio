@@ -271,7 +271,7 @@ namespace CSLight
                 //字母逻辑
                 //判断完整性
                 int i = nstart + 1;
-                while (i < line.Length - 1 && (char.IsLetterOrDigit(line, i) || line[i] == '_'))
+                while (i < line.Length && (char.IsLetterOrDigit(line, i) || line[i] == '_'))
                 {
                     i++;
                 }
@@ -293,7 +293,7 @@ namespace CSLight
                         return nstart + t.text.Length;
                     }
                 }
-                if (line[i] == '<' || line[i] == '[')//检查特别类型
+                if (i<line.Length&&( line[i] == '<' || line[i] == '['))//检查特别类型
                 {
                     foreach (string s in types)
                     {

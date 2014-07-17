@@ -1,0 +1,92 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WPEval.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!-- 本地化说明:
+            若要本地化显示的字符串，请将其值复制到应用程序的非特定语言资源文件(AppResources.resx)
+            中的适当命名的键，然后
+            将属性的引号之间的硬编码文本值
+            替换为其路径指向该字符串名称的绑定子句。
+
+            例如:
+
+                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+
+            此绑定指向模板的名为“ApplicationTitle”的字符串资源。
+
+            在“项目属性”选项卡中添加受支持的语言将会为
+            每种语言创建一个新的 resx 文件，该文件可以包含 UI 字符串的翻译值
+            。这些示例中的绑定将导致在运行时从
+            与应用程序的 CurrentUICulture 匹配的 .resx 文件中
+            提取属性的值。
+         -->
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <phone:Pivot Margin="-8,0,10,96" Title="pivot" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Loaded="Pivot_Loaded">
+            <phone:PivotItem CacheMode="{x:Null}" Header="Expression">
+                <Grid Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="113*"/>
+                        <ColumnDefinition Width="114*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="246*"/>
+                        <RowDefinition Height="76*"/>
+                        <RowDefinition Height="185*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="txt_ExprInput" Grid.ColumnSpan="2" Margin="0" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+                    <Border Grid.ColumnSpan="2" Margin="0,1,0,0" Grid.Row="2" BorderThickness="1" BorderBrush="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45*"/>
+                                <RowDefinition Height="149*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="OutPut" VerticalAlignment="Top" Height="45" Width="442"/>
+                            <TextBlock x:Name="txt_ExprOut" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="432"/>
+                        </Grid>
+                    </Border>
+                    <Button Content="Run" Margin="2,0,0,0" Grid.Row="1" Grid.Column="1" Click="Button_Click"/>
+                    <Button Content="Load" Margin="0" Grid.Row="1" Click="Button_Click_1" IsEnabled="False"/>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem CacheMode="{x:Null}" Header="Param">
+                <Grid/>
+            </phone:PivotItem>
+            <phone:PivotItem CacheMode="{x:Null}" Header="File">
+                <Grid/>
+            </phone:PivotItem>
+            <phone:PivotItem CacheMode="{x:Null}" Header="About">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="C#Light can be used for WP8,Xamarin.IOS,Xamarin.Android,Unity3D.And is opensourced" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="you can got it in " VerticalAlignment="Top" Margin="0,87,0,0"/>
+                    <HyperlinkButton x:Name="btn_aboutlink" Content="https://github.com/lightszero/CSLightStudio" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" Height="40" Width="454" FontSize="16" Click="HyperlinkButton_Click"/>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+
+        <!--取消注释，以显示对齐网格，从而帮助确保
+            控件在公用边界上对齐。图像在系统栏中显示时的
+            上边距为 -32px。如果隐藏了系统栏，则将此值设为 0
+            (或完全删除边距)。
+
+            在发送之前删除此 XAML 和图像本身。-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+    </Grid>
+
+</phone:PhoneApplicationPage>
