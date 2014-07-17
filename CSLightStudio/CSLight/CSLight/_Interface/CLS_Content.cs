@@ -48,13 +48,18 @@ namespace CSLight
             }
             stacklist.Pop();
         }
-        public string Dump(IList<Token> tokenlist)
-        {
-            string svalues = "";
+		public string DumpValue(IList<Token> tokenlist)
+		{
+			string svalues = "";
             foreach(var v in this.values)
             {
                 svalues += "V:" + v.Key + "=" + v.Value.ToString()+"\n";
             }
+			return svalues;
+		}
+		public string DumpStack(IList<Token> tokenlist)
+        {
+			string svalues = "";
             if (useDebug)
             {
                 foreach(var s in stacklist)
@@ -94,6 +99,13 @@ namespace CSLight
             return svalues;
 
         }
+
+		public string Dump(IList<Token> tokenlist)
+		{
+			string str = DumpValue(tokenlist);
+			str += DumpStack(tokenlist);
+			return str;
+		}
         public class Value
         {
             public Type type;
