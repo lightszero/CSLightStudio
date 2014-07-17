@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProfilerSession Type="Monitoring" Name="WPEval2432540841">
+  <TargetApplication Name="WPEval_Release_AnyCPU" SourceProject="WPEval.csproj" Type="WindowsPhone">
+    <ApplicationBinary Path="Bin\Release\WPEval_Release_AnyCPU.xap" Timestamp="2014/7/17 12:26:31" />
+    <ApplicationIconPath Path="" />
+    <SymbolPaths>
+      <Path Value="Bin\Release\" />
+    </SymbolPaths>
+  </TargetApplication>
+  <Settings>
+    <Probe Name="Visual">
+      <CollectElementLevelCosting Enabled="True" />
+      <CollectSnapshots Enabled="True" Interval="1000" Resampling="2" />
+      <CollectMediaEvents Enabled="False" />
+      <CollectCacheDetails Enabled="False" />
+    </Probe>
+    <Probe Name="Code">
+      <SampleCallStack Enabled="True" Depth="4294967295" Interval="10" />
+      <CollectPerformanceCounters Enabled="False" />
+    </Probe>
+    <Probe Name="Memory">
+      <MemoryCallStack Enabled="True" Depth="8" />
+      <ObjectTree Enabled="True" Interval="5" />
+    </Probe>
+  </Settings>
+  <Data>
+    <Logs>
+      <File Type="NativeFormat" Path="PerfLogs\WPEval2432540841\tmpCC37.spl" />
+      <File Type="SRUMData" Path="PerfLogs\WPEval2432540841\tmpCC38.srum" />
+    </Logs>
+  </Data>
+  <TargetDeviceSettings OSVersion="8.10.12397" AvailablePhysicalMemoryAtStartup="0" ProcessorArchitectureType="Arm" ProcessorInformation="Unknown" IsEmulator="False" />
+</ProfilerSession>

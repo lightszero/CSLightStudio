@@ -28,29 +28,6 @@ namespace WPEval
             txt_ExprInput.Text = "\"HelloWorld\"+(2*5+2*2+20*100);";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {//EXPR_RUN
-            CSLight.CLS_Content.Value value = null;
-            try
-            {
-                var tlist = envScript.ParserToken(txt_ExprInput.Text);
-                var expr = envScript.CompilerToken(tlist, true);
-                value = envScript.Execute(expr);
-            }
-            catch(Exception err)
-            {
-                this.Log_Error(err.ToString());
-            }
-            string sout = "";
-            foreach(var l in loginfo)
-            {
-                sout += l+"\n";
-            }
-            sout += value;
-
-            txt_ExprOut.Text = sout;
-
-        }
 
         // 用于生成本地化 ApplicationBar 的示例代码
         //private void BuildLocalizedApplicationBar()
@@ -87,15 +64,40 @@ namespace WPEval
 
             //throw new NotImplementedException();
         }
+        #region exprevent
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {//EXPR_RUN
+            CSLight.CLS_Content.Value value = null;
+            try
+            {
+                var tlist = envScript.ParserToken(txt_ExprInput.Text);
+                var expr = envScript.CompilerToken(tlist, true);
+                value = envScript.Execute(expr);
+            }
+            catch (Exception err)
+            {
+                this.Log_Error(err.ToString());
+            }
+            string sout = "";
+            foreach (var l in loginfo)
+            {
+                sout += l + "\n";
+            }
+            sout += value;
 
+            txt_ExprOut.Text = sout;
+
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
         }
-
+        #endregion
+        #region aboutevent
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             Windows.System.Launcher.LaunchUriAsync(new Uri(btn_aboutlink.Content.ToString()));
         }
+        #endregion
     }
 }
