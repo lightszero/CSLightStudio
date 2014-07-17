@@ -15,6 +15,10 @@
     shell:SystemTray.IsVisible="True">
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
 
         <!-- 本地化说明:
             若要本地化显示的字符串，请将其值复制到应用程序的非特定语言资源文件(AppResources.resx)
@@ -36,7 +40,7 @@
          -->
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <phone:Pivot Margin="-8,0,10,96" Title="pivot" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Loaded="Pivot_Loaded">
+        <phone:Pivot Margin="0" Title="pivot" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Loaded="Pivot_Loaded">
             <phone:PivotItem CacheMode="{x:Null}" Header="Expression">
                 <Grid Margin="0">
                     <Grid.ColumnDefinitions>
@@ -78,7 +82,7 @@
             </phone:PivotItem>
         </phone:Pivot>
 
-        <JiuYouWp8Ad:JiuYouWp8AdControl x:Name="adv" HorizontalAlignment="Left" Margin="0,691,0,0" VerticalAlignment="Top" DeveloperAdID="44b7fc38c88ccafb2946d94224df5c5a"/>
+        <JiuYouWp8Ad:JiuYouWp8AdControl x:Name="adv" Margin="0" DeveloperAdID="44b7fc38c88ccafb2946d94224df5c5a" Grid.Row="1"/>
 
         <!--ContentPanel - 在此处放置其他内容-->
 

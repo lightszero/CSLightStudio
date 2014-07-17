@@ -69,6 +69,7 @@ namespace WPEval
         private void Button_Click(object sender, RoutedEventArgs e)
         {//EXPR_RUN
             CSLight.CLS_Content.Value value = null;
+            loginfo.Clear();
             try
             {
                 var tlist = envScript.ParserToken(txt_ExprInput.Text);
