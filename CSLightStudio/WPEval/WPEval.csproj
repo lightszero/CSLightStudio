@@ -140,6 +140,8 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="JiuYouWp8Ad.dll" />
+    <Content Include="JiuYouWp8Ad.pdb" />
     <Content Include="logo.png" />
     <Content Include="wps1-720.png" />
     <Content Include="wps1-768.png" />
@@ -160,6 +162,9 @@
       <Project>{ABB0F989-980E-47DE-B817-3E7226F823A0}</Project>
       <Name>PortableCLScript</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="JiuYouWp8Ad, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

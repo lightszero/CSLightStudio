@@ -1,11 +1,12 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="WPEval.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:JiuYouWp8Ad="clr-namespace:JiuYouWp8Ad;assembly=JiuYouWp8Ad"
+    x:Class="WPEval.MainPage"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -13,7 +14,6 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
         <!-- 本地化说明:
@@ -77,6 +77,8 @@
                 </Grid>
             </phone:PivotItem>
         </phone:Pivot>
+
+        <JiuYouWp8Ad:JiuYouWp8AdControl x:Name="adv" HorizontalAlignment="Left" Margin="0,691,0,0" VerticalAlignment="Top" DeveloperAdID="44b7fc38c88ccafb2946d94224df5c5a"/>
 
         <!--ContentPanel - 在此处放置其他内容-->
 

@@ -26,6 +26,7 @@ namespace WPEval
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
             txt_ExprInput.Text = "\"HelloWorld\"+(2*5+2*2+20*100);";
+            adv.Start();
         }
 
 
