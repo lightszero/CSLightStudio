@@ -16,8 +16,8 @@
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="43*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="697*"/>
+            <RowDefinition x:Name="advpos" Height="100*"/>
         </Grid.RowDefinitions>
 
         <!-- 本地化说明:
@@ -53,7 +53,7 @@
                         <RowDefinition Height="185*"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="txt_ExprInput" Grid.ColumnSpan="2" Margin="0" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
-                    <Border Grid.ColumnSpan="2" Margin="0,1,0,0" Grid.Row="2" BorderThickness="1" BorderBrush="White">
+                    <Border Grid.ColumnSpan="2" Margin="0,2,0,10" Grid.Row="2" BorderThickness="1" BorderBrush="White">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="45*"/>
@@ -74,10 +74,12 @@
                 <Grid/>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="About">
-                <Grid>
+                <Grid Margin="10,10,-10,-10">
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="C#Light can be used for WP8,Xamarin.IOS,Xamarin.Android,Unity3D.And is opensourced" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="you can got it in " VerticalAlignment="Top" Margin="0,87,0,0"/>
                     <HyperlinkButton x:Name="btn_aboutlink" Content="https://github.com/lightszero/CSLightStudio" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" Height="40" Width="454" FontSize="16" Click="HyperlinkButton_Click"/>
+                    <Button x:Name="btn_aboutbuy" Content="GoToStore" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
+                    <Button Content="review" HorizontalAlignment="Left" Margin="310,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.571,-0.444" Width="136" Click="Button_Click_3"/>
                 </Grid>
             </phone:PivotItem>
         </phone:Pivot>

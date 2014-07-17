@@ -11,7 +11,7 @@ using WPEval.Resources;
 
 namespace WPEval
 {
-    public partial class MainPage : PhoneApplicationPage,CSLight.ICLS_Logger
+    public partial class MainPage : PhoneApplicationPage, CSLight.ICLS_Logger
     {
         CSLight.CLS_Environment envScript = null;
         // 构造函数
@@ -23,12 +23,28 @@ namespace WPEval
             //BuildLocalizedApplicationBar();
         }
         public List<string> loginfo = new List<string>();
+        bool bTrial = false;
         private void Pivot_Loaded(object sender, RoutedEventArgs e)
         {
             txt_ExprInput.Text = "\"HelloWorld\"+(2*5+2*2+20*100);";
             adv.Start();
-        }
+            UpdateTrial();
+            Windows.ApplicationModel.Store.CurrentApp.LicenseInformation.LicenseChanged += () =>
+                {
 
+                    UpdateTrial();
+                };
+
+        }
+        void UpdateTrial()
+        {
+            bTrial = Windows.ApplicationModel.Store.CurrentApp.LicenseInformation.IsTrial;
+            if (!bTrial)
+            {
+                advpos.Height = new GridLength(0);
+                btn_aboutbuy.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
 
         // 用于生成本地化 ApplicationBar 的示例代码
         //private void BuildLocalizedApplicationBar()
@@ -54,7 +70,7 @@ namespace WPEval
 
         public void Log_Warn(string str)
         {
-            loginfo.Add("<W>"+str);
+            loginfo.Add("<W>" + str);
 
             //throw new NotImplementedException();
         }
@@ -100,6 +116,18 @@ namespace WPEval
         {
             Windows.System.Launcher.LaunchUriAsync(new Uri(btn_aboutlink.Content.ToString()));
         }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {//About Buy
+            Windows.ApplicationModel.Store.CurrentApp.RequestAppPurchaseAsync(false);
+        }
         #endregion
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Windows.System.Launcher.LaunchUriAsync(new Uri("zune:reviewapp?appid=" + Windows.ApplicationModel.Store.CurrentApp.AppId));
+
+        }
+
+
     }
 }
