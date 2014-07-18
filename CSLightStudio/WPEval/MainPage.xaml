@@ -64,11 +64,27 @@
                         </Grid>
                     </Border>
                     <Button Content="Run" Margin="2,0,0,0" Grid.Row="1" Grid.Column="1" Click="Button_Click"/>
-                    <Button Content="Load" Margin="0" Grid.Row="1" Click="Button_Click_1" IsEnabled="False"/>
+                    <Button Content="Change" Margin="0" Grid.Row="1" Click="Button_Click_1" IsEnabled="True"/>
                 </Grid>
             </phone:PivotItem>
-            <phone:PivotItem CacheMode="{x:Null}" Header="Param">
-                <Grid/>
+            <phone:PivotItem CacheMode="{x:Null}" Header="Block">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="209*"/>
+                        <RowDefinition Height="81*"/>
+                        <RowDefinition Height="217*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="txt_BlockInput" Grid.ColumnSpan="2" Margin="0" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+
+                    <Button Content="Do" Grid.Column="1" Margin="0" Grid.Row="1" Click="Button_Click_4"/>
+                    <Button Content="Change" Grid.Row="1" Click="Button_Click_5"/>
+                    <Canvas x:Name="canvas_Block" Grid.Row="2" Grid.ColumnSpan="2" Background="#FFF1F1F1">
+                    </Canvas> 
+                </Grid>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="File">
                 <Grid/>
@@ -85,6 +101,7 @@
         </phone:Pivot>
 
         <JiuYouWp8Ad:JiuYouWp8AdControl x:Name="adv" Margin="0" DeveloperAdID="44b7fc38c88ccafb2946d94224df5c5a" Grid.Row="1"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="570,414,-190,0" VerticalAlignment="Top" Width="100"/>
 
         <!--ContentPanel - 在此处放置其他内容-->
 
