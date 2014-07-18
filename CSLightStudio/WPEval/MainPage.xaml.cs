@@ -109,11 +109,12 @@ namespace WPEval
             txt_ExprOut.Text = sout;
 
         }
-        int exprIndex = 0;
+        int exprIndex = -1;
         string[] exprCode = { "\"HelloWorld\"+(2*5+2*2+20*100);" ,
                             "1>2",
                             "1>2?3:5",
-                            "1>2&&3>=2"
+                            "1>2&&3>=2",
+                            "Math.PI"
                             };
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {//EXPR_CHANGE
@@ -138,6 +139,7 @@ namespace WPEval
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {//BLOCK_RUN
+            canvas_Block.Children.Clear();
             if(!bBlockInit)
             {
                 Action<int, int> draw = Draw;
@@ -164,7 +166,7 @@ namespace WPEval
                 MessageBox.Show(sout);
             }
         }
-        int blockIndex = 0;
+        int blockIndex = -1;
         string[] blockCode = { "for(int i=0;i<10;i++)\nDraw(i*10,i*10);" ,
                             "1>2",
                             "1>2?3:5",
