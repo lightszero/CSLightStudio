@@ -43,10 +43,11 @@ namespace CSLightFrameworkDemo
             //CodeFile_Debug 和类型 testcode01 绑定，将其作为代码使用
             scriptmgr.SetCodeFile("testcode01", new CSLight.Framework.CodeFile_Debug<MyType>(scriptmgr, "testcode01", typeof(testcode01)));
 
-            script = scriptmgr.GetCodeFile("testcode01");
-            script.New(this);
+            var sscript = scriptmgr.GetCodeFile("testcode01");
+            this.script = sscript;
+            sscript.New(this);
         }
-        public CSLight.Framework.ICodeFile<MyType> script
+        public CSLight.Framework.IScript script
         {
             get;
             private set;
@@ -71,8 +72,9 @@ namespace CSLightFrameworkDemo
             string code = System.IO.File.ReadAllText("script/testcode01.cs");
             scriptmgr.SetCodeFile("testcode01", new CSLight.Framework.CodeFile_CLScript<MyType>(scriptmgr, "testcode01", code));
 
-            script = scriptmgr.GetCodeFile("testcode01");
-            script.New(this);
+            var sscript = scriptmgr.GetCodeFile("testcode01");
+            this.script = sscript;
+            sscript.New(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -124,7 +126,7 @@ namespace CSLightFrameworkDemo
         void SetColorRed();
         void SetColorBlue();
 
-        CSLight.Framework.ICodeFile<MyType> script
+        CSLight.Framework.IScript script
         {
             get;
         }

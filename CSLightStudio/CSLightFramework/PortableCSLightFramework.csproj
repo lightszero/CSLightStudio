@@ -36,6 +36,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
     <Compile Include="CodeFile_CLScript.cs" />
     <Compile Include="CodeFile_Debug.cs" />
+    <Compile Include="MiniGameFramework.cs" />
     <Compile Include="ScriptMgr.cs" />
   </ItemGroup>
   <ItemGroup>

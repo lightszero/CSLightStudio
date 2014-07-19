@@ -4,16 +4,21 @@ using System.Text;
 
 namespace CSLight.Framework
 {
-    public interface ICodeFile<T> where T : class
+    public interface IScript
     {
         string name
         {
             get;
         }
-        void New(T view);//初始化View
         void CallScriptFuncWithoutParam(string scriptname);
         void CallScriptFuncWithParamString(string scriptname, string param);
         void CallScriptWithParamStrings(string scriptname, List<string> param);
+
+    }
+    public interface ICodeFile<T>:IScript where T : class
+    {
+
+        void New(T view);//初始化View
 
     }
     public class ScriptMgr<T> where T : class
@@ -65,7 +70,7 @@ namespace CSLight.Framework
         public virtual void Init()
         {
             scriptEnv = new CSLight.CLS_Environment(_logger);
-            this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(ICodeFile<T>)));
+            this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(IScript)));
             this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(List<string>),"List<string>"));
         }
 
