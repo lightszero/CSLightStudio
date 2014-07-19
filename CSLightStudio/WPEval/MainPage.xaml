@@ -83,11 +83,26 @@
                     <Button Content="Do" Grid.Column="1" Margin="0" Grid.Row="1" Click="Button_Click_4"/>
                     <Button Content="Change" Grid.Row="1" Click="Button_Click_5"/>
                     <Canvas x:Name="canvas_Block" Grid.Row="2" Grid.ColumnSpan="2" Background="#FFF1F1F1">
-                    </Canvas> 
+                    </Canvas>
                 </Grid>
             </phone:PivotItem>
-            <phone:PivotItem CacheMode="{x:Null}" Header="File">
-                <Grid/>
+            <phone:PivotItem CacheMode="{x:Null}" Header="MiniGame">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="409*"/>
+                        <RowDefinition Height="98*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.ColumnSpan="2" Source="/logo.png"/>
+                    <Button Content="Code" Grid.Row="1"/>
+                    <Button Content="Play" Grid.Column="1" Grid.Row="1"/>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem CacheMode="{x:Null}" Header="C#LightStudio">
+                <TextBlock TextWrapping="Wrap" Text="Coming soon..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="About">
                 <Grid Margin="10,10,-10,-10">

@@ -16,8 +16,13 @@ namespace CSLight.Framework
         void CallScriptWithParamStrings(string scriptname, List<string> param);
 
     }
-    public class ScriptMgr<T> : CSLight.ICLS_Logger where T : class
+    public class ScriptMgr<T> where T : class
     {
+        ICLS_Logger _logger;
+        public ScriptMgr(ICLS_Logger logger)
+        {
+            _logger = logger;
+        }
         //static ScriptMgr<T> g_this = null;
         //public static ScriptMgr<T> Instance
         //{
@@ -59,37 +64,10 @@ namespace CSLight.Framework
         }
         public virtual void Init()
         {
-            scriptEnv = new CSLight.CLS_Environment(this);
+            scriptEnv = new CSLight.CLS_Environment(_logger);
             this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(ICodeFile<T>)));
             this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(List<string>),"List<string>"));
         }
 
-        public void Log(string str)
-        {
-#if UNITY
-            Debug.Log("script:" + str);
-#else
-            Console.WriteLine("script(Log):" + str);
-#endif
-        }
-
-        public void Log_Warn(string str)
-        {
-#if UNITY
-            Debug.LogWarning("script:" + str);
-#else
-            Console.WriteLine("script(LogWarning):" + str);
-#endif
-
-        }
-
-        public void Log_Error(string str)
-        {
-#if UNITY
-            Debug.LogError("script:" + str);
-#else
-            Console.WriteLine("script(LogError):" + str);
-#endif
-        }
     }
 }

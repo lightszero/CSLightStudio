@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace CSLightFrameworkDemo
 {
 
-    public partial class Form1 : Form,MyType
+    public partial class Form1 : Form, MyType,CSLight.ICLS_Logger
     {
         public Form1()
         {
@@ -18,22 +18,15 @@ namespace CSLightFrameworkDemo
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            scriptmgr= new MyScriptMgr();
+            scriptmgr = new CSLight.Framework.ScriptMgr<MyType>(this);
             scriptmgr.Init();
+            scriptmgr.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(MyType)));
+
+            scriptmgr.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(A.B), "A.B"));
         }
 
-        public static MyScriptMgr scriptmgr = null;
+        public static CSLight.Framework.ScriptMgr<MyType> scriptmgr = null;
 
-        public class MyScriptMgr : CSLight.Framework.ScriptMgr<MyType>    //自定义自己的脚本管理器
-        {
-            public override void Init()
-            {
-                base.Init();
-                this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(MyType)));
-
-                this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(A.B),"A.B"));
-            }
-        }
 
 
 
@@ -41,15 +34,15 @@ namespace CSLightFrameworkDemo
         {
             if (script != null)
             {
-                script.CallScriptFuncWithParamString("_update",DateTime.Now.ToString());
+                script.CallScriptFuncWithParamString("_update", DateTime.Now.ToString());
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //CodeFile_Debug 和类型 testcode01 绑定，将其作为代码使用
-            scriptmgr.SetCodeFile("testcode01",new CSLight.Framework.CodeFile_Debug<MyType>(scriptmgr,"testcode01",typeof(testcode01)));
-         
+            scriptmgr.SetCodeFile("testcode01", new CSLight.Framework.CodeFile_Debug<MyType>(scriptmgr, "testcode01", typeof(testcode01)));
+
             script = scriptmgr.GetCodeFile("testcode01");
             script.New(this);
         }
@@ -84,7 +77,7 @@ namespace CSLightFrameworkDemo
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if(script!=null)
+            if (script != null)
             {
                 script.CallScriptFuncWithoutParam("_click01");
             }
@@ -94,7 +87,7 @@ namespace CSLightFrameworkDemo
         {
             if (script != null)
             {
-                script.CallScriptFuncWithParamString("_click02","000");
+                script.CallScriptFuncWithParamString("_click02", "000");
             }
         }
 
@@ -105,8 +98,23 @@ namespace CSLightFrameworkDemo
                 List<string> ss = new List<string>();
                 ss.Add("123");
                 ss.Add("567");
-                script.CallScriptWithParamStrings("_click03",ss);
+                script.CallScriptWithParamStrings("_click03", ss);
             }
+        }
+
+        public void Log(string str)
+        {
+            Console.WriteLine(str);
+        }
+
+        public void Log_Warn(string str)
+        {
+            Console.WriteLine("<W>"+str);
+        }
+
+        public void Log_Error(string str)
+        {
+            Console.WriteLine("<E>"+str);
         }
     }
 
