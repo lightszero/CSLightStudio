@@ -125,25 +125,26 @@ namespace WPEval
         #endregion
         #region blockevent
         bool bBlockInit = false;
-        void Draw(int x,int y)
+        void Draw(double x, double y)
         {
             TextBlock img = new TextBlock();
             img.Text = "R";
             img.Width = 16;
             img.Height = 16;
-            img.Foreground=new SolidColorBrush(Color.FromArgb(255,0,0,0));
-
+            img.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            double nw = (double)x * canvas_Block.RenderSize.Width;
+            double nh = (double)y * canvas_Block.RenderSize.Height;
             canvas_Block.Children.Add(img);
-            Canvas.SetLeft(img, x);
-            Canvas.SetTop(img, x);
+            Canvas.SetLeft(img, nw);
+            Canvas.SetTop(img, nh);
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {//BLOCK_RUN
             canvas_Block.Children.Clear();
-            if(!bBlockInit)
+            if (!bBlockInit)
             {
-                Action<int, int> draw = Draw;
-                envScript.RegFunction(new CSLight.RegHelper_Function(draw,"Draw"));
+                Action<double, double> draw = Draw;
+                envScript.RegFunction(new CSLight.RegHelper_Function(draw, "Draw"));
                 bBlockInit = true;
             }
             CSLight.CLS_Content.Value value = null;
@@ -166,15 +167,28 @@ namespace WPEval
                 MessageBox.Show(sout);
             }
         }
+        
         int blockIndex = -1;
-        string[] blockCode = { "for(int i=0;i<10;i++)\nDraw(i*10,i*10);" ,
-                            "1>2",
-                            "1>2?3:5",
-                            "1>2&&3>=2"
+        string[] blockCode = { 
+            "for(double i=0;i<1.0;i+=0.01)\n"+
+            "{\n"+
+            "Draw(i,Math.Sin(i*10)*0.25+0.5);\n"+
+            "}" ,
+            "for(double i=0;i<(Math.PI*2);i+=0.05)\n"+
+            "{\n"+
+            "Draw(0.5 +Math.Sin(i)*0.25,0.5+Math.Cos(i)*0.25);\n"+
+            "}"
+            ,
+            "for(double i=0;i<1.0;i+=0.01)\n"+
+            "{\n"+
+            "Draw(i,i);\n"+
+            "Draw(1-i,i);\n"+
+            "}"
                             };
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {//BLOCK_CHANGE
             blockIndex++;
+
             if (blockIndex >= blockCode.Length) blockIndex = 0;
             txt_BlockInput.Text = blockCode[blockIndex];
         }
