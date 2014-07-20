@@ -100,7 +100,7 @@ namespace CSLightFrameworkDemo
                 List<string> ss = new List<string>();
                 ss.Add("123");
                 ss.Add("567");
-                script.CallScriptWithParamStrings("_click03", ss);
+                script.CallScriptFuncWithParamStrings("_click03", ss);
             }
         }
 

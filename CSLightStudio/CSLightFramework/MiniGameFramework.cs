@@ -16,17 +16,20 @@ namespace CSLight.Framework
             get;
         }
         void AddTimer(float delay, string callbackscript, bool once = false);
+        void SetTempValue(string name, float value);
+        float GetTempValue(string name);
     }
     public interface IMiniGameEnv //用户提供,
     {
 
-        void AddPic(string name, double x, double y);
+        void AddPic(string name, string filename, double x, double y, double width, double height);
         void MovePic(string name, double x, double y);
         void RemvePic(string name);
         void ClearPic();
     }
     public class MiniGameState : IGameState
     {
+        public Dictionary<string, object> tempValues = new Dictionary<string, object>();
         public virtual void _New(IScript script, IMiniGameEnv gameenv)
         {
             this.script = script;
@@ -79,8 +82,8 @@ namespace CSLight.Framework
                 t.timer += delta;
                 if(t.timer>=t.delay)
                 {
-                    
-                    this.script.CallScriptFuncWithoutParam(t.callbackScript);
+
+                    this.script.CallScriptFuncWithParamFloat(t.callbackScript, t.delay);
                     if(t.once)
                     {
                         remove.Add(t);
@@ -108,7 +111,19 @@ namespace CSLight.Framework
             get;
             private set;
         }
+
+
+        public void SetTempValue(string name, float value)
+        {
+            tempValues[name] = value;
+        }
+
+        public float GetTempValue(string name)
+        {
+            return (float)tempValues[name];
+        }
     }
+
     public class MiniGameFramework
     {
         public ScriptMgr<IGameState> scriptenv

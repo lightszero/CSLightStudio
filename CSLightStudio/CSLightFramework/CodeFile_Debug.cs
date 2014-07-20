@@ -50,8 +50,18 @@ namespace CSLight.Framework
             funcp.Invoke(null, new object[] { parent, param });
 
         }
+        public void CallScriptFuncWithParamFloat(string scriptname, float param)
+        {
+            var funcp = target.GetMethod(scriptname, new Type[] { typeof(T), typeof(float) });
+            if (funcp == null)
+            {
+                scriptmgr.scriptEnv.logger.Log("(screenscript) func不存在:" + name + "." + scriptname);
+                return;
+            }
+            funcp.Invoke(null, new object[] { parent, param });
 
-        public void CallScriptWithParamStrings(string scriptname, List<string> param)
+        }
+        public void CallScriptFuncWithParamStrings(string scriptname, List<string> param)
         {
             var funcp = target.GetMethod(scriptname, new Type[] { typeof(T), typeof(List<string>) });
             if (funcp == null)

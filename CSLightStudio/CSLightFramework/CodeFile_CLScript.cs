@@ -153,16 +153,16 @@ namespace CSLight.Framework
             var func = funcs[scriptname];
             if (func.exp == null) return;
             CSLight.CLS_Content content = new CSLight.CLS_Content(scriptmgr.scriptEnv);
-            //try
+            try
             {
                 content.DefineAndSet(func.paramname[0], typeof(T), parent);
                 func.exp.ComputeValue(content);
             }
-            //catch (Exception err)
-            //{
-            //    string msg = this.name + ":" + scriptname + "\n" + err.Message + "\n" + content.Dump(func.tokens) + "\n";
-            //    throw new Exception(msg, err);
-            //}
+            catch (Exception err)
+            {
+                string msg = this.name + ":" + scriptname + "\n" + err.Message + "\n" + content.Dump(func.tokens) + "\n";
+                throw new Exception(msg, err);
+            }
         }
 
         public void CallScriptFuncWithParamString(string scriptname, string param)
@@ -187,8 +187,29 @@ namespace CSLight.Framework
                 throw new Exception(msg, err);
             }
         }
-
-        public void CallScriptWithParamStrings(string scriptname, List<string> param)
+        public void CallScriptFuncWithParamFloat(string scriptname, float param)
+        {
+            if (funcs.ContainsKey(scriptname) == false)
+            {
+                scriptmgr.scriptEnv.logger.Log("(script)" + this.name + "." + scriptname + " not found.");
+                return;
+            }
+            var func = funcs[scriptname];
+            if (func.exp == null) return;
+            CSLight.CLS_Content content = new CSLight.CLS_Content(scriptmgr.scriptEnv);
+            try
+            {
+                content.DefineAndSet(func.paramname[0], typeof(T), parent);
+                content.DefineAndSet(func.paramname[1], typeof(float), param);
+                func.exp.ComputeValue(content);
+            }
+            catch (Exception err)
+            {
+                string msg = this.name + ":" + scriptname + "\n" + err.Message + "\n" + content.Dump(func.tokens) + "\n";
+                throw new Exception(msg, err);
+            }
+        }
+        public void CallScriptFuncWithParamStrings(string scriptname, List<string> param)
         {
             if (funcs.ContainsKey(scriptname) == false)
             {

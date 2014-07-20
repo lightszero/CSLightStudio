@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Resources;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PCEval
 {
@@ -40,25 +41,58 @@ namespace PCEval
             framework.AddState("game1", code, state);
             framework.ChangeState(state);
 
-            
-            
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += (s,ee) =>
+                {
+                    framework.Update();
+                };
+            timer.Start();
+                
+
+
         }
 
         #region MINIGAMEENV
-        public void AddPic(string name, double x, double y)
+        Dictionary<string, Image> imgs = new Dictionary<string, Image>();
+        public void AddPic(string name, string picfile, double x, double y, double width, double height)
         {
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri("/game/" + picfile, UriKind.Relative));
+            img.Width = width * canvas.RenderSize.Width;
+            img.Height = height * canvas.RenderSize.Height;
+            img.Stretch = Stretch.Fill;
+            canvas.Children.Add(img);
+            Canvas.SetLeft(img, canvas.RenderSize.Width * x - img.Width * 0.5f);
+            Canvas.SetTop(img, canvas.RenderSize.Height * y - img.Height * 0.5f);
+            imgs[name] = img;
         }
 
         public void MovePic(string name, double x, double y)
         {
+            if (imgs.ContainsKey(name))
+            {
+                var img = imgs[name];
+                Canvas.SetLeft(img, canvas.RenderSize.Width * x - img.Width * 0.5f);
+                Canvas.SetTop(img, canvas.RenderSize.Height * y - img.Height * 0.5f);
+
+            }
         }
 
         public void RemvePic(string name)
         {
+            if(imgs.ContainsKey(name))
+            {
+                canvas.Children.Remove(imgs[name]);
+                imgs.Remove(name);
+            }
         }
 
         public void ClearPic()
         {
+            canvas.Children.Clear();
+            imgs.Clear();
+
         }
         #endregion
         #region Logger

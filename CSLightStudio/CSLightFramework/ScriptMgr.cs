@@ -12,7 +12,8 @@ namespace CSLight.Framework
         }
         void CallScriptFuncWithoutParam(string scriptname);
         void CallScriptFuncWithParamString(string scriptname, string param);
-        void CallScriptWithParamStrings(string scriptname, List<string> param);
+        void CallScriptFuncWithParamFloat(string scriptname, float param);
+        void CallScriptFuncWithParamStrings(string scriptname, List<string> param);
 
     }
     public interface ICodeFile<T>:IScript where T : class
