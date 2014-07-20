@@ -61,7 +61,7 @@ namespace CSLight.Framework
         }
         void ParseCode(string src)
         {
-            scriptmgr.scriptEnv.logger.Log("(scriptParser)ParseCode=" + src);
+            //scriptmgr.scriptEnv.logger.Log("(scriptParser)ParseCode=" + src);
             var parser = scriptmgr.scriptEnv.tokenParser;
             IList<CSLight.Token> tokens = parser.Parse(src);
 
@@ -151,17 +151,18 @@ namespace CSLight.Framework
                 return;
             }
             var func = funcs[scriptname];
+            if (func.exp == null) return;
             CSLight.CLS_Content content = new CSLight.CLS_Content(scriptmgr.scriptEnv);
-            try
+            //try
             {
                 content.DefineAndSet(func.paramname[0], typeof(T), parent);
                 func.exp.ComputeValue(content);
             }
-            catch (Exception err)
-            {
-                string msg = this.name + ":" + scriptname + "\n" + err.Message + "\n" + content.Dump(func.tokens) + "\n";
-                throw new Exception(msg, err);
-            }
+            //catch (Exception err)
+            //{
+            //    string msg = this.name + ":" + scriptname + "\n" + err.Message + "\n" + content.Dump(func.tokens) + "\n";
+            //    throw new Exception(msg, err);
+            //}
         }
 
         public void CallScriptFuncWithParamString(string scriptname, string param)
@@ -172,6 +173,7 @@ namespace CSLight.Framework
                 return;
             }
             var func = funcs[scriptname];
+            if (func.exp == null) return;
             CSLight.CLS_Content content = new CSLight.CLS_Content(scriptmgr.scriptEnv);
             try
             {
@@ -194,6 +196,7 @@ namespace CSLight.Framework
                 return;
             }
             var func = funcs[scriptname];
+            if (func.exp == null) return;
             CSLight.CLS_Content content = new CSLight.CLS_Content(scriptmgr.scriptEnv);
             try
             {

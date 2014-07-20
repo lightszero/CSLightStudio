@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MiniGameFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeFile_CLScript.cs" />
     <Compile Include="CodeFile_Debug.cs" />

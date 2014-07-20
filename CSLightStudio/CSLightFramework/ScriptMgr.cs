@@ -71,6 +71,7 @@ namespace CSLight.Framework
         {
             scriptEnv = new CSLight.CLS_Environment(_logger);
             this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(IScript)));
+            this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(T)));
             this.scriptEnv.RegType(new CSLight.RegHelper_Type(typeof(List<string>),"List<string>"));
         }
 
