@@ -209,6 +209,12 @@ namespace WPEval
         }
         #endregion
 
+        #region minigame
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/PageGame.xaml", UriKind.Relative));
+        }
+        #endregion
 
 
 

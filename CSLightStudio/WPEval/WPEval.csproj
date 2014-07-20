@@ -92,9 +92,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="game\game1.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGame.xaml.cs">
+      <DependentUpon>PageGame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
@@ -109,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +148,8 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="game\ball.png" />
+    <Content Include="game\box.png" />
     <Content Include="JiuYouWp8Ad.dll" />
     <Content Include="JiuYouWp8Ad.pdb" />
     <Content Include="logo.png" />
@@ -158,6 +168,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSLightFramework\PortableCSLightFramework.csproj">
+      <Project>{71068687-853F-477A-BB5B-B65C5F3ABD39}</Project>
+      <Name>PortableCSLightFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CSLight\PortableCLScript.csproj">
       <Project>{ABB0F989-980E-47DE-B817-3E7226F823A0}</Project>
       <Name>PortableCLScript</Name>

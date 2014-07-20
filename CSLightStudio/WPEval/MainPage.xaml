@@ -97,12 +97,9 @@
                         <RowDefinition Height="98*"/>
                     </Grid.RowDefinitions>
                     <Image Grid.ColumnSpan="2" Source="/logo.png"/>
-                    <Button Content="Code" Grid.Row="1"/>
-                    <Button Content="Play" Grid.Column="1" Grid.Row="1"/>
+                    <Button Content="Code" Grid.Row="1" Visibility="Collapsed"/>
+                    <Button Content="Play" Grid.Column="1" Grid.Row="1" Click="Button_Click_6"/>
                 </Grid>
-            </phone:PivotItem>
-            <phone:PivotItem CacheMode="{x:Null}" Header="C#LightStudio">
-                <TextBlock TextWrapping="Wrap" Text="Coming soon..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="About">
                 <Grid Margin="10,10,-10,-10">
