@@ -30,7 +30,7 @@ namespace CSLight
 
         }
 
-        public object ConvertTo(CLS_Environment env, object src, Type targetType)
+        public object ConvertTo(ICLS_Environment env, object src, Type targetType)
         {
             if (targetType == typeof(int))
             {
@@ -51,7 +51,7 @@ namespace CSLight
             throw new NotImplementedException();
         }
 
-        public object Math2Value(CLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype)
+        public object Math2Value(ICLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype)
         {
             returntype = typeof(int);
             if (right.type == typeof(int))
@@ -112,7 +112,7 @@ namespace CSLight
             throw new NotImplementedException("code:"+code +" right:+"+right.type.ToString()+"="+ right.value);
         }
 
-        public bool MathLogic(CLS_Environment env, logictoken code, object left, CLS_Content.Value right)
+        public bool MathLogic(ICLS_Environment env, logictoken code, object left, CLS_Content.Value right)
         {
             if (right.type == typeof(int))
             {

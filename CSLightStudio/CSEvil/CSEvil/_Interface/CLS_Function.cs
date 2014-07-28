@@ -11,7 +11,7 @@ namespace CSLight
             get;
         }
 
-        CLS_Content.Value Call(CLS_Environment environment, IList<CLS_Content.Value> param);
+        CLS_Content.Value Call(ICLS_Environment environment, IList<CLS_Content.Value> param);
     }
 
     public interface ICLS_Function_Member
@@ -20,6 +20,6 @@ namespace CSLight
         {
             get;
         }
-        CLS_Content.Value Call(CLS_Environment environment, object objthis, IList<CLS_Content.Value> param);
+        CLS_Content.Value Call(ICLS_Environment environment, object objthis, IList<CLS_Content.Value> param);
     }
 }

@@ -10,7 +10,7 @@ namespace CSLight
         {
             this.logger = logger;
         }
-        public ICLS_Expression Compiler(IList<Token> tlist, CLS_Content content)
+        public ICLS_Expression Compiler(IList<Token> tlist, ICLS_Environment content)
         {
             ICLS_Expression value;
 
@@ -41,7 +41,7 @@ namespace CSLight
 
         }
 
-        public ICLS_Expression Compiler_NoBlock(IList<Token> tlist, CLS_Content content)
+        public ICLS_Expression Compiler_NoBlock(IList<Token> tlist, ICLS_Environment content)
         {
             ICLS_Expression value;
             int expbegin = 0;
@@ -64,11 +64,11 @@ namespace CSLight
 
 
         }
-        public ICLS_Expression Optimize(ICLS_Expression value, CLS_Content content)
+        public ICLS_Expression Optimize(ICLS_Expression value, ICLS_Environment env)
         {
             ICLS_Expression expr = value as ICLS_Expression;
             if (expr == null) return value;
-            else return OptimizeDepth(expr, content);
+            else return OptimizeDepth(expr, new CLS_Content(env));
         }
         ICLS_Expression OptimizeDepth(ICLS_Expression expr, CLS_Content content)
         {
@@ -134,6 +134,12 @@ namespace CSLight
             }
 
             return expr;
+        }
+
+
+        public IList<ICLS_Type> FileCompiler(IList<Token> tlist, ICLS_Environment env)
+        {
+            return _FileCompiler(tlist, env);
         }
     }
 }

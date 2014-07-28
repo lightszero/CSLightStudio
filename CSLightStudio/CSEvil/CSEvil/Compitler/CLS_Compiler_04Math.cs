@@ -6,7 +6,7 @@ namespace CSLight
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        public ICLS_Expression Compiler_Expression_Math(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Math(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             IList<int> sps = SplitExpressionWithOp(tlist, pos, posend);
             int oppos = GetLowestMathOp(tlist, sps);
@@ -68,14 +68,14 @@ namespace CSLight
                     {
                         CLS_Expression_StaticFind value = new CLS_Expression_StaticFind(pos,rightend);
                         value.staticmembername = vg.value_name;
-                        value.type = content.environment.GetTypeByKeyword(tlist[pos].text);
+                        value.type = content.GetTypeByKeyword(tlist[pos].text);
                         return value;
                     }
                     else if (vf != null)
                     {
                         CLS_Expression_StaticFunction value = new CLS_Expression_StaticFunction(pos,rightend);
                         value.functionName = vf.funcname;
-                        value.type = content.environment.GetTypeByKeyword(tlist[pos].text);
+                        value.type = content.GetTypeByKeyword(tlist[pos].text);
                         //value.listParam.Add(valueleft);
                         value.listParam.AddRange(vf.listParam.ToArray());
                         return value;
@@ -103,7 +103,7 @@ namespace CSLight
                     bool succ = Compiler_Expression(tlist, content, oppos + 3, posend , out v);
                     CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(pos,posend);
                     convert.listParam.Add(v);
-                    convert.targettype = content.environment.GetTypeByKeyword(tlist[oppos + 1].text).type;
+                    convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
 
 
                     return convert;
@@ -124,7 +124,7 @@ namespace CSLight
                      {
                          CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(left, oppos + 1);
                          convert.listParam.Add(valueleft);
-                         convert.targettype = content.environment.GetTypeByKeyword(tlist[oppos + 1].text).type;
+                         convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
 
 
                          return convert;

@@ -62,6 +62,7 @@ namespace CSLight
             types.Add("float");
             types.Add("double");
             types.Add("string");
+            
 
             keywords.Add("if");
             keywords.Add("as");
@@ -77,7 +78,12 @@ namespace CSLight
             keywords.Add("new");
             keywords.Add("foreach");
             keywords.Add("in");
-
+            //OO支持 新增关键字
+            keywords.Add("class");
+            keywords.Add("using");
+            keywords.Add("public");
+            keywords.Add("private");
+            keywords.Add("static");
 
         }
         public List<string> types

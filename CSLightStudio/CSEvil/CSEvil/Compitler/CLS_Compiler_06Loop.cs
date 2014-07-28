@@ -6,7 +6,7 @@ namespace CSLight
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        public ICLS_Expression Compiler_Expression_Loop_For(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Loop_For(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             int b1;
             int fs1 = pos + 1;
@@ -59,7 +59,7 @@ namespace CSLight
             return null;
         }
 
-        public ICLS_Expression Compiler_Expression_Loop_ForEach(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Loop_ForEach(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
 
             int b1;
@@ -115,7 +115,7 @@ namespace CSLight
             return null;
         }
 
-        public ICLS_Expression Compiler_Expression_Loop_If(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Loop_If(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
 
             CLS_Expression_LoopIf value = new CLS_Expression_LoopIf(pos,posend);
@@ -188,7 +188,7 @@ namespace CSLight
 
             return value;
         }
-        public ICLS_Expression Compiler_Expression_Loop_Return(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Loop_Return(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             CLS_Expression_LoopReturn value = new CLS_Expression_LoopReturn(pos,posend);
 

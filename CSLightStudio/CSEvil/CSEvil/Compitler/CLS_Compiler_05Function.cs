@@ -7,7 +7,7 @@ namespace CSLight
     {
 
 
-        public ICLS_Expression Compiler_Expression_Function(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_Function(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             CLS_Expression_Function func = new CLS_Expression_Function(pos,posend);
 
@@ -39,7 +39,7 @@ namespace CSLight
             //一般函数
             return null;
         }
-        public ICLS_Expression Compiler_Expression_FunctionTrace(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_FunctionTrace(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             if (tlist[pos + 1].type == TokenType.PUNCTUATION && tlist[pos + 1].text == "(")
                 return Compiler_Expression_Function(tlist,content, pos, posend);
@@ -82,10 +82,10 @@ namespace CSLight
             //return null;
         }
 
-        public ICLS_Expression Compiler_Expression_FunctionNew(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_FunctionNew(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             CLS_Expression_FunctionNew func = new CLS_Expression_FunctionNew(pos,posend);
-            func.type =content.environment.GetTypeByKeyword( tlist[pos+1].text);
+            func.type =content.GetTypeByKeyword( tlist[pos+1].text);
             int begin = pos + 3;
             int dep;
             int end = FindCodeAny(tlist, ref begin, out dep);
@@ -113,7 +113,7 @@ namespace CSLight
             return null;
         }
 
-        public ICLS_Expression Compiler_Expression_FunctionStatic(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_FunctionStatic(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             CLS_Expression_Function func = new CLS_Expression_Function(pos,posend);
             func.funcname = tlist[pos].text;
@@ -146,7 +146,7 @@ namespace CSLight
         }
 
 
-        public ICLS_Expression Compiler_Expression_IndexFind(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_IndexFind(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             CLS_Expression_IndexFind func = new CLS_Expression_IndexFind(pos,posend);
             ICLS_Expression lefv;

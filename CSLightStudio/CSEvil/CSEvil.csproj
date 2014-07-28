@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CSEvil</RootNamespace>
     <AssemblyName>CSEvil</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,7 @@
     <Compile Include="CSEvil\Compitler\CLS_Compiler_04Math.cs" />
     <Compile Include="CSEvil\Compitler\CLS_Compiler_05Function.cs" />
     <Compile Include="CSEvil\Compitler\CLS_Compiler_06Loop.cs" />
+    <Compile Include="CSEvil\Compitler\CLS_Compiler_07OO.cs" />
     <Compile Include="CSEvil\Expression\CLS_Expression_Block.cs" />
     <Compile Include="CSEvil\Expression\CLS_Expression_Define.cs" />
     <Compile Include="CSEvil\Expression\CLS_Expression_GetValue.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="CSEvil\RegHelper_Function.cs" />
     <Compile Include="CSEvil\RegHelper_Type.cs" />
     <Compile Include="CSEvil\Token\CLS_Token.cs" />
+    <Compile Include="CSEvil\Type\CLS_Type_Class.cs" />
     <Compile Include="CSEvil\Type\CLS_Type_Double.cs" />
     <Compile Include="CSEvil\Type\CLS_Type_Float.cs" />
     <Compile Include="CSEvil\Type\CLS_Type_Int.cs" />

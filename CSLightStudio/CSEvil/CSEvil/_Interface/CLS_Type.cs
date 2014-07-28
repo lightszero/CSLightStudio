@@ -16,19 +16,19 @@ namespace CSLight
     }
     public interface ICLS_TypeFunction
     {
-        CLS_Content.Value New(CLS_Environment environment,IList<CLS_Content.Value> _params);
-        CLS_Content.Value StaticCall(CLS_Environment environment, string function, IList<CLS_Content.Value> _params);
-        CLS_Content.Value StaticValueGet(CLS_Environment environment, string valuename);
-        void StaticValueSet(CLS_Environment environment, string valuename, object value);
-        CLS_Content.Value MemberCall(CLS_Environment environment, object object_this, string func, IList<CLS_Content.Value> _params);
-        CLS_Content.Value MemberValueGet(CLS_Environment environment, object object_this, string valuename);
+        CLS_Content.Value New(ICLS_Environment environment, IList<CLS_Content.Value> _params);
+        CLS_Content.Value StaticCall(ICLS_Environment environment, string function, IList<CLS_Content.Value> _params);
+        CLS_Content.Value StaticValueGet(ICLS_Environment environment, string valuename);
+        void StaticValueSet(ICLS_Environment environment, string valuename, object value);
+        CLS_Content.Value MemberCall(ICLS_Environment environment, object object_this, string func, IList<CLS_Content.Value> _params);
+        CLS_Content.Value MemberValueGet(ICLS_Environment environment, object object_this, string valuename);
 
 
-        void MemberValueSet(CLS_Environment environment, object object_this, string valuename, object value);
+        void MemberValueSet(ICLS_Environment environment, object object_this, string valuename, object value);
 
-        CLS_Content.Value IndexGet(CLS_Environment environment, object object_this, object key);
+        CLS_Content.Value IndexGet(ICLS_Environment environment, object object_this, object key);
 
-        void IndexSet(CLS_Environment environment, object object_this, object key, object value);
+        void IndexSet(ICLS_Environment environment, object object_this, object key, object value);
     }
     public interface ICLS_Type
     {
@@ -43,13 +43,13 @@ namespace CSLight
 
         ICLS_Value MakeValue(object value);
         //自动转型能力
-        object ConvertTo(CLS_Environment env, object src, Type targetType);
+        object ConvertTo(ICLS_Environment env, object src, Type targetType);
 
         //数学计算能力
-        object Math2Value(CLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype);
+        object Math2Value(ICLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype);
 
         //逻辑计算能力
-        bool MathLogic(CLS_Environment env, logictoken code, object left, CLS_Content.Value right);
+        bool MathLogic(ICLS_Environment env, logictoken code, object left, CLS_Content.Value right);
 
         ICLS_TypeFunction function
         {

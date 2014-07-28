@@ -11,7 +11,7 @@ namespace CSLight
             get { return "trace"; }
         }
 
-        public CLS_Content.Value Call(CLS_Environment environment, IList<CLS_Content.Value> param)
+        public CLS_Content.Value Call(ICLS_Environment environment, IList<CLS_Content.Value> param)
         {
             string output = "trace:";
             bool bfirst = true;

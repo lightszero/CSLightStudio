@@ -10,7 +10,7 @@ namespace CSLight
 {
     //环境 增加本地代码的管理
     //环境 增加运行中的表达式查询
-    public class CLS_Environment
+    public class CLS_Environment : ICLS_Environment
     {
 
         public CLS_Environment(ICLS_Logger logger)
@@ -25,7 +25,7 @@ namespace CSLight
             RegType(new CLS_Type_String());
             RegType(new CLS_Type_Var());
             typess["null"] = new CLS_Type_NULL();
-            contentGloabl = CreateContent();
+            //contentGloabl = CreateContent();
 
             RegFunction(new FunctionTrace());
 
@@ -87,26 +87,35 @@ namespace CSLight
         {
             return tokenParser.Parse(code);
         }
-        public ICLS_Expression CompilerToken(IList<Token> listToken, bool SimpleExpression = false)
+        public ICLS_Expression Expr_CompilerToken(IList<Token> listToken, bool SimpleExpression = false)
         {
-            return SimpleExpression ? compiler.Compiler_NoBlock(listToken, contentGloabl) : compiler.Compiler(listToken, contentGloabl);
+            return SimpleExpression ? compiler.Compiler_NoBlock(listToken, this) : compiler.Compiler(listToken, this);
         }
-        CLS_Content contentGloabl = null;
-        public ICLS_Expression Optimize(ICLS_Expression old)
+        //CLS_Content contentGloabl = null;
+        public ICLS_Expression Expr_Optimize(ICLS_Expression old)
         {
-            return compiler.Optimize(old, contentGloabl);
+            return compiler.Optimize(old, this);
         }
         public CLS_Content CreateContent()
         {
             return new CLS_Content(this,true);
         }
 
-        public CLS_Content.Value Execute(ICLS_Expression expr, CLS_Content content = null)
+        public CLS_Content.Value Expr_Execute(ICLS_Expression expr, CLS_Content content = null)
         {
             if (content == null) content = CreateContent();
             return expr.ComputeValue(content);
         }
 
+        public void File_CompilerToken(string filename,IList<Token> listToken)
+        {
+            logger.Log("File_CompilerToken:" + filename);
+            IList<ICLS_Type> types = compiler.FileCompiler(listToken, this);
+            foreach(var type in types)
+            {
+                this.RegType(type);
+            }
+        }
 
     }
 }

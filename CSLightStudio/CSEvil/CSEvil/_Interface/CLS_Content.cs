@@ -6,12 +6,12 @@ namespace CSLight
 {
     public class CLS_Content
     {
-        public CLS_Environment environment
+        public ICLS_Environment environment
         {
             get;
             private set;
         }
-        public CLS_Content(CLS_Environment environment,bool useDebug=true)
+        public CLS_Content(ICLS_Environment environment,bool useDebug=true)
         {
             this.environment = environment;
             this.useDebug = useDebug;
@@ -205,6 +205,21 @@ namespace CSLight
         }
         public Value Get(string name)
         {
+            if(CallType!=null)
+            {
+                if(CallType.members.ContainsKey(name))
+                {
+                    if(CallType.members[name].bStatic)
+                    {
+                        return CallType.staticMemberInstance[name];
+                    }
+                    else
+                    {
+                        return CallThis.member[name];
+                    }
+                }
+                
+            }
             if (!values.ContainsKey(name)) throw new Exception("值"+name+"没有定义过");
             return values[name];
         }
@@ -221,5 +236,9 @@ namespace CSLight
                 values.Remove(v);
             }
         }
+
+        public SType CallType;
+        public SInstance CallThis;
+           
     }
 }

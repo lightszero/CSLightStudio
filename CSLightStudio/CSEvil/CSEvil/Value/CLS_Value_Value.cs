@@ -49,6 +49,54 @@ namespace CSLight
             return v;
         }
     }
+
+    public class CLS_Value_ScriptValue : ICLS_Value
+    {
+        public Type type
+        {
+            get { return value_type; }
+        }
+        public SType value_type;
+
+        public SInstance value_value;
+        public object value
+        {
+            get
+            {
+                return value_value;
+            }
+        }
+        public override string ToString()
+        {
+            return type.Name + "|" + value_value.ToString();
+        }
+
+
+        public List<ICLS_Expression> listParam
+        {
+            get { return null; }
+        }
+        public int tokenBegin
+        {
+            get;
+            set;
+        }
+        public int tokenEnd
+        {
+            get;
+            set;
+        }
+        public CLS_Content.Value ComputeValue(CLS_Content content)
+        {
+            content.InStack(this);
+            CLS_Content.Value v = new CLS_Content.Value();
+            v.type = this.type;
+            v.value = this.value_value;
+            content.OutStack(this);
+            return v;
+        }
+    }
+
     public class CLS_Value_Null : ICLS_Value
     {
         public Type type

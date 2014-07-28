@@ -71,7 +71,7 @@ namespace CSLight
                 return null;
             }
         }
-        public ICLS_Expression Compiler_Expression_NegativeValue(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_NegativeValue(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             int expbegin = pos;
             int bdep;
@@ -98,7 +98,7 @@ namespace CSLight
                 }
             }
         }
-        public ICLS_Expression Compiler_Expression_NegativeLogic(IList<Token> tlist, CLS_Content content, int pos, int posend)
+        public ICLS_Expression Compiler_Expression_NegativeLogic(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
             int expbegin = pos;
             int bdep;

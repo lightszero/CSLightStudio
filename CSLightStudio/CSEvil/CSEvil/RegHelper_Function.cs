@@ -34,7 +34,7 @@ namespace CSLight
             private set;
         }
 
-        public CLS_Content.Value Call(CLS_Environment environment, IList<CLS_Content.Value> param)
+        public CLS_Content.Value Call(ICLS_Environment environment, IList<CLS_Content.Value> param)
         {
             CLS_Content.Value v = new CLS_Content.Value();
             List<object> objs = new List<object>();
