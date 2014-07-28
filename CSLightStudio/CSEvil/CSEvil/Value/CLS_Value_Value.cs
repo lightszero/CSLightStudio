@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-namespace CSLight
+namespace CSEvil
 {
     public class CLS_Value_Value<T> : ICLS_Value
     {

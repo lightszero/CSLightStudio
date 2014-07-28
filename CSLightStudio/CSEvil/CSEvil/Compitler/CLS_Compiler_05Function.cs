@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-namespace CSLight
+namespace CSEvil
 {
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {

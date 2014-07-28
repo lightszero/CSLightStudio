@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-namespace CSLight
+namespace CSEvil
 {
 
     public class CLS_Expression_FunctionNew: ICLS_Expression
@@ -44,7 +44,7 @@ namespace CSLight
             return value;
 
         }
-        public CSLight.ICLS_Type type;
+        public CSEvil.ICLS_Type type;
   
         public override string ToString()
         {

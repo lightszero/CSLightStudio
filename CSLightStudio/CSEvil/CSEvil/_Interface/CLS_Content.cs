@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSLight
+namespace CSEvil
 {
     public class CLS_Content
     {

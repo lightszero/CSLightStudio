@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSLight
+namespace CSEvil
 {
     class CLS_Type_NULL : ICLS_Type
     {

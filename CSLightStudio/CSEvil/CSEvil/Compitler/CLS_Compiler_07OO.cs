@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-namespace CSLight
+namespace CSEvil
 {
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
@@ -84,10 +84,10 @@ namespace CSLight
                 {
                     var idtype = env.GetTypeByKeyword(tokens[i].text);
 
-                    if (tokens[i + 1].type == CSLight.TokenType.IDENTIFIER) //类型后面是名称
+                    if (tokens[i + 1].type == CSEvil.TokenType.IDENTIFIER) //类型后面是名称
                     {
                         string idname = tokens[i + 1].text;
-                        if (tokens[i + 2].type == CSLight.TokenType.PUNCTUATION && tokens[i + 2].text == "(")//参数开始,这是函数
+                        if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && tokens[i + 2].text == "(")//参数开始,这是函数
                         {
                             SType.Function func = new SType.Function();
                             func.bStatic = bStatic;
@@ -118,11 +118,11 @@ namespace CSLight
 
                             i = funcend;
                         }
-                        else if (tokens[i + 2].type == CSLight.TokenType.PUNCTUATION && tokens[i + 2].text == "{")//语句块开始，这是 getset属性
+                        else if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && tokens[i + 2].text == "{")//语句块开始，这是 getset属性
                         {
                             throw new Exception("未支持getset");
                         }
-                        else if (tokens[i + 2].type == CSLight.TokenType.PUNCTUATION && (tokens[i + 2].text == "=" || tokens[i + 2].text == ";"))//这是成员定义
+                        else if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && (tokens[i + 2].text == "=" || tokens[i + 2].text == ";"))//这是成员定义
                         {
                             var member= new SType.Member();
                             member.bStatic = bStatic;
@@ -174,9 +174,9 @@ namespace CSLight
 
 
 
-        int FindBlock(ICLS_Environment env, IList<CSLight.Token> tokens, int start)
+        int FindBlock(ICLS_Environment env, IList<CSEvil.Token> tokens, int start)
         {
-            if (tokens[start].type != CSLight.TokenType.PUNCTUATION)
+            if (tokens[start].type != CSEvil.TokenType.PUNCTUATION)
             {
                 env.logger.Log_Error("(script)FindBlock 没有从符号开始");
             }
@@ -188,7 +188,7 @@ namespace CSLight
             int depth = 0;
             for (int i = start; i < tokens.Count; i++)
             {
-                if (tokens[i].type == CSLight.TokenType.PUNCTUATION)
+                if (tokens[i].type == CSEvil.TokenType.PUNCTUATION)
                 {
                     if (tokens[i].text == left)
                     {

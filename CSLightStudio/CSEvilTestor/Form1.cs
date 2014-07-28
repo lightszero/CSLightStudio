@@ -8,17 +8,17 @@ using System.Windows.Forms;
 
 namespace CSEvilTestor
 {
-    public partial class Form1 : Form, CSLight.ICLS_Logger
+    public partial class Form1 : Form, CSEvil.ICLS_Logger
     {
         public Form1()
         {
             InitializeComponent();
         }
-        CSLight.CLS_Environment env = null;// 
+        CSEvil.CLS_Environment env = null;// 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            env = new CSLight.CLS_Environment(this);
+            env = new CSEvil.CLS_Environment(this);
             string[] files = System.IO.Directory.GetFiles("script", "*.cs");
             foreach (var f in files)
             {

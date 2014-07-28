@@ -1,12 +1,12 @@
-﻿/// CSLight 库 由疯光无线开发
-/// 正式名称C#Light V0.20
+﻿/// CSEvil 库 由疯光无线开发
+/// 正式名称C#Evil V0.20
 /// crazylights.cnblogs.com
 /// 请勿删除此声明
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSLight
+namespace CSEvil
 {
     //环境 增加本地代码的管理
     //环境 增加运行中的表达式查询
