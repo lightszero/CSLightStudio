@@ -46,7 +46,7 @@ namespace CSEvil
                                 val = v.value;
                                 if (value_type != typeof(CLS_Type_Var.var) && value_type != v.type)
                                 {
-                                    val = content.environment.GetType(v.type).ConvertTo(content.environment, v.value, value_type);
+                                    val = content.environment.GetType(v.type).ConvertTo(content, v.value, value_type);
                                 }
                             }
                     content.Set(value_name, val);

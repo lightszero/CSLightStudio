@@ -35,7 +35,7 @@ namespace CSEvil
             var key = listParam[1].ComputeValue(content);
             var type = content.environment.GetType(parent.type);
 
-            var value = type.function.IndexGet(content.environment, parent.value, key.value);
+            var value = type.function.IndexGet(content, parent.value, key.value);
             content.OutStack(this);
             return value;
             //return type.function.MemberValueGet(content.environment, parent.value, membername);

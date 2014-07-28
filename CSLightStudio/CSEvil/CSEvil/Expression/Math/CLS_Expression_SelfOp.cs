@@ -36,8 +36,8 @@ namespace CSEvil
             var v = content.Get(value_name);
             ICLS_Type type = content.environment.GetType(v.type);
             Type returntype;
-            object value = type.Math2Value(content.environment,mathop, v.value, CLS_Content.Value.One, out returntype);
-            value = type.ConvertTo(content.environment, value, v.type);
+            object value = type.Math2Value(content,mathop, v.value, CLS_Content.Value.One, out returntype);
+            value = type.ConvertTo(content, value, v.type);
             content.Set(value_name, value);
 
             //操作变量之

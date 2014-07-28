@@ -38,7 +38,7 @@ namespace CSEvil
             {
                 _params.Add(listParam[i].ComputeValue(content));
             }
-            var value = type.function.StaticCall(content.environment, functionName, _params);
+            var value = type.function.StaticCall(content, functionName, _params);
             content.OutStack(this);
             return value;
             //做数学计算

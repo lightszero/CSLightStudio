@@ -59,7 +59,7 @@ namespace CSEvil
                 else
                 {
 
-                    result.value = content.environment.GetType(left.type).MathLogic(content.environment, mathop, left.value, right);
+                    result.value = content.environment.GetType(left.type).MathLogic(content, mathop, left.value, right);
 
                 }
             }

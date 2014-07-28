@@ -11,7 +11,7 @@ namespace CSEvil
             get { return "trace"; }
         }
 
-        public CLS_Content.Value Call(ICLS_Environment environment, IList<CLS_Content.Value> param)
+        public CLS_Content.Value Call(CLS_Content content, IList<CLS_Content.Value> param)
         {
             string output = "trace:";
             bool bfirst = true;
@@ -22,7 +22,7 @@ namespace CSEvil
                 if (p.value == null) output += "null";
                 else output += p.value.ToString();
             }
-            environment.logger.Log(output);
+            content.environment.logger.Log(output);
             return CLS_Content.Value.Void;
         }
     }

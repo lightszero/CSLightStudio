@@ -38,7 +38,7 @@ namespace CSEvil
                 result = new CLS_Content.Value();
                 var left = listParam[0].ComputeValue(content);
                 var right = listParam[1].ComputeValue(content);
-                result.value = content.environment.GetType(left.type).Math2Value(content.environment, mathop, left.value, right, out result.type);
+                result.value = content.environment.GetType(left.type).Math2Value(content, mathop, left.value, right, out result.type);
 
             }
             content.OutStack(this);

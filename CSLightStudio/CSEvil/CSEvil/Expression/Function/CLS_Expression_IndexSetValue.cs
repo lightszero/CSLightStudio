@@ -41,7 +41,7 @@ namespace CSEvil
             //    setv = vtype.ConvertTo(content.environment, setv, parent.type);
             //}
             var type = content.environment.GetType(parent.type);
-            type.function.IndexSet(content.environment, parent.value, key.value, value.value);
+            type.function.IndexSet(content, parent.value, key.value, value.value);
             //做数学计算
             //从上下文取值
             //_value = null;

@@ -38,8 +38,8 @@ namespace CSEvil
             //if (mathop == "+=")
             {
                 Type returntype;
-                object value = type.Math2Value(content.environment, mathop, v.value, right, out returntype);
-                value = type.ConvertTo(content.environment, value, v.type);
+                object value = type.Math2Value(content, mathop, v.value, right, out returntype);
+                value = type.ConvertTo(content, value, v.type);
                 content.Set(value_name, value);
             }
 

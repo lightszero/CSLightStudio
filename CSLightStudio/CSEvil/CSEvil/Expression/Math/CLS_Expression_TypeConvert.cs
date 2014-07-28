@@ -36,7 +36,7 @@ namespace CSEvil
             ICLS_Type type = content.environment.GetType(right.type);
             CLS_Content.Value value = new CLS_Content.Value();
             value.type = targettype;
-            value.value = type.ConvertTo(content.environment, right.value, targettype);
+            value.value = type.ConvertTo(content, right.value, targettype);
 
             //操作变量之
             //做数学计算

@@ -40,7 +40,7 @@ namespace CSEvil
             //    setv = vtype.ConvertTo(content.environment, setv, parent.type);
             //}
             var type = content.environment.GetType(parent.type);
-            type.function.MemberValueSet(content.environment, parent.value, membername, setv);
+            type.function.MemberValueSet(content, parent.value, membername, setv);
             //做数学计算
             //从上下文取值
             //_value = null;

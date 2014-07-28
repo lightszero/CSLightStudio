@@ -51,7 +51,7 @@ namespace CSEvil
                 }
                 else if (v.type != value_type)
                 {
-                    val = content.environment.GetType(v.type).ConvertTo(content.environment, v.value, value_type);
+                    val = content.environment.GetType(v.type).ConvertTo(content, v.value, value_type);
                    
                 }
 

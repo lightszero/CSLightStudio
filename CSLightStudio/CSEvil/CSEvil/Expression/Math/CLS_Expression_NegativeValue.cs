@@ -35,7 +35,7 @@ namespace CSEvil
             CLS_Content.Value r = listParam[0].ComputeValue(content);
             ICLS_Type type =content.environment.GetType(r.type);
             
-            r.value= type.Math2Value(content.environment, '*', r.value, CLS_Content.Value.OneMinus, out r.type);
+            r.value= type.Math2Value(content, '*', r.value, CLS_Content.Value.OneMinus, out r.type);
             content.OutStack(this);
 
             return r;

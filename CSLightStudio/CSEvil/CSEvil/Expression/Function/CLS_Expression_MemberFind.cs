@@ -33,7 +33,7 @@ namespace CSEvil
             content.InStack(this);
             var parent = listParam[0].ComputeValue(content);
             var type = content.environment.GetType(parent.type);
-            var value=type.function.MemberValueGet(content.environment, parent.value, membername);
+            var value=type.function.MemberValueGet(content, parent.value, membername);
             content.OutStack(this);
             return value;
             //做数学计算

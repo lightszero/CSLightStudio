@@ -11,13 +11,15 @@ namespace CSEvil
             get;
             private set;
         }
+
         public CLS_Content(ICLS_Environment environment,bool useDebug=true)
         {
             this.environment = environment;
             this.useDebug = useDebug;
             if(useDebug)
             {
-                stacklist = new Stack<ICLS_Expression>();
+                stackExpr = new Stack<ICLS_Expression>();
+                stackContent = new Stack<CLS_Content>();
             }
         }
         public bool useDebug
@@ -25,28 +27,51 @@ namespace CSEvil
             get;
             private set;
         }
-        public Stack<ICLS_Expression> stacklist
+        public Stack<ICLS_Expression> stackExpr
         {
             get;
             private set;
         }
+        public Stack<CLS_Content> stackContent
+        {
+            get;
+            private set;
+        }
+        public void InStack(CLS_Content expr)
+        {
+            if (!useDebug) return;
+            if (stackContent.Count > 0 && stackContent.Peek() == expr)
+            {
+                throw new Exception("InStackContent error");
+            }
+            stackContent.Push(expr);
+        }
+        public void OutStack(CLS_Content expr)
+        {
+            if (!useDebug) return;
+            if (stackContent.Peek() != expr)
+            {
+                throw new Exception("OutStackContent error:" + expr.ToString() + " err:" + stackContent.Peek().ToString());
+            }
+            stackContent.Pop();
+        }
         public void InStack(ICLS_Expression expr)
         {
             if (!useDebug) return;
-            if (stacklist.Count>0&&stacklist.Peek() == expr)
+            if (stackExpr.Count > 0 && stackExpr.Peek() == expr)
             {
                 throw new Exception("InStack error");
             }
-            stacklist.Push(expr);
+            stackExpr.Push(expr);
         }
         public void OutStack(ICLS_Expression expr)
         {
             if (!useDebug) return;
-            if (stacklist.Peek() != expr)
+            if (stackExpr.Peek() != expr)
             {
-                throw new Exception("OutStack error:" + expr.ToString() + " err:"+stacklist.Peek().ToString());
+                throw new Exception("OutStack error:" + expr.ToString() + " err:" + stackExpr.Peek().ToString());
             }
-            stacklist.Pop();
+            stackExpr.Pop();
         }
 		public string DumpValue(IList<Token> tokenlist)
 		{
@@ -62,7 +87,7 @@ namespace CSEvil
 			string svalues = "";
             if (useDebug)
             {
-                foreach(var s in stacklist)
+                foreach(var s in stackExpr)
                 {
                     if ((s.tokenBegin == 0 && s.tokenEnd == 0)||tokenlist==null)
                     {

@@ -34,7 +34,7 @@ namespace CSEvil
             //var parent = listParam[0].ComputeValue(content);
             var value = listParam[0].ComputeValue(content);
 
-            type.function.StaticValueSet(content.environment, staticmembername, value.value);
+            type.function.StaticValueSet(content, staticmembername, value.value);
             //做数学计算
             //从上下文取值
             //_value = null;

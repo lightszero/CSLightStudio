@@ -33,7 +33,7 @@ namespace CSEvil
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
             content.InStack(this);
-            var value=type.function.StaticValueGet(content.environment, staticmembername);
+            var value=type.function.StaticValueGet(content, staticmembername);
             content.OutStack(this);
             return value;
 

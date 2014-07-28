@@ -25,17 +25,17 @@ namespace CSEvil
             throw new NotImplementedException();
         }
 
-        public object ConvertTo(ICLS_Environment env, object src, Type targetType)
+        public object ConvertTo(CLS_Content env, object src, Type targetType)
         {
             throw new NotImplementedException();
         }
 
-        public object Math2Value(ICLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype)
+        public object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out Type returntype)
         {
             throw new NotImplementedException();
         }
 
-        public bool MathLogic(ICLS_Environment env, logictoken code, object left, CLS_Content.Value right)
+        public bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
             throw new NotImplementedException();
         }

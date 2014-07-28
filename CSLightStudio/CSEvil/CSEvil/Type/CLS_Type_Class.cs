@@ -234,10 +234,10 @@ namespace CSEvil
 
         #region Script IMPL
         CLS_Content mycontent = null;
-        public CLS_Content.Value New(ICLS_Environment environment, IList<CLS_Content.Value> _params)
+        public CLS_Content.Value New(CLS_Content content, IList<CLS_Content.Value> _params)
         {
             if (mycontent == null)
-                mycontent = new CLS_Content(environment);
+                mycontent = new CLS_Content(content.environment);
             CLS_Value_ScriptValue sv = new CLS_Value_ScriptValue();
             sv.value_type = this;
             sv.value_value = new SInstance();
@@ -260,33 +260,35 @@ namespace CSEvil
             }
             if (this.functions.ContainsKey(this.Name))//有同名函数就调用
             {
-                MemberCall(environment, sv.value_value, this.Name, _params);
+                MemberCall(content, sv.value_value, this.Name, _params);
             }
             return CLS_Content.Value.FromICLS_Value(sv);
         }
 
-        public CLS_Content.Value StaticCall(ICLS_Environment environment, string function, IList<CLS_Content.Value> _params)
+        public CLS_Content.Value StaticCall(CLS_Content environment, string function, IList<CLS_Content.Value> _params)
         {
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value StaticValueGet(ICLS_Environment environment, string valuename)
+        public CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename)
         {
             throw new NotImplementedException();
         }
 
-        public void StaticValueSet(ICLS_Environment environment, string valuename, object value)
+        public void StaticValueSet(CLS_Content environment, string valuename, object value)
         {
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value MemberCall(ICLS_Environment environment, object object_this, string func, IList<CLS_Content.Value> _params)
+        public CLS_Content.Value MemberCall(CLS_Content contentParent, object object_this, string func, IList<CLS_Content.Value> _params)
         {
             if (this.functions.ContainsKey(func))
             {
                 if (this.functions[func].bStatic == false)
                 {
-                    CLS_Content content = new CLS_Content(environment);
+                    CLS_Content content = new CLS_Content(contentParent.environment, true);
+
+                    contentParent.InStack(content);//把这个上下文推给上层的上下文，这样如果崩溃是可以一层层找到原因的
                     content.CallType = this;
                     content.CallThis = object_this as SInstance;
 
@@ -296,13 +298,16 @@ namespace CSEvil
                         content.DefineAndSet(p.Key, p.Value.type, _params[i]);
                         i++;
                     }
-                    return this.functions[func].expr_runtime.ComputeValue(content);
+                    var value =this.functions[func].expr_runtime.ComputeValue(content);
+
+                    contentParent.OutStack(content);
+                    return value;
                 }
             }
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value MemberValueGet(ICLS_Environment environment, object object_this, string valuename)
+        public CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
              SInstance sin =object_this as SInstance;
              if (sin.member.ContainsKey(valuename))
@@ -315,14 +320,14 @@ namespace CSEvil
             throw new NotImplementedException();
         }
 
-        public void MemberValueSet(ICLS_Environment environment, object object_this, string valuename, object value)
+        public void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
             SInstance sin =object_this as SInstance;
             if(sin.member.ContainsKey(valuename))
             {
                 if (value != null && value.GetType() != this.members[valuename].type.type)
                 {
-                    value = environment.GetType(value.GetType()).ConvertTo(environment, value, this.members[valuename].type.type);
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
                 }
                 sin.member[valuename].value = value;
                 return;
@@ -330,12 +335,12 @@ namespace CSEvil
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value IndexGet(ICLS_Environment environment, object object_this, object key)
+        public CLS_Content.Value IndexGet(CLS_Content environment, object object_this, object key)
         {
             throw new NotImplementedException();
         }
 
-        public void IndexSet(ICLS_Environment environment, object object_this, object key, object value)
+        public void IndexSet(CLS_Content environment, object object_this, object key, object value)
         {
             throw new NotImplementedException();
         }
@@ -394,17 +399,17 @@ namespace CSEvil
             return svalue;
         }
 
-        public object ConvertTo(ICLS_Environment env, object src, Type targetType)
+        public object ConvertTo(CLS_Content env, object src, Type targetType)
         {
             throw new NotImplementedException();
         }
 
-        public object Math2Value(ICLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype)
+        public object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out Type returntype)
         {
             throw new NotImplementedException();
         }
 
-        public bool MathLogic(ICLS_Environment env, logictoken code, object left, CLS_Content.Value right)
+        public bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
             throw new NotImplementedException();
         }

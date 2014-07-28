@@ -34,7 +34,7 @@ namespace CSEvil
             private set;
         }
 
-        public CLS_Content.Value Call(ICLS_Environment environment, IList<CLS_Content.Value> param)
+        public CLS_Content.Value Call(CLS_Content content, IList<CLS_Content.Value> param)
         {
             CLS_Content.Value v = new CLS_Content.Value();
             List<object> objs = new List<object>();
@@ -53,7 +53,7 @@ namespace CSEvil
                     }
                     else
                     {
-                        object conv = environment.GetType(param[i].type).ConvertTo(environment, param[i].value, paramtype[i]);
+                        object conv = content.environment.GetType(param[i].type).ConvertTo(content, param[i].value, paramtype[i]);
                         objs.Add(conv);
                     }
                 }

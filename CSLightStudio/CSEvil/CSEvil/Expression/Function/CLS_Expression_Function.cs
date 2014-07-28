@@ -39,7 +39,7 @@ namespace CSEvil
                     list.Add(p.ComputeValue(content));
                 }
             }
-            var v=content.environment.GetFunction(funcname).Call(content.environment, list);
+            var v=content.environment.GetFunction(funcname).Call(content, list);
              //操作变量之
             //做数学计算
             //从上下文取值

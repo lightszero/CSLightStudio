@@ -39,7 +39,7 @@ namespace CSEvil
                     list.Add(p.ComputeValue(content));
                 }
             }
-            var value= type.function.New(content.environment,list);
+            var value= type.function.New(content,list);
             content.OutStack(this);
             return value;
 

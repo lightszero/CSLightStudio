@@ -11,7 +11,7 @@ namespace CSEvil
         {
             this.type = type;
         }
-        public virtual CLS_Content.Value New(ICLS_Environment environment, IList<CLS_Content.Value> _params)
+        public virtual CLS_Content.Value New(CLS_Content environment, IList<CLS_Content.Value> _params)
         {
 
             List<Type> types = new List<Type>();
@@ -27,7 +27,7 @@ namespace CSEvil
             value.value = con.Invoke(objparams.ToArray());
             return value;
         }
-        public virtual CLS_Content.Value StaticCall(ICLS_Environment environment, string function, IList<CLS_Content.Value> _params)
+        public virtual CLS_Content.Value StaticCall(CLS_Content environment, string function, IList<CLS_Content.Value> _params)
         {
 
             List<object> _oparams = new List<object>();
@@ -46,7 +46,7 @@ namespace CSEvil
 
         }
 
-        public virtual CLS_Content.Value StaticValueGet(ICLS_Environment environment, string valuename)
+        public virtual CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename)
         {
             var targetp = type.GetProperty(valuename);
             if (targetp != null)
@@ -70,7 +70,7 @@ namespace CSEvil
             return null;
         }
 
-        public virtual void StaticValueSet(ICLS_Environment environment, string valuename, object value)
+        public virtual void StaticValueSet(CLS_Content content, string valuename, object value)
         {
 
             var targetp = type.GetProperty(valuename);
@@ -78,7 +78,7 @@ namespace CSEvil
             {
                 if (value != null && value.GetType() != targetp.PropertyType)
                 {
-                    value = environment.GetType(value.GetType()).ConvertTo(environment, value, targetp.PropertyType);
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetp.PropertyType);
                 }
                 targetp.SetValue(null, value, null);
                 return;
@@ -90,7 +90,7 @@ namespace CSEvil
                 {
                     if (value != null && value.GetType() != targetf.FieldType)
                     {
-                        value = environment.GetType(value.GetType()).ConvertTo(environment, value, targetf.FieldType);
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
                     }
                     targetf.SetValue(null, value);
                     return;
@@ -102,7 +102,7 @@ namespace CSEvil
             throw new NotImplementedException();
         }
 
-        public virtual CLS_Content.Value MemberCall(ICLS_Environment environment, object object_this, string func, IList<CLS_Content.Value> _params)
+        public virtual CLS_Content.Value MemberCall(CLS_Content environment, object object_this, string func, IList<CLS_Content.Value> _params)
         {
 
             List<Type> types = new List<Type>();
@@ -124,7 +124,7 @@ namespace CSEvil
             return v;
         }
 
-        public virtual CLS_Content.Value MemberValueGet(ICLS_Environment environment, object object_this, string valuename)
+        public virtual CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
             var targetp = type.GetProperty(valuename);
             if (targetp != null)
@@ -148,7 +148,7 @@ namespace CSEvil
             return null;
         }
 
-        public virtual void MemberValueSet(ICLS_Environment environment, object object_this, string valuename, object value)
+        public virtual void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
 
             var targetp = type.GetProperty(valuename);
@@ -156,7 +156,7 @@ namespace CSEvil
             {
                 if (value != null && value.GetType() != targetp.PropertyType)
                 {
-                    value = environment.GetType(value.GetType()).ConvertTo(environment, value, targetp.PropertyType);
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetp.PropertyType);
                 }
 
                 targetp.SetValue(object_this, value, null);
@@ -170,7 +170,7 @@ namespace CSEvil
                     if (value != null && value.GetType() != targetf.FieldType)
                     {
 
-                        value = environment.GetType(value.GetType()).ConvertTo(environment, value, targetf.FieldType);
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
                     }
                     targetf.SetValue(object_this, value);
                     return;
@@ -185,7 +185,7 @@ namespace CSEvil
 
 
 
-        public virtual CLS_Content.Value IndexGet(ICLS_Environment environment, object object_this, object key)
+        public virtual CLS_Content.Value IndexGet(CLS_Content environment, object object_this, object key)
         {
             //var m =type.GetMembers();
             var targetop = type.GetMethod("get_Item");
@@ -201,7 +201,7 @@ namespace CSEvil
 
         }
 
-        public virtual void IndexSet(ICLS_Environment environment, object object_this, object key, object value)
+        public virtual void IndexSet(CLS_Content environment, object object_this, object key, object value)
         {
             var targetop = type.GetMethod("set_Item");
             targetop.Invoke(object_this, new object[] { key, value });
@@ -247,7 +247,7 @@ namespace CSEvil
             return rvalue;
         }
 
-        public virtual object ConvertTo(ICLS_Environment env, object src, Type targetType)
+        public virtual object ConvertTo(CLS_Content env, object src, Type targetType)
         {
 
             //type.get
@@ -264,7 +264,7 @@ namespace CSEvil
             return src;
         }
 
-        public virtual object Math2Value(ICLS_Environment env, char code, object left, CLS_Content.Value right, out Type returntype)
+        public virtual object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out Type returntype)
         {
             returntype = type;
             System.Reflection.MethodInfo call = null;
@@ -284,7 +284,7 @@ namespace CSEvil
             return obj;
         }
 
-        public virtual bool MathLogic(ICLS_Environment env, logictoken code, object left, CLS_Content.Value right)
+        public virtual bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
             System.Reflection.MethodInfo call = null;
             
