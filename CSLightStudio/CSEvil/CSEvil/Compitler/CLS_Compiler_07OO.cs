@@ -80,10 +80,18 @@ namespace CSEvil
                     bStatic = true;
                     continue;
                 }
-                else if (tokens[i].type == TokenType.TYPE)//发现类型
+                else if (tokens[i].type == TokenType.TYPE || (tokens[i].type== TokenType.IDENTIFIER && tokens[i].text==classname  ))//发现类型
                 {
-                    var idtype = env.GetTypeByKeyword(tokens[i].text);
 
+                    ICLS_Type idtype = env.GetTypeByKeyword("null");
+                    if (tokens[i].type == TokenType.TYPE)//普通函数
+                    {
+                        idtype = env.GetTypeByKeyword(tokens[i].text);
+                    }
+                    else//构造函数
+                    {
+                        i--;
+                    }
                     if (tokens[i + 1].type == CSEvil.TokenType.IDENTIFIER) //类型后面是名称
                     {
                         string idname = tokens[i + 1].text;

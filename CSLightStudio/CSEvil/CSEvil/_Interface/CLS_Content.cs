@@ -185,7 +185,28 @@ namespace CSEvil
         }
         public void Set(string name,object value)
         {
-            if (!values.ContainsKey(name)) throw new Exception("值没有定义过");
+            if (!values.ContainsKey(name))
+            {
+                if (CallType != null)
+                {
+                    if (CallType.members.ContainsKey(name))
+                    {
+                        if (CallType.members[name].bStatic)
+                        {
+                            CallType.staticMemberInstance[name].value=value;
+                        }
+                        else
+                        {
+                            CallThis.member[name].value=value;
+                        }
+                        return;
+                    }
+
+                }
+
+                throw new Exception("值没有定义过");
+
+            }
             if (values[name].type == typeof(CLS_Type_Var.var)&&value!=null)
                 values[name].type = value.GetType();
             values[name].value = value;

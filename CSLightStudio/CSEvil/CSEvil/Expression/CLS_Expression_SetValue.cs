@@ -32,16 +32,25 @@ namespace CSEvil
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
             content.InStack(this);
-            {
-                CLS_Content.Value v = listParam[0].ComputeValue(content);
-                Type value_type = content.values[value_name].type;
 
-                object val = v.value;
-                if (value_type != typeof(CLS_Type_Var.var) && value_type!=v.type)
-                {
-                    val = content.environment.GetType(v.type).ConvertTo(content.environment, v.value, value_type);
-                }
-                content.Set(value_name, val);
+            {
+                
+                CLS_Content.Value v = listParam[0].ComputeValue(content);
+
+                        {
+                            object val = v.value;
+                            if (content.values.ContainsKey(value_name))
+                            {
+                                Type value_type = content.values[value_name].type;
+
+                                val = v.value;
+                                if (value_type != typeof(CLS_Type_Var.var) && value_type != v.type)
+                                {
+                                    val = content.environment.GetType(v.type).ConvertTo(content.environment, v.value, value_type);
+                                }
+                            }
+                    content.Set(value_name, val);
+                    }
             }
             content.OutStack(this);
             return null;

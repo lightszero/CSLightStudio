@@ -241,15 +241,20 @@ namespace CSEvil
             CLS_Value_ScriptValue sv = new CLS_Value_ScriptValue();
             sv.value_type = this;
             sv.value_value = new SInstance();
-            foreach(var i in this.members)
+            sv.value_value.type = this;
+            foreach (var i in this.members)
             {
-                if(i.Value.bStatic==false)
+                if (i.Value.bStatic == false)
                 {
                     if (i.Value.expr_defvalue == null)
                         sv.value_value.member[i.Key] = null;
                     else
                         sv.value_value.member[i.Key] = i.Value.expr_defvalue.ComputeValue(mycontent);
                 }
+            }
+            if (this.functions.ContainsKey(this.Name))//有同名函数就调用
+            {
+                MemberCall(environment, sv.value_value, this.Name, _params);
             }
             return CLS_Content.Value.FromICLS_Value(sv);
         }
@@ -271,18 +276,18 @@ namespace CSEvil
 
         public CLS_Content.Value MemberCall(ICLS_Environment environment, object object_this, string func, IList<CLS_Content.Value> _params)
         {
-            if(this.functions.ContainsKey(func))
+            if (this.functions.ContainsKey(func))
             {
-                if(this.functions[func].bStatic==false)
+                if (this.functions[func].bStatic == false)
                 {
-                    CLS_Content content=new CLS_Content(environment);
+                    CLS_Content content = new CLS_Content(environment);
                     content.CallType = this;
                     content.CallThis = object_this as SInstance;
-                    
-                    int i=0;
-                    foreach(var p in this.functions[func]._params)
+
+                    int i = 0;
+                    foreach (var p in this.functions[func]._params)
                     {
-                        content.DefineAndSet(p.Key,p.Value.type,_params[i]);
+                        content.DefineAndSet(p.Key, p.Value.type, _params[i]);
                         i++;
                     }
                     return this.functions[func].expr_runtime.ComputeValue(content);
@@ -316,7 +321,7 @@ namespace CSEvil
         {
             public bool bPublic;
             public bool bStatic;
-            public Dictionary<string, ICLS_Type> _params=new Dictionary<string,ICLS_Type>();
+            public Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
             public ICLS_Type _returntype;
             public ICLS_Expression expr_runtime;
         }
