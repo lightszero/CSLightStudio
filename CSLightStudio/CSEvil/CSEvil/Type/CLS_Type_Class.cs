@@ -304,11 +304,29 @@ namespace CSEvil
 
         public CLS_Content.Value MemberValueGet(ICLS_Environment environment, object object_this, string valuename)
         {
+             SInstance sin =object_this as SInstance;
+             if (sin.member.ContainsKey(valuename))
+             {
+                 CLS_Content.Value v = new CLS_Content.Value();
+                 v.type = sin.member[valuename].type;
+                 v.value = sin.member[valuename].value;
+                 return v;
+             }
             throw new NotImplementedException();
         }
 
         public void MemberValueSet(ICLS_Environment environment, object object_this, string valuename, object value)
         {
+            SInstance sin =object_this as SInstance;
+            if(sin.member.ContainsKey(valuename))
+            {
+                if (value != null && value.GetType() != this.members[valuename].type.type)
+                {
+                    value = environment.GetType(value.GetType()).ConvertTo(environment, value, this.members[valuename].type.type);
+                }
+                sin.member[valuename].value = value;
+                return;
+            }
             throw new NotImplementedException();
         }
 

@@ -97,6 +97,7 @@ namespace CSEvil
                         string idname = tokens[i + 1].text;
                         if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && tokens[i + 2].text == "(")//参数开始,这是函数
                         {
+                            logger.Log("发现函数:" + idname);
                             SType.Function func = new SType.Function();
                             func.bStatic = bStatic;
                             func.bPublic = bPublic;
@@ -132,6 +133,8 @@ namespace CSEvil
                         }
                         else if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && (tokens[i + 2].text == "=" || tokens[i + 2].text == ";"))//这是成员定义
                         {
+                            logger.Log("发现成员定义:" + idname);
+
                             var member= new SType.Member();
                             member.bStatic = bStatic;
                             member.bPublic = bPublic;

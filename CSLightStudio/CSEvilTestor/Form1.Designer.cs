@@ -49,7 +49,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(617, 191);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "ScriptClass c = new ScriptClass();\r\nint i= c.GetI();\r\ntrace(i);";
+            this.textBox1.Text = "ScriptClass c = new ScriptClass();\r\nc.i=1;\r\nc.j=2;\r\nc.k=3;\r\nint i= c.GetI();\r\ntra" +
+    "ce(i);\r\ntrace(c.i);\r\ntrace(c.j);";
             // 
             // button1
             // 
