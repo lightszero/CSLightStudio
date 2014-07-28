@@ -322,5 +322,11 @@ namespace CSEvil
             get;
             protected set;
         }
+
+
+        public object DefValue
+        {
+            get { return null; }
+        }
     }
 }

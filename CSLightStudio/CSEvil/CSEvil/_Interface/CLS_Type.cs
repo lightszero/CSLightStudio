@@ -40,7 +40,10 @@ namespace CSEvil
         {
             get;
         }
-
+        object DefValue
+        {
+            get;
+        }
         ICLS_Value MakeValue(object value);
         //自动转型能力
         object ConvertTo(ICLS_Environment env, object src, Type targetType);

@@ -247,9 +247,15 @@ namespace CSEvil
                 if (i.Value.bStatic == false)
                 {
                     if (i.Value.expr_defvalue == null)
-                        sv.value_value.member[i.Key] = null;
+                    {
+                        sv.value_value.member[i.Key] = new CLS_Content.Value();
+                        sv.value_value.member[i.Key].type = i.Value.type.type;
+                        sv.value_value.member[i.Key].value = i.Value.type.DefValue;
+                    }
                     else
+                    {
                         sv.value_value.member[i.Key] = i.Value.expr_defvalue.ComputeValue(mycontent);
+                    }
                 }
             }
             if (this.functions.ContainsKey(this.Name))//有同名函数就调用
@@ -388,6 +394,12 @@ namespace CSEvil
         public ICLS_TypeFunction function
         {
             get { return type as ICLS_TypeFunction; }
+        }
+
+
+        public object DefValue
+        {
+            get { return null; }
         }
     }
 }

@@ -44,5 +44,9 @@ namespace CSEvil
         {
             get { throw new NotImplementedException(); }
         }
+        public object DefValue
+        {
+            get { return null; }
+        }
     }
 }

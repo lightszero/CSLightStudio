@@ -184,5 +184,9 @@ namespace CSEvil
             get;
             private set;
         }
+        public object DefValue
+        {
+            get { return (int)0; }
+        }
     }
 }

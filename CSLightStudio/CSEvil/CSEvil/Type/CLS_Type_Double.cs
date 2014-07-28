@@ -182,5 +182,9 @@ namespace CSEvil
             get;
             private set;
         }
+        public object DefValue
+        {
+            get { return (double)0; }
+        }
     }
 }
