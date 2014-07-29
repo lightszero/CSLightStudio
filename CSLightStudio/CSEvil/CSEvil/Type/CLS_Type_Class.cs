@@ -264,19 +264,83 @@ namespace CSEvil
             }
             return CLS_Content.Value.FromICLS_Value(sv);
         }
-
-        public CLS_Content.Value StaticCall(CLS_Content environment, string function, IList<CLS_Content.Value> _params)
+        void NewStatic()
         {
+            if (this.staticMemberInstance == null)
+            {
+                staticMemberInstance = new Dictionary<string, CLS_Content.Value>();
+                foreach (var i in this.members)
+                {
+                    if (i.Value.bStatic == true)
+                    {
+                        if (i.Value.expr_defvalue == null)
+                        {
+                            staticMemberInstance[i.Key] = new CLS_Content.Value();
+
+                            staticMemberInstance[i.Key].type = i.Value.type.type;
+                            staticMemberInstance[i.Key].value = i.Value.type.DefValue;
+                        }
+                        else
+                        {
+                            staticMemberInstance[i.Key] = i.Value.expr_defvalue.ComputeValue(mycontent);
+                        }
+                    }
+                }
+            }
+        }
+        public CLS_Content.Value StaticCall(CLS_Content contentParent, string function, IList<CLS_Content.Value> _params)
+        {
+            if (this.functions.ContainsKey(function))
+            {
+                if (this.functions[function].bStatic == true)
+                {
+                    CLS_Content content = new CLS_Content(contentParent.environment, true);
+
+                    contentParent.InStack(content);//把这个上下文推给上层的上下文，这样如果崩溃是可以一层层找到原因的
+                    content.CallType = this;
+                    content.CallThis = null;
+
+                    int i = 0;
+                    foreach (var p in this.functions[function]._params)
+                    {
+                        content.DefineAndSet(p.Key, p.Value.type, _params[i]);
+                        i++;
+                    }
+                    var value = this.functions[function].expr_runtime.ComputeValue(content);
+
+                    contentParent.OutStack(content);
+                    return value;
+                }
+            }
             throw new NotImplementedException();
         }
 
         public CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename)
         {
+            NewStatic();
+           
+            if (this.staticMemberInstance.ContainsKey(valuename))
+            {
+                CLS_Content.Value v = new CLS_Content.Value();
+                v.type =this.staticMemberInstance[valuename].type;
+                v.value = this.staticMemberInstance[valuename].value;
+                return v;
+            }
             throw new NotImplementedException();
         }
 
-        public void StaticValueSet(CLS_Content environment, string valuename, object value)
+        public void StaticValueSet(CLS_Content content, string valuename, object value)
         {
+            NewStatic();
+            if (this.staticMemberInstance.ContainsKey(valuename))
+            {
+                if (value != null && value.GetType() != this.members[valuename].type.type)
+                {
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
+                }
+                this.staticMemberInstance[valuename].value = value;
+                return;
+            }
             throw new NotImplementedException();
         }
 
@@ -364,7 +428,7 @@ namespace CSEvil
 
         public Dictionary<string, Function> functions = new Dictionary<string, Function>();
         public Dictionary<string, Member> members = new Dictionary<string, Member>();
-        public Dictionary<string, CLS_Content.Value> staticMemberInstance = new Dictionary<string, CLS_Content.Value>();
+        public Dictionary<string, CLS_Content.Value> staticMemberInstance = null;
 
     }
     public class SInstance
