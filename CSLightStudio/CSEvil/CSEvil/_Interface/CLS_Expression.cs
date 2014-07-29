@@ -53,7 +53,7 @@ namespace CSEvil
         ICLS_Type GetType(Type type);
 
         ICLS_Type GetTypeByKeyword(string keyword);
-
+         ICLS_Type GetTypeByKeywordQuiet(string keyword);
 
         void RegFunction(ICLS_Function func);
         ICLS_Function GetFunction(string name);
@@ -70,7 +70,24 @@ namespace CSEvil
     }
     public interface ICLS_Environment_Compiler
     {
+        IList<Token> ParserToken(string code);
 
+        ICLS_Expression Expr_CompilerToken(IList<Token> listToken, bool SimpleExpression = false);
+
+        //CLS_Content contentGloabl = null;
+        ICLS_Expression Expr_Optimize(ICLS_Expression old);
+
+        CLS_Content CreateContent();
+
+
+        CLS_Content.Value Expr_Execute(ICLS_Expression expr, CLS_Content content = null);
+
+
+        void Project_Compiler(Dictionary<string, IList<Token>> project);
+
+        void File_PreCompilerToken(string filename, IList<Token> listToken);
+
+        void File_CompilerToken(string filename, IList<Token> listToken);
     }
 
     public interface ICLS_Expression_Compiler
@@ -80,6 +97,8 @@ namespace CSEvil
         ICLS_Expression Optimize(ICLS_Expression value, ICLS_Environment content);
 
         IList<ICLS_Type> FileCompiler(IList<Token> tlist, ICLS_Environment env);
+        IList<ICLS_Type> FilePreCompiler(IList<Token> tlist, ICLS_Environment env);
+
     }
 
 }

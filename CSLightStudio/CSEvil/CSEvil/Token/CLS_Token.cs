@@ -25,11 +25,12 @@ namespace CSEvil
         //asTC_WHITESPACE = 5,//空格
 
         public string text;
-        public int col;
+        public int pos;
+        public int line;
         public TokenType type;
         public override string ToString()
         {
-            return type.ToString() + "|" + text + "|" + col.ToString();
+            return type.ToString() + "|" + text + "|" + pos.ToString();
         }
     }
     public interface ICLS_TokenParser
@@ -97,23 +98,25 @@ namespace CSEvil
             private set;
         }
 
-        int FindStart(string line, int npos)
+        int FindStart(string lines, int npos)
         {
             int n = npos;
-            for (int i = n; i < line.Length; i++)
+            for (int i = n; i < lines.Length; i++)
             {
-                if (!char.IsSeparator(line, i) && line[i] != '\n' && line[i] != '\r' && line[i] != '\t')
+                if (lines[i] == '\n')
+                    line++;
+                if (!char.IsSeparator(lines, i) && lines[i] != '\n' && lines[i] != '\r' && lines[i] != '\t')
                 {
                     return i;
                 }
             }
             return -1;
         }
-        int GetToken(string line, int npos, out Token t)
+        int GetToken(string line, int nstart, out Token t)
         {
             //找到开始字符
-            int nstart = FindStart(line, npos);
-            t.col = nstart;
+            t.pos = nstart;
+            t.line = this.line;
             t.text = " ";
             t.type = TokenType.UNKNOWN;
             if (nstart < 0) return -1;
@@ -436,14 +439,28 @@ namespace CSEvil
 
             return nstart + t.text.Length;
         }
-        public IList<Token> Parse(string line)
+        int line = 0;
+        public IList<Token> Parse(string lines)
         {
             List<Token> ts = new List<Token>();
             int n = 0;
             while (n >= 0)
             {
                 Token t;
-                n = GetToken(line, n, out t);
+                t.line = this.line;
+
+                int nstart = FindStart(lines, n);
+                t.line = this.line;
+                int nend = GetToken(lines, nstart, out t);
+                if(nend>=0)
+                {
+                    for(int i=nstart;i<nend;i++)
+                    {
+                        if (lines[i] == '\n')
+                            line++;
+                    }
+                }
+                n = nend;
                 if (n >= 0)
                 {
                     if (ts.Count >= 2 && t.type == TokenType.IDENTIFIER && ts[ts.Count - 1].text == "." && ts[ts.Count - 2].type == TokenType.TYPE)
@@ -453,7 +470,8 @@ namespace CSEvil
                         {//类中类，合并之
                             t.type = TokenType.TYPE;
                             t.text = ntype;
-                            t.col = ts[ts.Count - 2].col;
+                            t.pos = ts[ts.Count - 2].pos;
+                            t.line = ts[ts.Count - 2].line;
                             ts.RemoveAt(ts.Count - 1);
                             ts.RemoveAt(ts.Count - 1);
 
@@ -467,7 +485,8 @@ namespace CSEvil
                         string ntype =ts[ts.Count-3].text+ ts[ts.Count - 2].text + ts[ts.Count - 1].text + t.text;
                         t.type = TokenType.IDENTIFIER;
                         t.text = ntype;
-                        t.col = ts[ts.Count - 2].col;
+                        t.pos = ts[ts.Count - 2].pos;
+                        t.line = ts[ts.Count - 2].line;
                         ts.RemoveAt(ts.Count - 1);
                         ts.RemoveAt(ts.Count - 1);
                         ts.RemoveAt(ts.Count - 1);

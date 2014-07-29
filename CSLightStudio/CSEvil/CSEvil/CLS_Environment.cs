@@ -10,7 +10,7 @@ namespace CSEvil
 {
     //环境 增加本地代码的管理
     //环境 增加运行中的表达式查询
-    public class CLS_Environment : ICLS_Environment
+    public class CLS_Environment : ICLS_Environment, ICLS_Environment_Compiler
     {
 
         public CLS_Environment(ICLS_Logger logger)
@@ -48,21 +48,29 @@ namespace CSEvil
         {
             if (type == null)
                 return typess["null"];
-            if(types.ContainsKey(type)==false)
+            if (types.ContainsKey(type) == false)
             {
-                logger.Log_Error("(CLScript)类型未注册:"+type.ToString());
+                logger.Log_Error("(CLScript)类型未注册:" + type.ToString());
             }
             return types[type];
         }
         public ICLS_Type GetTypeByKeyword(string keyword)
         {
-            if(typess.ContainsKey(keyword)==false)
+            if (typess.ContainsKey(keyword) == false)
             {
                 logger.Log_Error("(CLScript)类型未注册:" + keyword);
+               
             }
             return typess[keyword];
         }
-
+        public ICLS_Type GetTypeByKeywordQuiet(string keyword)
+        {
+            if (typess.ContainsKey(keyword) == false)
+            {
+                return null;
+            }
+            return typess[keyword];
+        }
         public void RegFunction(ICLS_Function func)
         {
             calls[func.keyword] = func;
@@ -98,7 +106,7 @@ namespace CSEvil
         }
         public CLS_Content CreateContent()
         {
-            return new CLS_Content(this,true);
+            return new CLS_Content(this, true);
         }
 
         public CLS_Content.Value Expr_Execute(ICLS_Expression expr, CLS_Content content = null)
@@ -107,13 +115,43 @@ namespace CSEvil
             return expr.ComputeValue(content);
         }
 
-        public void File_CompilerToken(string filename,IList<Token> listToken)
+        public void Project_Compiler(Dictionary<string, IList<Token>> project)
+        {
+            foreach(var f in project)
+            {
+                File_PreCompilerToken(f.Key, f.Value);
+            }
+            foreach (var f in project)
+            {
+                //预处理符号
+                for (int i = 0; i < f.Value.Count; i++)
+                {
+                    if (f.Value[i].type == TokenType.IDENTIFIER && this.tokenParser.types.Contains(f.Value[i].text))
+                    {//有可能预处理导致新的类型
+                        Token rp = f.Value[i];
+                        rp.type = TokenType.TYPE;
+                        f.Value[i] = rp;
+                    }
+                }
+                File_CompilerToken(f.Key, f.Value);
+            }
+        }
+        public void File_PreCompilerToken(string filename, IList<Token> listToken)
+        {
+            IList<ICLS_Type> types = compiler.FilePreCompiler(listToken, this);
+            foreach (var type in types)
+            {
+                this.RegType(type);
+            }
+        }
+        public void File_CompilerToken(string filename, IList<Token> listToken)
         {
             logger.Log("File_CompilerToken:" + filename);
             IList<ICLS_Type> types = compiler.FileCompiler(listToken, this);
-            foreach(var type in types)
+            foreach (var type in types)
             {
-                this.RegType(type);
+                if (this.GetTypeByKeywordQuiet(type.keyword) == null)
+                    this.RegType(type);
             }
         }
 

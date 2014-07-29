@@ -139,7 +139,11 @@ namespace CSEvil
 
         public IList<ICLS_Type> FileCompiler(IList<Token> tlist, ICLS_Environment env)
         {
-            return _FileCompiler(tlist, env);
+            return _FileCompiler(tlist, env,false);
+        }
+        public IList<ICLS_Type> FilePreCompiler(IList<Token> tlist, ICLS_Environment env)
+        {
+            return _FileCompiler(tlist, env, true);
         }
     }
 }

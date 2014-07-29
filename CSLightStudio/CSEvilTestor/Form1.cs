@@ -19,13 +19,19 @@ namespace CSEvilTestor
         {
 
             env = new CSEvil.CLS_Environment(this);
+            //查找所有脚本文件
             string[] files = System.IO.Directory.GetFiles("script", "*.cs");
+            //处理文件，组织成项目文件
+            Dictionary<string, IList<CSEvil.Token>> scriptProject = new Dictionary<string, IList<CSEvil.Token>>();
             foreach (var f in files)
             {
                 string code = System.IO.File.ReadAllText(f);
                 var tokens = env.ParserToken(code);
-                env.File_CompilerToken(f,tokens);
+                scriptProject[f] = tokens;
             }
+            //编译脚本项目
+            env.Project_Compiler(scriptProject);
+
         }
 
         public void Log(string str)

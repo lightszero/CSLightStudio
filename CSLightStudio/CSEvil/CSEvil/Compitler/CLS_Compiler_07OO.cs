@@ -6,7 +6,7 @@ namespace CSEvil
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        IList<ICLS_Type> _FileCompiler(IList<Token> tokens, ICLS_Environment env)
+        IList<ICLS_Type> _FileCompiler(IList<Token> tokens, ICLS_Environment env, bool onlyGotType = false)
         {
             List<ICLS_Type> typelist = new List<ICLS_Type>();
 
@@ -38,8 +38,17 @@ namespace CSEvil
                     while (tokens[ibegin].text != "{")
                         ibegin++;
                     int iend = FindBlock(env, tokens, ibegin);
-                    env.logger.Log("(scriptParser)findclass:" + name + "(" + ibegin + "," + iend + ")");
-                    ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend);
+                    if (onlyGotType)
+                    {
+                        env.logger.Log("(scriptPreParser)findclass:" + name + "(" + ibegin + "," + iend + ")");
+
+                    }
+                    else
+                    {
+                        env.logger.Log("(scriptParser)findclass:" + name + "(" + ibegin + "," + iend + ")");
+
+                    }
+                    ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend, onlyGotType);
                     if (type != null)
                     {
                         typelist.Add(type);
@@ -51,11 +60,17 @@ namespace CSEvil
 
             return typelist;
         }
-        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, IList<Token> tokens, int ibegin, int iend)
+        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, IList<Token> tokens, int ibegin, int iend, bool onlyGotType = false)
         {
 
-            CLS_Type_Class stype = new CLS_Type_Class(classname);
+            CLS_Type_Class stype = env.GetTypeByKeywordQuiet(classname) as CLS_Type_Class;
+            if (stype == null)
+                stype = new CLS_Type_Class(classname);
+            if (onlyGotType) return stype;
 
+            stype.compiled = false;
+            (stype.function as SType).functions.Clear();
+            (stype.function as SType).members.Clear();
             //搜寻成员定义和函数
             //定义语法            //Type id[= expr];
             //函数语法            //Type id([Type id,]){block};
@@ -65,6 +80,7 @@ namespace CSEvil
 
             for (int i = ibegin; i <= iend; i++)
             {
+
                 if (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "public")
                 {
                     bPublic = true;
@@ -80,19 +96,26 @@ namespace CSEvil
                     bStatic = true;
                     continue;
                 }
-                else if (tokens[i].type == TokenType.TYPE || (tokens[i].type== TokenType.IDENTIFIER && tokens[i].text==classname  ))//发现类型
+                else if (tokens[i].type == TokenType.TYPE || (tokens[i].type == TokenType.IDENTIFIER && tokens[i].text == classname))//发现类型
                 {
 
                     ICLS_Type idtype = env.GetTypeByKeyword("null");
-                    if (tokens[i].type == TokenType.TYPE)//普通函数
+                    bool bctor = false;
+                    if (tokens[i].type == TokenType.TYPE)//类型
                     {
-                        idtype = env.GetTypeByKeyword(tokens[i].text);
+          
+                        if (tokens[i].text == classname && tokens[i+1].text=="(")
+                        {//构造函数
+                            bctor = true;
+                            i--;
+                        }
+                        else
+                        {
+                            idtype = env.GetTypeByKeyword(tokens[i].text);
+                        }
                     }
-                    else//构造函数
-                    {
-                        i--;
-                    }
-                    if (tokens[i + 1].type == CSEvil.TokenType.IDENTIFIER) //类型后面是名称
+
+                    if (tokens[i + 1].type == CSEvil.TokenType.IDENTIFIER || bctor) //类型后面是名称
                     {
                         string idname = tokens[i + 1].text;
                         if (tokens[i + 2].type == CSEvil.TokenType.PUNCTUATION && tokens[i + 2].text == "(")//参数开始,这是函数
@@ -123,7 +146,7 @@ namespace CSEvil
                             ICLS_Expression funcexpr;
                             this.Compiler_Expression_Block(tokens, env, funcbegin, funcend, out func.expr_runtime);
 
-                            (stype.function as SType) .functions.Add(idname, func);
+                            (stype.function as SType).functions.Add(idname, func);
 
                             i = funcend;
                         }
@@ -135,11 +158,11 @@ namespace CSEvil
                         {
                             logger.Log("发现成员定义:" + idname);
 
-                            var member= new SType.Member();
+                            var member = new SType.Member();
                             member.bStatic = bStatic;
                             member.bPublic = bPublic;
                             member.type = idtype;
-                            
+
                             ICLS_Expression expr = null;
 
                             if (tokens[i + 2].text == "=")
@@ -165,6 +188,7 @@ namespace CSEvil
                     }
                 }
             }
+            stype.compiled = true;
             return stype;
         }
 

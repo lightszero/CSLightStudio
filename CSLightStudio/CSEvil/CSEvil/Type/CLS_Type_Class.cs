@@ -378,13 +378,18 @@ namespace CSEvil
         {
             this.keyword = keyword;
             type = new SType(keyword);
+            compiled = false;
         }
         public string keyword
         {
             get;
             private set;
         }
-
+        public bool compiled
+        {
+            get;
+            set;
+        }
         public Type type
         {
             get;
