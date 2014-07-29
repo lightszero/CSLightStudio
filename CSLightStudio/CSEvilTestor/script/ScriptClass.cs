@@ -8,6 +8,7 @@ class ScriptClass
     public int i = 56;
     public int j;
     public int k;
+    public float jj = -1.20f;
     public ScriptClass()
     {
         i = 3;

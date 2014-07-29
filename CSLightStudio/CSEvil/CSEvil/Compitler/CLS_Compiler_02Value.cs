@@ -52,7 +52,13 @@ namespace CSEvil
         {
             if (value.type == TokenType.VALUE)
             {
-                if (value.text.Contains("."))
+                if (value.text[value.text.Length - 1] == 'f')
+                {
+                    CLS_Value_Value<float> number = new CLS_Value_Value<float>();
+                    number.value_value = -float.Parse(value.text.Substring(0, value.text.Length - 1));
+                    return number;
+                }
+                else if (value.text.Contains("."))
                 {
                     CLS_Value_Value<double> number = new CLS_Value_Value<double>();
                     number.value_value = -double.Parse(value.text);
