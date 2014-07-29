@@ -60,7 +60,7 @@ namespace CSLight.Framework
         }
         public void SetCodeFile(string name, ICodeFile<T> code)
         {
-            mapCodeFiles[name] = code;
+            mapCodeFiles[name.ToLower()] = code;
         }
 
         public CSLight.CLS_Environment scriptEnv
