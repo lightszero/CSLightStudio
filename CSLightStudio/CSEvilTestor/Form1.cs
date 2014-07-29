@@ -52,9 +52,19 @@ namespace CSEvilTestor
         private void button1_Click(object sender, EventArgs e)
         {
             string code = textBox1.Text;
-            var tokens= env.tokenParser.Parse(code);
+            var tokens = env.tokenParser.Parse(code);
             var expr = env.Expr_CompilerToken(tokens);
             env.Expr_Execute(expr);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var content = env.CreateContent();//执行任何代码都需要一个上下文
+
+            var type = env.GetTypeByKeyword("ScriptClass"); //获得脚本类型
+            var typeinst = type.function.New(content, null);//调用构造函数产生一个脚本实例
+            var value = type.function.MemberCall(content, typeinst.value, "GetI", null);//调用成员函数
+            this.Log("Run GetI= " + value.type.ToString() + "|" + value.value.ToString());
         }
     }
 }

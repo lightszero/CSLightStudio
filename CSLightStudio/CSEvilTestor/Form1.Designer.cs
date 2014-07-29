@@ -31,6 +31,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -49,24 +50,35 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(617, 191);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "ScriptClass c = new ScriptClass();\r\nc.i=1;\r\nc.j=2;\r\nc.k=3;\r\nint i= c.GetI();\r\ntra" +
-    "ce(i);\r\ntrace(c.i);\r\ntrace(c.j);";
+            this.textBox1.Text = "//脚本操作脚本\r\n//这里可以直接操作程序\r\nScriptClass c = new ScriptClass();\r\nc.i=1;\r\nc.j=2;\r\nc.k=3" +
+    ";\r\nint i= c.GetI();\r\ntrace(i);\r\ntrace(c.i);\r\ntrace(c.j);";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(554, 484);
+            this.button1.Location = new System.Drawing.Point(12, 484);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(204, 23);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
+            this.button1.Text = "执行这段脚本";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(414, 483);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(215, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "程序操作脚本";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 530);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listBox1);
@@ -83,6 +95,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
 
     }
 }
