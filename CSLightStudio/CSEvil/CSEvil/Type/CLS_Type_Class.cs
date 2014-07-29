@@ -264,8 +264,10 @@ namespace CSEvil
             }
             return CLS_Content.Value.FromICLS_Value(sv);
         }
-        void NewStatic()
+        void NewStatic(ICLS_Environment env)
         {
+            if (mycontent == null)
+                mycontent = new CLS_Content(env);
             if (this.staticMemberInstance == null)
             {
                 staticMemberInstance = new Dictionary<string, CLS_Content.Value>();
@@ -290,6 +292,7 @@ namespace CSEvil
         }
         public CLS_Content.Value StaticCall(CLS_Content contentParent, string function, IList<CLS_Content.Value> _params)
         {
+            NewStatic(contentParent.environment);
             if (this.functions.ContainsKey(function))
             {
                 if (this.functions[function].bStatic == true)
@@ -315,9 +318,9 @@ namespace CSEvil
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename)
+        public CLS_Content.Value StaticValueGet(CLS_Content content, string valuename)
         {
-            NewStatic();
+            NewStatic(content.environment);
            
             if (this.staticMemberInstance.ContainsKey(valuename))
             {
@@ -331,7 +334,7 @@ namespace CSEvil
 
         public void StaticValueSet(CLS_Content content, string valuename, object value)
         {
-            NewStatic();
+            NewStatic(content.environment);
             if (this.staticMemberInstance.ContainsKey(valuename))
             {
                 if (value != null && value.GetType() != this.members[valuename].type.type)
@@ -362,7 +365,9 @@ namespace CSEvil
                         content.DefineAndSet(p.Key, p.Value.type, _params[i]);
                         i++;
                     }
-                    var value =this.functions[func].expr_runtime.ComputeValue(content);
+                    CLS_Content.Value value = null;
+                    if(this.functions[func].expr_runtime!=null)
+                         value =this.functions[func].expr_runtime.ComputeValue(content);
 
                     contentParent.OutStack(content);
                     return value;
