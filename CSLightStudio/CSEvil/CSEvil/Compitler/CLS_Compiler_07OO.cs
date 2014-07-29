@@ -109,6 +109,10 @@ namespace CSEvil
                             bctor = true;
                             i--;
                         }
+                        else if(tokens[i].text=="void")
+                        {
+
+                        }
                         else
                         {
                             idtype = env.GetTypeByKeyword(tokens[i].text);

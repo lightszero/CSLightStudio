@@ -251,6 +251,9 @@ namespace CSEvil
         }
         public Value Get(string name)
         {
+            if (values.ContainsKey(name))//优先上下文变量
+                return values[name];
+
             if(CallType!=null)
             {
                 if(CallType.members.ContainsKey(name))
@@ -266,8 +269,8 @@ namespace CSEvil
                 }
                 
             }
-            if (!values.ContainsKey(name)) throw new Exception("值"+name+"没有定义过");
-            return values[name];
+            throw new Exception("值"+name+"没有定义过");
+
         }
         public Stack<List<string>> tvalues = new Stack<List<string>>();
         public void DepthAdd()//控制变量作用域，深一层

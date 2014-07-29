@@ -51,7 +51,8 @@
             this.textBox1.Size = new System.Drawing.Size(617, 191);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "//脚本操作脚本\r\n//这里可以直接操作程序\r\nScriptClass c = new ScriptClass();\r\nc.i=1;\r\nc.j=2;\r\nc.k=3" +
-    ";\r\nint i= c.GetI();\r\ntrace(i);\r\ntrace(c.i);\r\ntrace(c.j);";
+    ";\r\nfor(int p=0;p<10;p++)\r\n{\r\nint i= c.GetI();\r\ntrace(\"p=\"+p+\",i=\"+i);\r\ntrace(c.i" +
+    ");\r\ntrace(c.j);\r\n}";
             // 
             // button1
             // 

@@ -4,9 +4,9 @@ using System.Text;
 namespace CSEvil
 {
 
-    public class CLS_Expression_Function: ICLS_Expression
+    public class CLS_Expression_Function : ICLS_Expression
     {
-        public CLS_Expression_Function(int tbegin,int tend)
+        public CLS_Expression_Function(int tbegin, int tend)
         {
             listParam = new List<ICLS_Expression>();
             this.tokenBegin = tbegin;
@@ -32,15 +32,32 @@ namespace CSEvil
         {
             content.InStack(this);
             List<CLS_Content.Value> list = new List<CLS_Content.Value>();
-            foreach(ICLS_Expression p in listParam)
+            foreach (ICLS_Expression p in listParam)
             {
-                if(p!=null)
+                if (p != null)
                 {
                     list.Add(p.ComputeValue(content));
                 }
             }
-            var v=content.environment.GetFunction(funcname).Call(content, list);
-             //操作变量之
+            CLS_Content.Value v = null;
+            if (content.CallType != null && content.CallType.functions.ContainsKey(funcname))
+            {
+                if (content.CallType.functions[funcname].bStatic)
+                {
+                    v = content.CallType.StaticCall(content, funcname, list);
+
+                }
+                else
+                {
+                    v = content.CallType.MemberCall(content, content.CallThis, funcname, list);
+
+                }
+            }
+            else
+            {
+                v = content.environment.GetFunction(funcname).Call(content, list);
+            }
+            //操作变量之
             //做数学计算
             //从上下文取值
             //_value = null;
@@ -48,11 +65,11 @@ namespace CSEvil
             return v;
         }
         public string funcname;
-  
+
         public override string ToString()
         {
-           
-                return "Call|" + funcname + "(params["+listParam.Count+")";
+
+            return "Call|" + funcname + "(params[" + listParam.Count + ")";
         }
     }
 }

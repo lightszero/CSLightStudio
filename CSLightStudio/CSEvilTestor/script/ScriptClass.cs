@@ -16,7 +16,13 @@ class ScriptClass
     }
     public int GetI()
     {
+        Test();
         return i + j + k;
+    }
+
+    public void Test()
+    {
+        j++;
     }
 }
 
