@@ -442,6 +442,7 @@ namespace CSLE
         int line = 0;
         public IList<Token> Parse(string lines)
         {
+            line = 1;
             List<Token> ts = new List<Token>();
             int n = 0;
             while (n >= 0)
@@ -503,6 +504,7 @@ namespace CSLE
         public void SaveTokenList(IList<Token> tokens, System.IO.Stream stream)
         {
             Dictionary<string, UInt32> strs = new Dictionary<string, UInt32>();
+            List<UInt16> lines = new List<ushort>();
             List<string> strstore = new List<string>();
             List<UInt32> strindex = new List<UInt32>();
             if (tokens.Count > 0xffff)
@@ -511,6 +513,7 @@ namespace CSLE
             }
             byte[] bs = BitConverter.GetBytes((UInt16)tokens.Count);
             stream.Write(bs, 0, bs.Length);
+            int index = 0;
             foreach (var t in tokens)
             {
                 UInt32 type = (UInt32)t.type;
@@ -522,6 +525,11 @@ namespace CSLE
 
                 type += strs[t.text];
                 strindex.Add(type);
+                int line =t.line-1;
+                while (line >= lines.Count)
+                    lines.Add((UInt16)index);
+
+                index++;
             }
 
             byte[] bsstr = BitConverter.GetBytes((UInt16)strstore.Count);
@@ -538,6 +546,13 @@ namespace CSLE
             {
                 byte[] nbs = BitConverter.GetBytes((UInt32)i);
                 stream.Write(nbs, 0, nbs.Length);
+            }
+            UInt16 linecount = (UInt16)lines.Count;
+            stream.Write(BitConverter.GetBytes(linecount), 0, 2);
+            foreach (UInt16 lstarttoken in lines)
+            {
+                byte[] nbs = BitConverter.GetBytes(lstarttoken);
+                stream.Write(nbs, 0, 2);
             }
         }
         public IList<Token> ReadTokenList(System.IO.Stream stream)
@@ -567,6 +582,47 @@ namespace CSLE
                 tokens.Add(t);
             }
 
+            if (stream.Position < stream.Length)
+            {
+                UInt16 linecount = 0;
+                byte[] bufu = new byte[2];
+                stream.Read(bufu, 0, 2);
+                linecount = BitConverter.ToUInt16(bufu, 0);
+                UInt16[] linetoken = new UInt16[linecount];
+              
+                for (int i = 0; i < linecount; i++)
+                {
+                    stream.Read(bufu, 0, 2);
+                    linetoken[i] = BitConverter.ToUInt16(bufu, 0);
+
+                }
+                int token = 0;
+                for (int i = 0; i < linecount; i++)
+                {
+                    if ((i + 1) < linecount && linetoken[i + 1] == linetoken[i]) continue;
+
+                    if ((i + 1) < linecount)
+                    {
+                        for (int j = linetoken[i]; j < linetoken[i+1]; j++)
+                        {
+                            var t = tokens[j];
+                            t.line = i + 1;
+                            tokens[j] = t;
+                        }
+                    }
+                    else
+                    {
+                         for (int j = linetoken[i]; j<tokens.Count;j++)
+                         {
+                             var t = tokens[j];
+                             t.line = i + 1;
+                             tokens[j] = t;
+                         }
+                    }
+                 
+                    token = linetoken[i];
+                }
+            }
             return tokens;
         }
     }

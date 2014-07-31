@@ -76,6 +76,10 @@ namespace CSLE
 		public string DumpValue(IList<Token> tokenlist)
 		{
 			string svalues = "";
+            foreach (var subc in this.stackContent)
+            {
+                svalues += subc.DumpValue(tokenlist);
+            }
             foreach(var v in this.values)
             {
                 svalues += "V:" + v.Key + "=" + v.Value.ToString()+"\n";
@@ -87,6 +91,11 @@ namespace CSLE
 			string svalues = "";
             if (useDebug)
             {
+                foreach(var subc in this.stackContent)
+                {
+                    svalues += subc.DumpStack(tokenlist);
+                }
+              
                 foreach(var s in stackExpr)
                 {
                     if ((s.tokenBegin == 0 && s.tokenEnd == 0)||tokenlist==null)
@@ -95,7 +104,8 @@ namespace CSLE
                     }
                     else
                     {
-                        svalues += "在脚本 :";
+                        svalues += "在脚本 :line("+tokenlist[s.tokenBegin].line+")";
+                        
                         if (s.tokenEnd - s.tokenBegin >= 20)
                         {
                             for(int i=s.tokenBegin;i<s.tokenBegin+8;i++)
