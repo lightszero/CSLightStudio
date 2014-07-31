@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace CSEvilTestor
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// 应用程序的主入口点。
@@ -16,5 +16,10 @@ namespace CSEvilTestor
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+        public static void Trace(string txt)
+        {
+            Console.WriteLine(txt);
+        }
     }
+
 }

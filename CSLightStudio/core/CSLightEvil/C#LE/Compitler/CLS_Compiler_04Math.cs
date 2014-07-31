@@ -209,7 +209,8 @@ namespace CSLE
                     else if (tlist[oppos].text == "+=" || tlist[oppos].text == "-=" || tlist[oppos].text == "*=" || tlist[oppos].text == "/=" || tlist[oppos].text == "%=")
                     {
                         CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left,rightend);
-                        value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
+                        //value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
+                        value.listParam.Add(valueleft);
                         value.listParam.Add(valueright);
                         value.mathop = tlist[oppos].text[0];
                         return value;

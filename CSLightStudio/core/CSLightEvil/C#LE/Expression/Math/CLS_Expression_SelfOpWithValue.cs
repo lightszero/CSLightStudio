@@ -32,15 +32,19 @@ namespace CSLE
         {
             content.InStack(this);
 
-            var v = content.Get(value_name);
-            var right = listParam[0].ComputeValue(content);
-            ICLS_Type type = content.environment.GetType(v.type);
+
+            var left = listParam[0].ComputeValue(content);
+            var right = listParam[1].ComputeValue(content);
+            ICLS_Type type = content.environment.GetType(left.type);
             //if (mathop == "+=")
+
             {
                 CLType returntype;
-                object value = type.Math2Value(content, mathop, v.value, right, out returntype);
-                value = type.ConvertTo(content, value, v.type);
-                content.Set(value_name, value);
+                object value = type.Math2Value(content, mathop, left.value, right, out returntype);
+                value = type.ConvertTo(content, value, left.type);
+                left.value = value;
+
+                //content.Set(value_name, value);
             }
 
             //操作变量之
@@ -53,12 +57,12 @@ namespace CSLE
         }
 
 
-        public string value_name;
+        //public string value_name;
         public char mathop;
 
         public override string ToString()
         {
-            return "MathSelfOp|" + value_name + mathop;
+            return "MathSelfOp|" +  mathop;
         }
     }
 }

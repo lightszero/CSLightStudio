@@ -4,6 +4,22 @@ using System.Text;
 
 namespace CSLE
 {
+    class DeleScript
+    {
+        public SInstance callthis;
+        public SType calltype;
+        public string function;
+    }
+    public class DeleSystem
+    {
+        public DeleSystem(object source, System.Reflection.EventInfo _event)
+        {
+            this.source = source;
+            this._event = _event;
+        }
+        public object source;
+        public System.Reflection.EventInfo _event;
+    }
     public class SType : ICLS_TypeFunction
     {
 
@@ -250,6 +266,7 @@ namespace CSLE
 
 
     }
+
     public class SInstance
     {
         public SType type;

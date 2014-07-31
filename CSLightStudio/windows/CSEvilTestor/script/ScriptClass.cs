@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CSEvilTestor;
+using System;
 using System.Collections.Generic;
 using System.Text;
-
 
 class ScriptClass
 {
@@ -16,13 +16,18 @@ class ScriptClass
     }
     public int GetI()
     {
+        TestDele.instance.onUpdate += Test;
+        deleA += Test;
         Test();
         return i + j + k;
     }
-
+    
+    Action deleA;
     public void Test()
     {
         j++;
+        Program.Trace("j=" + j);
     }
+
 }
 

@@ -277,8 +277,20 @@ namespace CSLE
                         return CallThis.member[name];
                     }
                 }
-                
+                if(CallType.functions.ContainsKey(name))
+                {
+                    Value v = new Value();
+                    DeleScript dele =new DeleScript();
+                    dele.function = name;
+                    dele.calltype = CallType;
+                    dele.callthis = CallThis;
+                    v.value = dele;
+                    v.type = typeof(DeleScript);
+                    return v;
+
+                }
             }
+
             throw new Exception("值"+name+"没有定义过");
 
         }

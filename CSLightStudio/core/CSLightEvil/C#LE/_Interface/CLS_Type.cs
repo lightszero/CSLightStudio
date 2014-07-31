@@ -81,13 +81,11 @@ namespace CSLE
         //{
         //    return left != right.type;
         //}
-        public override bool Equals(object obj)
+
+        public override string ToString()
         {
-            return base.Equals(obj);
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
+            if (type != null) return type.ToString();
+            return stype.ToString();
         }
         Type type;
         SType stype = null;

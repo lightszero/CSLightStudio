@@ -74,6 +74,7 @@
     <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
     <Compile Include="C#LE\FunctionTrace.cs" />
     <Compile Include="C#LE\RegHelper_Function.cs" />
+    <Compile Include="C#LE\RegHelper_Action.cs" />
     <Compile Include="C#LE\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Class.cs" />

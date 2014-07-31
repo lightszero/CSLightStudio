@@ -19,6 +19,9 @@ namespace CSEvilTestor
         {
 
             env = new CSLE.CLS_Environment(this);
+            env.RegType(new CSLE.RegHelper_Type(typeof(TestDele)));
+            env.RegType(new CSLE.RegHelper_Type(typeof(Program)));
+            env.RegType(new CSLE.RegHelper_DeleAction("Action"));
             //查找所有脚本文件
             string[] files = System.IO.Directory.GetFiles("script", "*.cs");
             //处理文件，组织成项目文件
@@ -33,6 +36,8 @@ namespace CSEvilTestor
             env.Project_Compiler(scriptProject);
 
         }
+
+
 
         public void Log(string str)
         {
@@ -65,6 +70,16 @@ namespace CSEvilTestor
             var typeinst = type.function.New(content, null);//调用构造函数产生一个脚本实例
             var value = type.function.MemberCall(content, typeinst.value, "GetI", null);//调用成员函数
             this.Log("Run GetI= " + value.type.ToString() + "|" + value.value.ToString());
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+                TestDele.instance.Run();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

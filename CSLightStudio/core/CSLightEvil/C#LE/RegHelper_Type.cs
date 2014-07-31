@@ -66,7 +66,20 @@ namespace CSLE
                     v.type = targetf.FieldType;
                     return v;
                 }
+                else
+                {
+                    var targete = type.GetEvent(valuename);
+                    if(targete!=null)
+                    {
+                        CLS_Content.Value v = new CLS_Content.Value();
+
+                        v.value = new DeleSystem(null, targete);
+                        v.type = targete.EventHandlerType;
+                        return v;
+                    }
+                }
             }
+
             return null;
         }
 
@@ -144,7 +157,20 @@ namespace CSLE
                     v.type = targetf.FieldType;
                     return v;
                 }
+                else
+                {
+                    var targete = type.GetEvent(valuename);
+                    if (targete != null)
+                    {
+
+                        CLS_Content.Value v = new CLS_Content.Value();
+                        v.value = new DeleSystem(object_this, targete);
+                        v.type = targete.EventHandlerType;
+                        return v;
+                    }
+                }
             }
+               
             return null;
         }
 
@@ -281,6 +307,8 @@ namespace CSLE
                 call = _type.GetMethod("op_Division", new Type[] { this.type, right.type });
             else if (code == '%')//[4] = {CLScriptExt.Vector3 op_Modulus(CLScriptExt.Vector3, CLScriptExt.Vector3)}
                 call = _type.GetMethod("op_Modulus", new Type[] { this.type, right.type });
+
+            
             var obj = call.Invoke(null, new object[] { left, right.value });
             //function.StaticCall(env,"op_Addtion",new List<ICL>{})
             return obj;
@@ -326,7 +354,7 @@ namespace CSLE
         }
 
 
-        public object DefValue
+        public virtual object DefValue
         {
             get { return null; }
         }

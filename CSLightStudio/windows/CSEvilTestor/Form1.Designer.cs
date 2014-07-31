@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // listBox1
@@ -53,6 +55,7 @@
             this.textBox1.Text = "//脚本操作脚本\r\n//这里可以直接操作程序\r\nScriptClass c = new ScriptClass();\r\nc.i=1;\r\nc.j=2;\r\nc.k=3" +
     ";\r\nfor(int p=0;p<10;p++)\r\n{\r\nint i= c.GetI();\r\ntrace(\"p=\"+p+\",i=\"+i);\r\ntrace(c.i" +
     ");\r\ntrace(c.j);\r\n}";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
@@ -73,6 +76,11 @@
             this.button2.Text = "程序操作脚本";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -97,6 +105,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timer1;
 
     }
 }
