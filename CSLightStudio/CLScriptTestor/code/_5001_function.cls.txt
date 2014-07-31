@@ -1,8 +1,0 @@
-﻿//5001 function
-//trace的两种用法
-int b=50;
-trace "this is trace";//trace 只有一个参数时可以用空格;
-trace "test sth" + b;
-trace ("test sth2",b);//trace 多个参数必须用函数调用语法
-
-return b;

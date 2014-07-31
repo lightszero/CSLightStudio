@@ -1,5 +1,0 @@
-﻿//1004 _1004_expression
-string a = "abc";
-string b = "abd";
-
-return "str="+a+b;

@@ -1,2 +1,0 @@
-﻿//1001 _1001_expression
-return  1+2

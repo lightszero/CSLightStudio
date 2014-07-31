@@ -1,7 +1,0 @@
-﻿int i=4;
-int c=5;
-DateTime t1 =DateTime.Now;
-DateTime t2 =DateTime.Now;
-TimeSpan sp = t2-t1;
-bool b = (i<3||c<=5)&&1<2;
-return b;

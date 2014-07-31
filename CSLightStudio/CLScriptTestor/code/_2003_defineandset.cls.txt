@@ -1,4 +1,0 @@
-﻿float b = (float) 1;
-var c;
-c =b;
-return c;

@@ -1,9 +1,0 @@
-﻿//5003 function
-//函数原型  int testCallAdd4(int a, int b, int c = 0, int d = 0)
-int b=testCallAdd4(1,5,1,1);
-int c=testCallAdd4(1,5.0f,2);
-int d=testCallAdd4(1,5.0f);
-trace ( b ,c,d);
-
-
-return;
