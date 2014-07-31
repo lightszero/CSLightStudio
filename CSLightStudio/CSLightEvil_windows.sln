@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightEvil", "core\CSLightEvil\CSLightEvil.csproj", "{A750AA17-E057-4C4A-9D79-BE4F81BC7765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightTestor", "windows\CSLightTestor\CSLightTestor.csproj", "{76074628-FC6D-4B22-B3FA-BFCD879DAE16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSEvilTestor", "windows\CSEvilTestor\CSEvilTestor.csproj", "{B321C533-C288-4FDB-A34A-1C25B063F669}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A750AA17-E057-4C4A-9D79-BE4F81BC7765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A750AA17-E057-4C4A-9D79-BE4F81BC7765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A750AA17-E057-4C4A-9D79-BE4F81BC7765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A750AA17-E057-4C4A-9D79-BE4F81BC7765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76074628-FC6D-4B22-B3FA-BFCD879DAE16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B321C533-C288-4FDB-A34A-1C25B063F669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B321C533-C288-4FDB-A34A-1C25B063F669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B321C533-C288-4FDB-A34A-1C25B063F669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B321C533-C288-4FDB-A34A-1C25B063F669}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

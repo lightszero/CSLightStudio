@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A750AA17-E057-4C4A-9D79-BE4F81BC7765}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSLightEvil</RootNamespace>
+    <AssemblyName>CSLightEvil</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="C#LE\CLS_Environment.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_00Util.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_01Block.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_02Value.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_03DefineSet.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_04Math.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_05Function.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_06Loop.cs" />
+    <Compile Include="C#LE\Compitler\CLS_Compiler_07OO.cs" />
+    <Compile Include="C#LE\Expression\CLS_Expression_Block.cs" />
+    <Compile Include="C#LE\Expression\CLS_Expression_Define.cs" />
+    <Compile Include="C#LE\Expression\CLS_Expression_GetValue.cs" />
+    <Compile Include="C#LE\Expression\CLS_Expression_SetValue.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_Function.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_FunctionNew.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexFind.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexSetValue.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFind.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFunction.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberSetValue.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticFind.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticFunction.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticSetValue.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopBreak.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopContinue.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopFor.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopForEach.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopIf.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopReturn.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_Math2Value.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_Math2ValueAndOR.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_Math2ValueLogic.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_Math3Value.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_NegativeLogic.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_NegativeValue.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOp.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOpWithValue.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
+    <Compile Include="C#LE\FunctionTrace.cs" />
+    <Compile Include="C#LE\RegHelper_Function.cs" />
+    <Compile Include="C#LE\RegHelper_Type.cs" />
+    <Compile Include="C#LE\Token\CLS_Token.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Class.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Double.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Float.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Int.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Null.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_String.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_UInt.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Var.cs" />
+    <Compile Include="C#LE\Value\CLS_Value_Value.cs" />
+    <Compile Include="C#LE\_Interface\CLS_Content.cs" />
+    <Compile Include="C#LE\_Interface\CLS_Expression.cs" />
+    <Compile Include="C#LE\_Interface\CLS_Function.cs" />
+    <Compile Include="C#LE\_Interface\CLS_Loger.cs" />
+    <Compile Include="C#LE\_Interface\CLS_Type.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
