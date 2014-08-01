@@ -256,7 +256,10 @@ namespace CSLE
             get;
             protected set;
         }
-
+        public string _namespace
+        {
+            get { return type.NameSpace; }
+        }
         public CLType type
         {
             get;

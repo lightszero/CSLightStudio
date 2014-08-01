@@ -14,7 +14,10 @@ namespace CSLE
         {
             get { return "uint"; }
         }
-
+        public string _namespace
+        {
+            get { return ""; }
+        }
         public CLType type
         {
             get { return typeof(uint); }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 namespace CSLE
 {
-    public class NotScipt:Attribute
+    public class NotScipt : Attribute
     {
 
     }
@@ -14,7 +14,7 @@ namespace CSLE
         {
             List<ICLS_Type> typelist = new List<ICLS_Type>();
 
-            List<List<string>> usingList = new List<List<string>>();
+            List<string> usingList = new List<string>();
             //识别using
 
             //扫描token有没有要合并的类型
@@ -32,13 +32,23 @@ namespace CSLE
                     int pos = i;
                     int iend = FindCodeAny(tokens, ref pos, out dep);
                     var list = Compiler_Using(tokens, env, pos, iend);
-                    usingList.Add(list);
+                    string useText = "";
+                    for (int j = 0; j < list.Count; j++)
+                    {
+                        useText += list[j];
+                        if (j != list.Count - 1)
+                        {
+                            useText += ".";
+                        }
+                    }
+                    usingList.Add(useText);
                     i = iend;
                     continue;
                 }
-                if(tokens[i].type==TokenType.PUNCTUATION && tokens[i].text=="[")
+
+                if (tokens[i].type == TokenType.PUNCTUATION && tokens[i].text == "[")
                 {
-                    if (tokens[i + 1].text == "NotScipt" || (tokens[i + 1].text == "CSEvil" && tokens[i+3].text=="NotScipt"))
+                    if (tokens[i + 1].text == "NotScipt" || (tokens[i + 1].text == "CSEvil" && tokens[i + 3].text == "NotScipt"))
                     {
                         bJumpClass = true;
                         i = i + 2;
@@ -52,7 +62,7 @@ namespace CSLE
                     while (tokens[ibegin].text != "{")
                         ibegin++;
                     int iend = FindBlock(env, tokens, ibegin);
-                    if(bJumpClass)
+                    if (bJumpClass)
                     {
                         env.logger.Log("(NotScript)findclass:" + name + "(" + ibegin + "," + iend + ")");
                     }
@@ -73,7 +83,7 @@ namespace CSLE
                     }
                     else
                     {
-                        ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend, onlyGotType);
+                        ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend, onlyGotType, usingList);
                         if (type != null)
                         {
                             typelist.Add(type);
@@ -86,13 +96,74 @@ namespace CSLE
 
             return typelist;
         }
-        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, IList<Token> tokens, int ibegin, int iend, bool onlyGotType = false)
+        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, IList<Token> tokens, int ibegin, int iend, bool onlyGotType = false, IList<string> usinglist = null)
         {
 
             CLS_Type_Class stype = env.GetTypeByKeywordQuiet(classname) as CLS_Type_Class;
             if (stype == null)
                 stype = new CLS_Type_Class(classname);
             if (onlyGotType) return stype;
+
+            if (env.useNamespace && usinglist != null)
+            {//使用命名空间,替换token
+
+                List<Token> newTokens = new List<Token>();
+                for (int i = ibegin; i <= iend; i++)
+                {
+                    if (tokens[i].type == TokenType.IDENTIFIER)
+                    {
+                        string ntype = null;
+                        string shortname = tokens[i].text;
+                        int startpos = i;
+                        while (ntype == null)
+                        {
+
+                            foreach (var u in usinglist)
+                            {
+                                string ttype = u + "." + shortname;
+                                if (env.GetTypeByKeywordQuiet(ttype) != null)
+                                {
+                                    ntype = ttype;
+
+                                    break;
+                                }
+
+                            }
+                            if (ntype != null) break;
+                            if ((startpos + 2) <= iend && tokens[startpos + 1].text == "." && tokens[startpos + 2].type == TokenType.IDENTIFIER)
+                            {
+                                shortname += "." + tokens[startpos + 2].text;
+
+                                startpos += 2;
+                                if (env.GetTypeByKeywordQuiet(shortname) != null)
+                                {
+                                    ntype = shortname;
+
+                                    break;
+                                }
+                                continue;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (ntype != null)
+                        {
+                            var t = tokens[i];
+                            t.text = ntype;
+                            t.type = TokenType.TYPE;
+                            newTokens.Add(t);
+                            i = startpos;
+                            continue;
+                        }
+                    }
+                    newTokens.Add(tokens[i]);
+                }
+                tokens = newTokens;
+                ibegin = 0;
+                iend = tokens.Count - 1;
+            }
 
             stype.compiled = false;
             (stype.function as SType).functions.Clear();
@@ -129,13 +200,13 @@ namespace CSLE
                     bool bctor = false;
                     if (tokens[i].type == TokenType.TYPE)//类型
                     {
-          
-                        if (tokens[i].text == classname && tokens[i+1].text=="(")
+
+                        if (tokens[i].text == classname && tokens[i + 1].text == "(")
                         {//构造函数
                             bctor = true;
                             i--;
                         }
-                        else if(tokens[i].text=="void")
+                        else if (tokens[i].text == "void")
                         {
 
                         }

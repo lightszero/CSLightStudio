@@ -10,7 +10,10 @@ namespace CSLE
         {
             get { return "null"; }
         }
-
+        public string _namespace
+        {
+            get { return ""; }
+        }
         public CLType type
         {
             get { return null; }

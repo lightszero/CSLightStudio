@@ -8,13 +8,18 @@ namespace CSLE
     {
         public CLS_Type_Double()
         {
+                    
             function = new RegHelper_TypeFunction(typeof(double));
         }
         public string keyword
         {
+
             get { return "double"; }
         }
-
+        public string _namespace
+        {
+            get { return ""; }
+        }
         public CLType type
         {
             get { return typeof(double); }

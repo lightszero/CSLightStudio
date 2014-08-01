@@ -14,7 +14,10 @@ namespace CSLE
         {
             get { return "var"; }
         }
-
+        public string _namespace
+        {
+            get { return ""; }
+        }
         public CLType type
         {
             get { return (typeof(var)); }

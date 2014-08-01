@@ -13,9 +13,10 @@ namespace CSLE
     public class CLS_Environment : ICLS_Environment, ICLS_Environment_Compiler
     {
 
-        public CLS_Environment(ICLS_Logger logger)
+        public CLS_Environment(ICLS_Logger logger, bool useNamespace = false)
         {
             this.logger = logger;
+            this.useNamespace = useNamespace;
             tokenParser = new CLS_TokenParser();
             compiler = new CLS_Expression_Compiler(logger);
             RegType(new CLS_Type_Int());
@@ -26,11 +27,16 @@ namespace CSLE
             RegType(new CLS_Type_Var());
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();
-
-            RegFunction(new FunctionTrace());
-
+            //if (!useNamespace)//命名空间模式不能直接用函数
+            {
+                RegFunction(new FunctionTrace());
+            }
         }
-
+        public bool useNamespace
+        {
+            get;
+            private set;
+        }
 
         Dictionary<CLType, ICLS_Type> types = new Dictionary<CLType, ICLS_Type>();
         Dictionary<string, ICLS_Type> typess = new Dictionary<string, ICLS_Type>();
@@ -38,10 +44,20 @@ namespace CSLE
         public void RegType(ICLS_Type type)
         {
             types[type.type] = type;
-            typess[type.keyword] = type;
-            if (tokenParser.types.Contains(type.keyword) == false)
+           
+            string typename = type.keyword;
+            if (useNamespace)
             {
-                tokenParser.types.Add(type.keyword);
+
+                if(string.IsNullOrEmpty(type._namespace)==false)
+                {
+                    typename = type._namespace + "." + type.keyword;
+                }
+            }
+            typess[typename] = type;
+            if (tokenParser.types.Contains(typename) == false)
+            {
+                tokenParser.types.Add(typename);
             }
         }
         public ICLS_Type GetType(CLType type)
@@ -73,6 +89,10 @@ namespace CSLE
         }
         public void RegFunction(ICLS_Function func)
         {
+            //if (useNamespace)
+            //{
+            //    throw new Exception("用命名空间时不能直接使用函数，必须直接定义在类里");
+            //}
             calls[func.keyword] = func;
         }
         public ICLS_Function GetFunction(string name)

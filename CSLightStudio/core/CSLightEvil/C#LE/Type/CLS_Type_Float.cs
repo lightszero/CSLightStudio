@@ -14,7 +14,10 @@ namespace CSLE
         {
             get { return "float"; }
         }
-
+        public string _namespace
+        {
+            get { return ""; }
+        }
         public CLType type
         {
             get { return typeof(float); }

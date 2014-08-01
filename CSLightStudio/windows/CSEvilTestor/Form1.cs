@@ -17,8 +17,9 @@ namespace CSEvilTestor
         CSLE.CLS_Environment env = null;// 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            env = new CSLE.CLS_Environment(this);
+            bool useNamespace = true;
+            env = new CSLE.CLS_Environment(this, useNamespace);//如果要启用命名空间，第二个参数要打开
+            
             env.RegType(new CSLE.RegHelper_Type(typeof(TestDele)));
             env.RegType(new CSLE.RegHelper_Type(typeof(Program)));
             env.RegType(new CSLE.RegHelper_DeleAction("Action"));

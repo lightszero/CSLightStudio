@@ -197,7 +197,10 @@ namespace CSLE
                     CLS_Content.Value value = null;
                     if(this.functions[func].expr_runtime!=null)
                          value =this.functions[func].expr_runtime.ComputeValue(content);
+                    else
+                    {
 
+                    }
                     contentParent.OutStack(content);
                     return value;
                 }
@@ -277,10 +280,16 @@ namespace CSLE
         public CLS_Type_Class(string keyword)
         {
             this.keyword = keyword;
+            this._namespace = "";
             type = new SType(keyword);
             compiled = false;
         }
         public string keyword
+        {
+            get;
+            private set;
+        }
+        public string _namespace
         {
             get;
             private set;
@@ -331,5 +340,8 @@ namespace CSLE
         {
             get { return null; }
         }
+
+
+
     }
 }

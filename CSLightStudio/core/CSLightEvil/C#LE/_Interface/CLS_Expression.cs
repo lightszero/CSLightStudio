@@ -49,6 +49,10 @@ namespace CSLE
     }
     public interface ICLS_Environment
     {
+        bool useNamespace
+        {
+            get;
+        }
         void RegType(ICLS_Type type);
         ICLS_Type GetType(CLType type);
 

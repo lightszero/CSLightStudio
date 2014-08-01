@@ -261,6 +261,14 @@ namespace CSLE
         }
         public Value Get(string name)
         {
+            if(name=="this")
+            {
+                 Value v = new Value();
+                 v.type = CallType;
+                 v.value = CallThis;
+                 return v;
+            }
+
             if (values.ContainsKey(name))//优先上下文变量
                 return values[name];
 

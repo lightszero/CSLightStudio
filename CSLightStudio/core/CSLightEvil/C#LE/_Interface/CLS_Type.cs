@@ -97,10 +97,22 @@ namespace CSLE
                 else return stype.Name;
             }
         }
+        public string NameSpace
+        {
+            get
+            {
+                if (type != null) return type.Namespace;
+                else return stype.Namespace;
+            }
+        }
     }
     public interface ICLS_Type
     {
         string keyword
+        {
+            get;
+        }
+        string _namespace
         {
             get;
         }

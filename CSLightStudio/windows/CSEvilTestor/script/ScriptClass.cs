@@ -1,4 +1,4 @@
-﻿using CSEvilTestor;
+﻿//using CSEvilTestor;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,9 +16,13 @@ class ScriptClass
     }
     public int GetI()
     {
-        TestDele.instance.onUpdate += Test;
-        deleA += Test;
-        Test();
+        //TestDele.instance.onUpdate += Test;
+        this.deleA += Test;
+        this.Test();
+        int j = 0;
+        CSEvilTestor.Program.Trace("j=" + j);
+        CSEvilTestor.Program.Trace("j=" + this.j);
+
         return i + j + k;
     }
     
@@ -26,7 +30,7 @@ class ScriptClass
     public void Test()
     {
         j++;
-        Program.Trace("j=" + j);
+        CSEvilTestor.Program.Trace("j=" + j);
     }
 
 }
