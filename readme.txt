@@ -14,7 +14,7 @@ C#Light/Evil是在C#Light的基础上增加面向对象部分
 
 
 2014-08-1  0.30Alpha 版本发布
-C#Light/C#Evil
+C#Light/Evil
 的功能体系已经固定，接口也已经稳定下来
 进入测试修改Bug与制作例子的阶段
 先确定为0.30Alpha版本
@@ -30,6 +30,15 @@ C#Light/Evil
 
 
 
+
 因为googlecode被封的太厉害，很多同学提意见，于是把CSLightStudio迁移到GitHub
 这是第一次提交2014-7-8
 
+2014-07-?
+开发C#Evil的想法产生
+
+2014-06-11
+C#Light 经过商业项目检测后0.2正式版发布
+
+2014-03-11
+C#Light 0.01版提交，只完成了数值四则运算计算
