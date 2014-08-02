@@ -294,9 +294,12 @@ namespace CLScriptTestor
                 }
                 catch (Exception err)
                 {
-                    var dump = content.Dump(tokensResult);
-                    MessageBox.Show("dump\n" +err.Message+"\n" + dump +"\nerr:"+ err.ToString());
-                    Log_Error("执行错误" + err.ToString() + ":" + dump);
+                    string contentValue = content.DumpValue();
+                    string contentStack = content.DumpStack(null);
+                    string systemError = "SystemError:\n"+err.ToString();
+
+                    MessageBox.Show(contentValue + "\n" + contentStack +"\n"+ systemError);
+                    Log_Error("执行错误" + err.ToString() + ":" + contentStack+"\n"+contentValue);
                 }
                 if (returnvalue == null)
                 {

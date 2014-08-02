@@ -105,6 +105,8 @@ namespace CSLE
                         value.value_value = (bool)result.value;
                         value.tokenBegin = expr.listParam[0].tokenBegin;
                         value.tokenEnd = expr.listParam[1].tokenEnd;
+                        value.lineBegin = expr.listParam[0].lineBegin;
+                        value.lineEnd = expr.listParam[1].lineEnd;
                         return value;
                     }
                     else
@@ -113,7 +115,8 @@ namespace CSLE
                         ICLS_Value value = v.MakeValue(result.value);
                         value.tokenBegin = expr.listParam[0].tokenBegin;
                         value.tokenEnd = expr.listParam[1].tokenEnd;
-
+                        value.lineBegin = expr.listParam[0].lineBegin;
+                        value.lineEnd = expr.listParam[1].lineEnd;
                         return value;
                     }
 
@@ -137,13 +140,13 @@ namespace CSLE
         }
 
 
-        public IList<ICLS_Type> FileCompiler(IList<Token> tlist, ICLS_Environment env)
+        public IList<ICLS_Type> FileCompiler(ICLS_Environment env,string filename,IList<Token> tlist, bool embDebugToken)
         {
-            return _FileCompiler(tlist, env,false);
+            return _FileCompiler(filename, tlist, embDebugToken, env, false);
         }
-        public IList<ICLS_Type> FilePreCompiler(IList<Token> tlist, ICLS_Environment env)
+        public IList<ICLS_Type> FilePreCompiler(ICLS_Environment env, string filename, IList<Token> tlist)
         {
-            return _FileCompiler(tlist, env, true);
+            return _FileCompiler(filename, tlist, false, env, true);
         }
     }
 }

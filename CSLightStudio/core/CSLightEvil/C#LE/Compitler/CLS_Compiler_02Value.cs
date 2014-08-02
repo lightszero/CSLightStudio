@@ -37,7 +37,7 @@ namespace CSLE
             }
             else if (value.type == TokenType.IDENTIFIER)
             {
-                CLS_Expression_GetValue getvalue = new CLS_Expression_GetValue(pos,pos);
+                CLS_Expression_GetValue getvalue = new CLS_Expression_GetValue(pos, pos, value.line, value.line);
                 getvalue.value_name = value.text;
                 return getvalue;
             }
@@ -93,7 +93,7 @@ namespace CSLE
                 bool succ = Compiler_Expression(tlist,content, expbegin, expend2, out subvalue);
                 if (succ && subvalue != null)
                 {
-                    CLS_Expression_NegativeValue v = new CLS_Expression_NegativeValue(pos,expend2);
+                    CLS_Expression_NegativeValue v = new CLS_Expression_NegativeValue(pos, expend2, tlist[pos].line, tlist[expend2].line);
                     v.listParam.Add(subvalue);
                     return v;
                 }
@@ -120,7 +120,7 @@ namespace CSLE
                 bool succ = Compiler_Expression(tlist, content,expbegin, expend2, out subvalue);
                 if (succ && subvalue != null)
                 {
-                    CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pos,expend2);
+                    CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pos, expend2, tlist[pos].line, tlist[expend2].line);
                     v.listParam.Add(subvalue);
                     return v;
                 }

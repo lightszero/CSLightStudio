@@ -10,7 +10,7 @@ namespace CSLE
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        IList<ICLS_Type> _FileCompiler(IList<Token> tokens, ICLS_Environment env, bool onlyGotType = false)
+        IList<ICLS_Type> _FileCompiler(string filename, IList<Token> tokens, bool embDeubgToken,ICLS_Environment env, bool onlyGotType = false)
         {
             List<ICLS_Type> typelist = new List<ICLS_Type>();
 
@@ -78,12 +78,12 @@ namespace CSLE
                     }
                     if (bJumpClass)
                     {//忽略这个Class
-                        ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend, true);
+                        ICLS_Type type = Compiler_Class(env, name, filename, tokens, ibegin, iend, embDeubgToken, true);
                         bJumpClass = false;
                     }
                     else
                     {
-                        ICLS_Type type = Compiler_Class(env, name, tokens, ibegin, iend, onlyGotType, usingList);
+                        ICLS_Type type = Compiler_Class(env, name, filename, tokens, ibegin, iend, embDeubgToken, onlyGotType, usingList);
                         if (type != null)
                         {
                             typelist.Add(type);
@@ -96,12 +96,12 @@ namespace CSLE
 
             return typelist;
         }
-        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, IList<Token> tokens, int ibegin, int iend, bool onlyGotType = false, IList<string> usinglist = null)
+        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, string filename,IList<Token> tokens, int ibegin, int iend,bool EmbDebugToken, bool onlyGotType = false, IList<string> usinglist = null)
         {
 
             CLS_Type_Class stype = env.GetTypeByKeywordQuiet(classname) as CLS_Type_Class;
             if (stype == null)
-                stype = new CLS_Type_Class(classname);
+                stype = new CLS_Type_Class(classname, filename);
             if (onlyGotType) return stype;
 
             if (env.useNamespace && usinglist != null)
@@ -174,7 +174,10 @@ namespace CSLE
             //属性语法            //Type id{get{},set{}};
             bool bPublic = false;
             bool bStatic = false;
-
+            if(EmbDebugToken)//SType 嵌入Token
+            {
+                stype.EmbDebugToken(tokens);
+            }
             for (int i = ibegin; i <= iend; i++)
             {
 

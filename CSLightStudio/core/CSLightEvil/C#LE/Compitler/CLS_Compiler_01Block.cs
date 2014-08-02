@@ -87,7 +87,7 @@ namespace CSLE
             }
             else if (values.Count > 1)
             {
-                CLS_Expression_Block block = new CLS_Expression_Block(pos,end);
+                CLS_Expression_Block block = new CLS_Expression_Block(pos, end, tlist[pos].line, tlist[end].line);
                 foreach (var v in values)
                     block.listParam.Add(v);
                 value = block;

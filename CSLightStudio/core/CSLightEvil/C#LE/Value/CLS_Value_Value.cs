@@ -39,6 +39,16 @@ namespace CSLE
             get;
             set;
         }
+        public int lineBegin
+        {
+            get;
+            set;
+        }
+        public int lineEnd
+        {
+            get;
+            set;
+        }
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
             content.InStack(this);
@@ -82,6 +92,16 @@ namespace CSLE
             set;
         }
         public int tokenEnd
+        {
+            get;
+            set;
+        }
+        public int lineBegin
+        {
+            get;
+            set;
+        }
+        public int lineEnd
         {
             get;
             set;
@@ -136,6 +156,16 @@ namespace CSLE
             get;
             set;
         }
+        public int lineBegin
+        {
+            get;
+            set;
+        }
+        public int lineEnd
+        {
+            get;
+            set;
+        }
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
             content.InStack(this);
@@ -180,6 +210,16 @@ namespace CSLE
             set;
         }
         public int tokenEnd
+        {
+            get;
+            set;
+        }
+        public int lineBegin
+        {
+            get;
+            set;
+        }
+        public int lineEnd
         {
             get;
             set;

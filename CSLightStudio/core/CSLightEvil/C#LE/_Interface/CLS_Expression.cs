@@ -27,6 +27,16 @@ namespace CSLE
             get;
             set;
         }
+        int lineBegin
+        {
+            get;
+            set;
+        }
+        int lineEnd
+        {
+            get;
+            set;
+        }
     }
     //表达式是一个值
     public interface ICLS_Expression
@@ -43,6 +53,14 @@ namespace CSLE
             get;
         }
         int tokenEnd
+        {
+            get;
+        }
+        int lineBegin
+        {
+            get;
+        }
+        int lineEnd
         {
             get;
         }
@@ -87,11 +105,15 @@ namespace CSLE
         CLS_Content.Value Expr_Execute(ICLS_Expression expr, CLS_Content content = null);
 
 
-        void Project_Compiler(Dictionary<string, IList<Token>> project);
+        void Project_Compiler(Dictionary<string, IList<Token>> project, bool embDebugToken);
 
         void File_PreCompilerToken(string filename, IList<Token> listToken);
 
-        void File_CompilerToken(string filename, IList<Token> listToken);
+        void File_CompilerToken(string filename, IList<Token> listToken,bool embDebugToken);
+
+        void Project_PacketToStream(Dictionary<string, IList<Token>> project, System.IO.Stream outstream);
+
+        Dictionary<string, IList<Token>> Project_FromPacketStream(System.IO.Stream instream);
     }
 
     public interface ICLS_Expression_Compiler
@@ -100,8 +122,8 @@ namespace CSLE
         ICLS_Expression Compiler_NoBlock(IList<Token> tlist, ICLS_Environment content);//表达式，一条语句
         ICLS_Expression Optimize(ICLS_Expression value, ICLS_Environment content);
 
-        IList<ICLS_Type> FileCompiler(IList<Token> tlist, ICLS_Environment env);
-        IList<ICLS_Type> FilePreCompiler(IList<Token> tlist, ICLS_Environment env);
+        IList<ICLS_Type> FileCompiler(ICLS_Environment env,string filename,IList<Token> tlist,bool embDebugToken );
+        IList<ICLS_Type> FilePreCompiler(ICLS_Environment env,string filename,IList<Token> tlist);
 
     }
 

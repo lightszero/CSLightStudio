@@ -66,14 +66,14 @@ namespace CSLE
                     CLS_Expression_Function vf = valueright as CLS_Expression_Function;
                     if (vg != null)
                     {
-                        CLS_Expression_StaticFind value = new CLS_Expression_StaticFind(pos,rightend);
+                        CLS_Expression_StaticFind value = new CLS_Expression_StaticFind(pos, rightend, tlist[pos].line, tlist[rightend].line);
                         value.staticmembername = vg.value_name;
                         value.type = content.GetTypeByKeyword(tlist[pos].text);
                         return value;
                     }
                     else if (vf != null)
                     {
-                        CLS_Expression_StaticFunction value = new CLS_Expression_StaticFunction(pos,rightend);
+                        CLS_Expression_StaticFunction value = new CLS_Expression_StaticFunction(pos, rightend, tlist[pos].line, tlist[rightend].line);
                         value.functionName = vf.funcname;
                         value.type = content.GetTypeByKeyword(tlist[pos].text);
                         //value.listParam.Add(valueleft);
@@ -101,7 +101,7 @@ namespace CSLE
                 {
                     ICLS_Expression v;
                     bool succ = Compiler_Expression(tlist, content, oppos + 3, posend , out v);
-                    CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(pos,posend);
+                    CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(pos, posend, tlist[pos].line, tlist[posend].line);
                     convert.listParam.Add(v);
                     convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
 
@@ -115,14 +115,14 @@ namespace CSLE
                 {
                     rightend--;
                     bool succs = Compiler_Expression(tlist, content, right, rightend, out valueright);
-                    CLS_Expression_IndexFind value = new CLS_Expression_IndexFind(left,rightend);
+                    CLS_Expression_IndexFind value = new CLS_Expression_IndexFind(left, rightend, tlist[left].line, tlist[rightend].line);
                     value.listParam.Add(valueleft);
                     value.listParam.Add(valueright);
                     return value;
                 }
                 else   if (tlist[oppos].text == "as")
                      {
-                         CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(left, oppos + 1);
+                         CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(left, oppos + 1, tlist[left].line, tlist[oppos + 1].line);
                          convert.listParam.Add(valueleft);
                          convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
 
@@ -141,7 +141,7 @@ namespace CSLE
                         CLS_Expression_IndexFind ifinde = valueleft as CLS_Expression_IndexFind;
                         if (mfinde != null)
                         {
-                            CLS_Expression_MemberSetValue value = new CLS_Expression_MemberSetValue(left, rightend);
+                            CLS_Expression_MemberSetValue value = new CLS_Expression_MemberSetValue(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.membername = mfinde.membername;
                             value.listParam.Add(mfinde.listParam[0]);
                             value.listParam.Add(valueright);
@@ -149,7 +149,7 @@ namespace CSLE
                         }
                         else if (sfinde != null)
                         {
-                            CLS_Expression_StaticSetValue value = new CLS_Expression_StaticSetValue(left,rightend);
+                            CLS_Expression_StaticSetValue value = new CLS_Expression_StaticSetValue(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.staticmembername = sfinde.staticmembername;
                             value.type = sfinde.type;
                             //value.listParam.Add(mfinde.listParam[0]);
@@ -158,7 +158,7 @@ namespace CSLE
                         }
                         else if (ifinde != null)
                         {
-                            CLS_Expression_IndexSetValue value = new CLS_Expression_IndexSetValue(left,rightend);
+                            CLS_Expression_IndexSetValue value = new CLS_Expression_IndexSetValue(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.listParam.Add(ifinde.listParam[0]);
                             value.listParam.Add(ifinde.listParam[1]);
                             value.listParam.Add(valueright);
@@ -182,14 +182,14 @@ namespace CSLE
                        
                         if (vg != null)
                         {
-                            CLS_Expression_MemberFind value = new CLS_Expression_MemberFind(left,rightend);
+                            CLS_Expression_MemberFind value = new CLS_Expression_MemberFind(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.listParam.Add(valueleft);
                             value.membername = vg.value_name;
                             return value;
                         }
                         else if (vf != null)
                         {
-                            CLS_Expression_MemberFunction value = new CLS_Expression_MemberFunction(left,rightend);
+                            CLS_Expression_MemberFunction value = new CLS_Expression_MemberFunction(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.functionName = vf.funcname;
                             value.listParam.Add(valueleft);
                             value.listParam.AddRange(vf.listParam.ToArray());
@@ -208,7 +208,7 @@ namespace CSLE
                     }
                     else if (tlist[oppos].text == "+=" || tlist[oppos].text == "-=" || tlist[oppos].text == "*=" || tlist[oppos].text == "/=" || tlist[oppos].text == "%=")
                     {
-                        CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left,rightend);
+                        CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left, rightend, tlist[left].line, tlist[rightend].line);
                         //value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
                         value.listParam.Add(valueleft);
                         value.listParam.Add(valueright);
@@ -217,7 +217,7 @@ namespace CSLE
                     }
                     else if (tlist[oppos].text == "&&" || tlist[oppos].text == "||")
                     {
-                        CLS_Expression_Math2ValueAndOr value = new CLS_Expression_Math2ValueAndOr(left,rightend);
+                        CLS_Expression_Math2ValueAndOr value = new CLS_Expression_Math2ValueAndOr(left, rightend, tlist[left].line, tlist[rightend].line);
                         value.listParam.Add(valueleft);
                         value.listParam.Add(valueright);
                         value.mathop = tlist[oppos].text[0];
@@ -225,7 +225,7 @@ namespace CSLE
                     }
                     else if (tlist[oppos].text == ">" || tlist[oppos].text == ">=" || tlist[oppos].text == "<" || tlist[oppos].text == "<=" || tlist[oppos].text == "==" || tlist[oppos].text == "!=")
                     {
-                        CLS_Expression_Math2ValueLogic value = new CLS_Expression_Math2ValueLogic(left,rightend);
+                        CLS_Expression_Math2ValueLogic value = new CLS_Expression_Math2ValueLogic(left, rightend, tlist[left].line, tlist[rightend].line);
                         value.listParam.Add(valueleft);
                         value.listParam.Add(valueright);
                         logictoken token = logictoken.not_equal;
@@ -261,7 +261,7 @@ namespace CSLE
                         char mathop=tlist[oppos].text[0];
                         if (mathop == '?')
                         {
-                            CLS_Expression_Math3Value value = new CLS_Expression_Math3Value(left, rightend);
+                            CLS_Expression_Math3Value value = new CLS_Expression_Math3Value(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.listParam.Add(valueleft);
 
                             CLS_Expression_Math2Value vvright = valueright as CLS_Expression_Math2Value;
@@ -273,7 +273,7 @@ namespace CSLE
                         }
                         else
                         {
-                            CLS_Expression_Math2Value value = new CLS_Expression_Math2Value(left, rightend);
+                            CLS_Expression_Math2Value value = new CLS_Expression_Math2Value(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.listParam.Add(valueleft);
                             value.listParam.Add(valueright);
                             value.mathop =mathop;
@@ -294,7 +294,7 @@ namespace CSLE
         }
         public ICLS_Expression Compiler_Expression_MathSelf(IList<Token> tlist, int pos, int posend)
         {
-            CLS_Expression_SelfOp value = new CLS_Expression_SelfOp(pos,posend);
+            CLS_Expression_SelfOp value = new CLS_Expression_SelfOp(pos, posend, tlist[pos].line, tlist[posend].line);
             value.value_name = tlist[pos].text;
             value.mathop = tlist[pos + 1].text[0];
 

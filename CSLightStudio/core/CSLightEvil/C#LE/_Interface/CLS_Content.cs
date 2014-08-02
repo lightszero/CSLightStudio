@@ -22,6 +22,26 @@ namespace CSLE
                 stackContent = new Stack<CLS_Content>();
             }
         }
+        public string function
+        {
+            get;
+            set;
+        }
+        public string CallName
+        {
+            get
+            {
+                string strout = "";
+                if(this.CallType!=null)
+                {
+                    if(string.IsNullOrEmpty(this.CallType.filename)==false)
+                        strout+="("+this.CallType.filename+")";
+                    strout += this.CallType.Name + ":";
+                }
+                strout += this.function;
+                return strout;
+            }
+        }
         public bool useDebug
         {
             get;
@@ -73,13 +93,14 @@ namespace CSLE
             }
             stackExpr.Pop();
         }
-		public string DumpValue(IList<Token> tokenlist)
+		public string DumpValue()
 		{
 			string svalues = "";
             foreach (var subc in this.stackContent)
             {
-                svalues += subc.DumpValue(tokenlist);
+                svalues += subc.DumpValue();
             }
+            svalues += "DumpValue:" + this.CallName + "\n";
             foreach(var v in this.values)
             {
                 svalues += "V:" + v.Key + "=" + v.Value.ToString()+"\n";
@@ -91,20 +112,24 @@ namespace CSLE
 			string svalues = "";
             if (useDebug)
             {
+                if(this.CallType!=null&&this.CallType.tokenlist!=null)
+                {
+                    tokenlist = this.CallType.tokenlist;
+                }
                 foreach(var subc in this.stackContent)
                 {
                     svalues += subc.DumpStack(tokenlist);
                 }
-              
+                svalues += "DumpStack:" + this.CallName + "\n";
                 foreach(var s in stackExpr)
                 {
                     if ((s.tokenBegin == 0 && s.tokenEnd == 0)||tokenlist==null)
                     {
-                        svalues += "在脚本:" + s.ToString() + "\n";
+                        svalues += "<C#LE>:line(" + s.lineBegin + "-" + s.lineEnd + ")\n";
                     }
                     else
                     {
-                        svalues += "在脚本 :line("+tokenlist[s.tokenBegin].line+")";
+                        svalues += "<C#LE>:line(" + s.lineBegin + "-" + s.lineEnd + ")";
                         
                         if (s.tokenEnd - s.tokenBegin >= 20)
                         {
@@ -135,9 +160,9 @@ namespace CSLE
 
         }
 
-		public string Dump(IList<Token> tokenlist)
+		public string Dump(IList<Token> tokenlist=null)
 		{
-			string str = DumpValue(tokenlist);
+			string str = DumpValue();
 			str += DumpStack(tokenlist);
 			return str;
 		}

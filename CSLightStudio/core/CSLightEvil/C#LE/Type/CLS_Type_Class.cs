@@ -33,10 +33,25 @@ namespace CSLE
         ////    //this._GUID = Guid.Empty;
 
         //}
-        public SType(string keyword, string _namespace = "")
+        public SType(string keyword, string _namespace = "", string filename = null)
         {
             this.Name = keyword;
             this.Namespace = _namespace;
+            this.filename = filename;
+        }
+        public string filename
+        {
+            get;
+            private set;
+        }
+        public IList<Token> tokenlist
+        {
+            get;
+            private set;
+        }
+        public void EmbDebugToken(IList<Token> tokens)
+        {
+            this.tokenlist = tokens;
         }
         #region impl type
 
@@ -62,11 +77,11 @@ namespace CSLE
         #endregion
 
         #region Script IMPL
-        CLS_Content mycontent = null;
+        CLS_Content contentMemberCalc = null;
         public CLS_Content.Value New(CLS_Content content, IList<CLS_Content.Value> _params)
         {
-            if (mycontent == null)
-                mycontent = new CLS_Content(content.environment);
+            if (contentMemberCalc == null)
+                contentMemberCalc = new CLS_Content(content.environment);
             CLS_Value_ScriptValue sv = new CLS_Value_ScriptValue();
             sv.value_type = this;
             sv.value_value = new SInstance();
@@ -83,7 +98,7 @@ namespace CSLE
                     }
                     else
                     {
-                        sv.value_value.member[i.Key] = i.Value.expr_defvalue.ComputeValue(mycontent);
+                        sv.value_value.member[i.Key] = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
                     }
                 }
             }
@@ -95,8 +110,8 @@ namespace CSLE
         }
         void NewStatic(ICLS_Environment env)
         {
-            if (mycontent == null)
-                mycontent = new CLS_Content(env);
+            if (contentMemberCalc == null)
+                contentMemberCalc = new CLS_Content(env);
             if (this.staticMemberInstance == null)
             {
                 staticMemberInstance = new Dictionary<string, CLS_Content.Value>();
@@ -113,7 +128,7 @@ namespace CSLE
                         }
                         else
                         {
-                            staticMemberInstance[i.Key] = i.Value.expr_defvalue.ComputeValue(mycontent);
+                            staticMemberInstance[i.Key] = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
                         }
                     }
                 }
@@ -131,7 +146,7 @@ namespace CSLE
                     contentParent.InStack(content);//把这个上下文推给上层的上下文，这样如果崩溃是可以一层层找到原因的
                     content.CallType = this;
                     content.CallThis = null;
-
+                    content.function = function;
                     int i = 0;
                     foreach (var p in this.functions[function]._params)
                     {
@@ -150,11 +165,11 @@ namespace CSLE
         public CLS_Content.Value StaticValueGet(CLS_Content content, string valuename)
         {
             NewStatic(content.environment);
-           
+
             if (this.staticMemberInstance.ContainsKey(valuename))
             {
                 CLS_Content.Value v = new CLS_Content.Value();
-                v.type =this.staticMemberInstance[valuename].type;
+                v.type = this.staticMemberInstance[valuename].type;
                 v.value = this.staticMemberInstance[valuename].value;
                 return v;
             }
@@ -187,7 +202,7 @@ namespace CSLE
                     contentParent.InStack(content);//把这个上下文推给上层的上下文，这样如果崩溃是可以一层层找到原因的
                     content.CallType = this;
                     content.CallThis = object_this as SInstance;
-
+                    content.function = func;
                     int i = 0;
                     foreach (var p in this.functions[func]._params)
                     {
@@ -195,8 +210,8 @@ namespace CSLE
                         i++;
                     }
                     CLS_Content.Value value = null;
-                    if(this.functions[func].expr_runtime!=null)
-                         value =this.functions[func].expr_runtime.ComputeValue(content);
+                    if (this.functions[func].expr_runtime != null)
+                        value = this.functions[func].expr_runtime.ComputeValue(content);
                     else
                     {
 
@@ -210,21 +225,21 @@ namespace CSLE
 
         public CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
-             SInstance sin =object_this as SInstance;
-             if (sin.member.ContainsKey(valuename))
-             {
-                 CLS_Content.Value v = new CLS_Content.Value();
-                 v.type = sin.member[valuename].type;
-                 v.value = sin.member[valuename].value;
-                 return v;
-             }
+            SInstance sin = object_this as SInstance;
+            if (sin.member.ContainsKey(valuename))
+            {
+                CLS_Content.Value v = new CLS_Content.Value();
+                v.type = sin.member[valuename].type;
+                v.value = sin.member[valuename].value;
+                return v;
+            }
             throw new NotImplementedException();
         }
 
         public void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
-            SInstance sin =object_this as SInstance;
-            if(sin.member.ContainsKey(valuename))
+            SInstance sin = object_this as SInstance;
+            if (sin.member.ContainsKey(valuename))
             {
                 if (value != null && value.GetType() != (Type)this.members[valuename].type.type)
                 {
@@ -277,12 +292,16 @@ namespace CSLE
     }
     public class CLS_Type_Class : ICLS_Type
     {
-        public CLS_Type_Class(string keyword)
+        public CLS_Type_Class(string keyword, string filename = null)
         {
             this.keyword = keyword;
             this._namespace = "";
-            type = new SType(keyword);
+            type = new SType(keyword, "", filename);
             compiled = false;
+        }
+        public void EmbDebugToken(IList<Token> tokens)
+        {
+            ((SType)type).EmbDebugToken(tokens);
         }
         public string keyword
         {
@@ -330,8 +349,9 @@ namespace CSLE
 
         public ICLS_TypeFunction function
         {
-            get {
-                return (SType)type as ICLS_TypeFunction; 
+            get
+            {
+                return (SType)type as ICLS_TypeFunction;
             }
         }
 

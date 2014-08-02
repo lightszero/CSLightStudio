@@ -7,7 +7,7 @@ namespace CSLE
     {
         public ICLS_Expression Compiler_Expression_Define(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
-            CLS_Expression_Define define = new CLS_Expression_Define(pos, posend);
+            CLS_Expression_Define define = new CLS_Expression_Define(pos, posend, tlist[pos].line, tlist[posend].line);
             if (tlist[pos].text == "bool")
             {
                 define.value_type = typeof(bool);
@@ -33,7 +33,7 @@ namespace CSLE
             bool succ = Compiler_Expression(tlist,content, expbegin, expend, out v);
             if(succ&&v!=null)
             {
-                CLS_Expression_Define define = new CLS_Expression_Define(pos,posend);
+                CLS_Expression_Define define = new CLS_Expression_Define(pos, posend, tlist[pos].line, tlist[posend].line);
                 if (tlist[pos].text == "bool")
                 {
                     define.value_type = typeof(bool);
@@ -64,7 +64,7 @@ namespace CSLE
             bool succ = Compiler_Expression(tlist,content, expbegin, expend, out v);
             if (succ && v != null)
             {
-                CLS_Expression_SetValue define = new CLS_Expression_SetValue(pos,expend);
+                CLS_Expression_SetValue define = new CLS_Expression_SetValue(pos, expend, tlist[pos].line, tlist[expend].line);
                 define.value_name = tlist[pos].text;
                 define.listParam.Add(v);
                 return define;

@@ -44,12 +44,12 @@ namespace CSLE
         public void RegType(ICLS_Type type)
         {
             types[type.type] = type;
-           
+
             string typename = type.keyword;
             if (useNamespace)
             {
 
-                if(string.IsNullOrEmpty(type._namespace)==false)
+                if (string.IsNullOrEmpty(type._namespace) == false)
                 {
                     typename = type._namespace + "." + type.keyword;
                 }
@@ -75,7 +75,7 @@ namespace CSLE
             if (typess.ContainsKey(keyword) == false)
             {
                 logger.Log_Error("(CLScript)类型未注册:" + keyword);
-               
+
             }
             return typess[keyword];
         }
@@ -135,9 +135,9 @@ namespace CSLE
             return expr.ComputeValue(content);
         }
 
-        public void Project_Compiler(Dictionary<string, IList<Token>> project)
+        public void Project_Compiler(Dictionary<string, IList<Token>> project, bool embDebugToken)
         {
-            foreach(var f in project)
+            foreach (var f in project)
             {
                 File_PreCompilerToken(f.Key, f.Value);
             }
@@ -153,21 +153,21 @@ namespace CSLE
                         f.Value[i] = rp;
                     }
                 }
-                File_CompilerToken(f.Key, f.Value);
+                File_CompilerToken(f.Key, f.Value, embDebugToken);
             }
         }
         public void File_PreCompilerToken(string filename, IList<Token> listToken)
         {
-            IList<ICLS_Type> types = compiler.FilePreCompiler(listToken, this);
+            IList<ICLS_Type> types = compiler.FilePreCompiler(this, filename, listToken);
             foreach (var type in types)
             {
                 this.RegType(type);
             }
         }
-        public void File_CompilerToken(string filename, IList<Token> listToken)
+        public void File_CompilerToken(string filename, IList<Token> listToken, bool embDebugToken)
         {
             logger.Log("File_CompilerToken:" + filename);
-            IList<ICLS_Type> types = compiler.FileCompiler(listToken, this);
+            IList<ICLS_Type> types = compiler.FileCompiler(this, filename, listToken, embDebugToken);
             foreach (var type in types)
             {
                 if (this.GetTypeByKeywordQuiet(type.keyword) == null)
@@ -175,5 +175,41 @@ namespace CSLE
             }
         }
 
+
+        public void Project_PacketToStream(Dictionary<string, IList<Token>> project, System.IO.Stream outstream)
+        {
+            byte[] FileHead = System.Text.Encoding.UTF8.GetBytes("C#LE-DLL");
+            outstream.Write(FileHead, 0, 8);
+            UInt16 count = (UInt16)project.Count;
+            outstream.Write(BitConverter.GetBytes(count), 0, 2);
+            foreach (var p in project)
+            {
+                byte[] pname = System.Text.Encoding.UTF8.GetBytes(p.Key);
+                outstream.WriteByte((byte)pname.Length);
+                outstream.Write(pname, 0, pname.Length);
+                this.tokenParser.SaveTokenList(p.Value, outstream);
+            }
+        }
+        public Dictionary<string, IList<Token>> Project_FromPacketStream(System.IO.Stream instream)
+        {
+            Dictionary<string, IList<Token>> project = new Dictionary<string, IList<Token>>();
+            byte[] buf = new byte[8];
+            instream.Read(buf, 0, 8);
+            string filehead = System.Text.Encoding.UTF8.GetString(buf, 0, 8);
+            if (filehead != "C#LE-DLL") return null;
+            instream.Read(buf, 0, 2);
+            UInt16 count = BitConverter.ToUInt16(buf, 0);
+            for (int i = 0; i < count; i++)
+            {
+                int slen = instream.ReadByte();
+                byte[] buffilename = new byte[slen];
+                instream.Read(buffilename, 0, slen);
+                string key = System.Text.Encoding.UTF8.GetString(buffilename, 0, slen);
+                var tlist = tokenParser.ReadTokenList(instream);
+                project[key] = tlist;
+            }
+            return project;
+
+        }
     }
 }

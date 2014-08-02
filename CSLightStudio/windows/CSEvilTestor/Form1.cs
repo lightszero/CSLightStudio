@@ -33,8 +33,16 @@ namespace CSEvilTestor
                 var tokens = env.ParserToken(code);
                 scriptProject[f] = tokens;
             }
+            using(System.IO.Stream s =System.IO.File.Open("Test.CSLEDLL.bytes",System.IO.FileMode.Create))
+            {
+                env.Project_PacketToStream(scriptProject, s);
+            }
+            using (System.IO.Stream s = System.IO.File.Open("Test.CSLEDLL.bytes", System.IO.FileMode.Open))
+            {
+                scriptProject=env.Project_FromPacketStream( s);
+            }
             //编译脚本项目
-            env.Project_Compiler(scriptProject);
+            env.Project_Compiler(scriptProject,true);
 
         }
 
@@ -60,7 +68,20 @@ namespace CSEvilTestor
             string code = textBox1.Text;
             var tokens = env.tokenParser.Parse(code);
             var expr = env.Expr_CompilerToken(tokens);
-            env.Expr_Execute(expr);
+
+            CSLE.CLS_Content content = env.CreateContent();//创建一个上下文，出错以后可以用此上下文捕获信息
+            try
+            {
+                env.Expr_Execute(expr, content);
+            }
+            catch(Exception err)
+            {
+                string errValue = content.DumpValue();
+                string errStack = content.DumpStack(null);
+                string errSystem = "SystemError:\n" + err.ToString();
+
+                MessageBox.Show(errValue + errStack + errSystem);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

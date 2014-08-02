@@ -11,7 +11,7 @@ namespace CSLE
             int b1;
             int fs1 = pos + 1;
             int fe1 = FindCodeAny(tlist, ref fs1, out b1);
-            CLS_Expression_LoopFor value = new CLS_Expression_LoopFor(pos, fe1);
+            CLS_Expression_LoopFor value = new CLS_Expression_LoopFor(pos, fe1, tlist[pos].line, tlist[fe1].line);
 
             int testbegin = fs1 + 1;
             if(b1!=1)
@@ -53,6 +53,7 @@ namespace CSLE
             if(succ2)
             {
                 value.tokenEnd = fecode;
+                value.lineEnd = tlist[fecode].line;
                 value.listParam.Add(subvalueblock);
                 return value;
             }
@@ -65,7 +66,7 @@ namespace CSLE
             int b1;
             int fs1 = pos + 1;
             int fe1 = FindCodeAny(tlist, ref fs1, out b1);
-            CLS_Expression_LoopForEach value = new CLS_Expression_LoopForEach(pos,fe1);
+            CLS_Expression_LoopForEach value = new CLS_Expression_LoopForEach(pos, fe1, tlist[pos].line, tlist[fe1].line);
             int testbegin = fs1 + 1;
             if (b1 != 1)
             {
@@ -109,6 +110,7 @@ namespace CSLE
             if (succ2)
             {
                 value.tokenEnd = fecode;
+                value.lineEnd = tlist[fecode].line;
                 value.listParam.Add(subvalueblock);
                 return value;
             }
@@ -118,7 +120,7 @@ namespace CSLE
         public ICLS_Expression Compiler_Expression_Loop_If(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
 
-            CLS_Expression_LoopIf value = new CLS_Expression_LoopIf(pos,posend);
+            CLS_Expression_LoopIf value = new CLS_Expression_LoopIf(pos, posend, tlist[pos].line, tlist[posend].line);
             int b1;
             int fs1 = pos + 1;
             int fe1 = FindCodeAny(tlist, ref fs1, out b1);
@@ -134,6 +136,7 @@ namespace CSLE
                 if (succ)
                 {
                     value.tokenEnd = fe1;
+                    value.lineEnd = tlist[fe1].line;
                     value.listParam.Add(subvalue);
                 }
                 else
@@ -153,6 +156,7 @@ namespace CSLE
                 if (succ)
                 {
                     value.tokenEnd = fe2;
+                    value.lineEnd = tlist[fe2].line;
                     value.listParam.Add(subvalue);
                 }
                 else
@@ -176,6 +180,7 @@ namespace CSLE
                     if (succ)
                     {
                         value.tokenEnd = fe3;
+                        value.lineEnd = tlist[fe3].line;
                         value.listParam.Add(subvalue);
                     }
                     else
@@ -190,7 +195,7 @@ namespace CSLE
         }
         public ICLS_Expression Compiler_Expression_Loop_Return(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
-            CLS_Expression_LoopReturn value = new CLS_Expression_LoopReturn(pos,posend);
+            CLS_Expression_LoopReturn value = new CLS_Expression_LoopReturn(pos, posend, tlist[pos].line, tlist[posend].line);
 
             ICLS_Expression subvalue;
             bool succ = Compiler_Expression(tlist,content, pos + 1, posend, out subvalue);
@@ -203,12 +208,12 @@ namespace CSLE
         }
         public ICLS_Expression Compiler_Expression_Loop_Break(IList<Token> tlist, int pos)
         {
-            CLS_Expression_LoopBreak value = new CLS_Expression_LoopBreak(pos,pos);
+            CLS_Expression_LoopBreak value = new CLS_Expression_LoopBreak(pos, pos, tlist[pos].line, tlist[pos].line);
             return value;
         }
         public ICLS_Expression Compiler_Expression_Loop_Continue(IList<Token> tlist, int pos)
         {
-            CLS_Expression_LoopContinue value = new CLS_Expression_LoopContinue(pos,pos);
+            CLS_Expression_LoopContinue value = new CLS_Expression_LoopContinue(pos, pos, tlist[pos].line, tlist[pos].line);
             return value;
         }
     }
