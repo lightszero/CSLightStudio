@@ -1,0 +1,10 @@
+Debug.Log("Today is:"+Today());
+if(Today()==Monday)
+
+      return HP1+HP2;
+
+if(Today()==Sunday)
+
+     return HP1+HP2*2;
+
+return HP1+HP2*0.5;
