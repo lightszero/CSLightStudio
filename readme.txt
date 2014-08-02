@@ -3,6 +3,11 @@ C#Light/Evil 是一组pure C#写成的脚本语言
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：119706192
 
+针对Alpha的问题说明
+C#Light已经是正式版，在商业项目中检验过
+C#Light/Evil是在C#Light的基础上增加面向对象部分
+虽然Alpha但是稳定性也很高，如果不使用面向对象就是C#Light
+
 2014-08-2  0.35Alpha 版本发布
 修正了大量调试方面的问题
 并且建立了一套Unity3D使用的例子
