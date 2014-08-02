@@ -82,6 +82,7 @@ namespace CSLE
         {
             if (contentMemberCalc == null)
                 contentMemberCalc = new CLS_Content(content.environment);
+            NewStatic(content.environment);
             CLS_Value_ScriptValue sv = new CLS_Value_ScriptValue();
             sv.value_type = this;
             sv.value_value = new SInstance();
@@ -98,7 +99,18 @@ namespace CSLE
                     }
                     else
                     {
-                        sv.value_value.member[i.Key] = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
+                        var value = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
+                        if(i.Value.type.type!=value.type)
+                        {
+                            sv.value_value.member[i.Key] = new CLS_Content.Value();
+                            sv.value_value.member[i.Key].type = i.Value.type.type;
+                            sv.value_value.member[i.Key].value = content.environment.GetType(value.type).ConvertTo(content,value.value,i.Value.type.type);
+                        }
+                        else
+                        {
+                            sv.value_value.member[i.Key] =value;
+                        }
+
                     }
                 }
             }
@@ -128,7 +140,19 @@ namespace CSLE
                         }
                         else
                         {
-                            staticMemberInstance[i.Key] = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
+                            var value = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
+                            if (i.Value.type.type != value.type)
+                            {
+                                staticMemberInstance[i.Key] = new CLS_Content.Value();
+                                staticMemberInstance[i.Key].type = i.Value.type.type;
+                                staticMemberInstance[i.Key].value = env.GetType(value.type).ConvertTo(contentMemberCalc, value.value, i.Value.type.type);
+                            }
+                            else
+                            {
+                                staticMemberInstance[i.Key] = value;
+                            }
+
+
                         }
                     }
                 }
@@ -153,8 +177,14 @@ namespace CSLE
                         content.DefineAndSet(p.Key, p.Value.type, _params[i]);
                         i++;
                     }
-                    var value = this.functions[function].expr_runtime.ComputeValue(content);
+                    //var value = this.functions[function].expr_runtime.ComputeValue(content);
+                    CLS_Content.Value value = null;
+                    if (this.functions[function].expr_runtime != null)
+                        value = this.functions[function].expr_runtime.ComputeValue(content);
+                    else
+                    {
 
+                    }
                     contentParent.OutStack(content);
                     return value;
                 }
@@ -206,7 +236,7 @@ namespace CSLE
                     int i = 0;
                     foreach (var p in this.functions[func]._params)
                     {
-                        content.DefineAndSet(p.Key, p.Value.type, _params[i]);
+                        content.DefineAndSet(p.Key, p.Value.type, _params[i].value);
                         i++;
                     }
                     CLS_Content.Value value = null;

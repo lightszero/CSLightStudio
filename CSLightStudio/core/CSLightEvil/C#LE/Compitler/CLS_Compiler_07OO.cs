@@ -231,16 +231,21 @@ namespace CSLE
 
                             int funcparambegin = i + 2;
                             int funcparamend = FindBlock(env, tokens, funcparambegin);
-                            //Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
-                            for (int j = funcparambegin; j <= funcparambegin; j++)
+                            if (funcparamend-funcparambegin>1)
                             {
-                                if (tokens[j].text == "," || tokens[j].text == ")")
+                              
+                               
+                                //Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
+                                for (int j = funcparambegin; j <= funcparamend; j++)
                                 {
-                                    var ptype = tokens[j - 2].text;
-                                    var pid = tokens[j - 1].text;
-                                    var type = env.GetTypeByKeyword(ptype);
-                                    // _params[pid] = type;
-                                    func._params.Add(pid, type);
+                                    if (tokens[j].text == "," || tokens[j].text == ")")
+                                    {
+                                        var ptype = tokens[j - 2].text;
+                                        var pid = tokens[j - 1].text;
+                                        var type = env.GetTypeByKeyword(ptype);
+                                        // _params[pid] = type;
+                                        func._params.Add(pid, type);
+                                    }
                                 }
                             }
 

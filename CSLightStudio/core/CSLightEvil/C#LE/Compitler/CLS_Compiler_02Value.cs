@@ -41,6 +41,18 @@ namespace CSLE
                 getvalue.value_name = value.text;
                 return getvalue;
             }
+            else if(value.type == TokenType.TYPE)
+            {
+                CLS_Expression_GetValue getvalue = new CLS_Expression_GetValue(pos, pos, value.line, value.line);
+                int l = value.text.LastIndexOf('.');
+                if(l>=0)
+                {
+                    getvalue.value_name = value.text.Substring(l+1);
+                }
+                else
+                                    getvalue.value_name = value.text;
+                return getvalue;
+            }
             else
             {
                 logger.Log_Error("无法识别的简单表达式" + value);
