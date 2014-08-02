@@ -1,17 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-
-class ScriptClass2
+public class scriptFun1
 {
-    static ScriptClass2 sc = new ScriptClass2();
-
-    public int i = 3;
-    public ScriptClass2()
+    public void Update(float delta)
     {
-
+        timer += delta;
+        if (timer > 1.0f)
+            speed = 180.0f * delta;
+        else
+            speed = 60.0f * delta;
+        if (timer > 2.0f)
+        {
+            timer -= 2.0f;
+        }
     }
 
+    public float speed = 0;
+    public float timer = 0;
 }
+
 
