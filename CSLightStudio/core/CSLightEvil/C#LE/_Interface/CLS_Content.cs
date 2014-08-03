@@ -313,12 +313,19 @@ namespace CSLE
                 if(CallType.functions.ContainsKey(name))
                 {
                     Value v = new Value();
-                    DeleScript dele =new DeleScript();
-                    dele.function = name;
-                    dele.calltype = CallType;
-                    dele.callthis = CallThis;
-                    v.value = dele;
-                    v.type = typeof(DeleScript);
+                    //如果直接得到代理实例，
+                     string sign =CallType.functions[name].GetParamSign();
+                    ICLS_Type_Dele deletype =this.environment.GetDeleTypeBySign(sign);
+                    Delegate dele = deletype.CreateDelegate(environment, CallType, CallThis, name);
+
+                    DeleObject value = new DeleObject(dele);
+
+                    //DeleScript dele =new DeleScript();
+                    //dele.function = name;
+                    //dele.calltype = CallType;
+                    //dele.callthis = CallThis;
+                    v.value = value;
+                    v.type = deletype.type;
                     return v;
 
                 }

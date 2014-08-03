@@ -1,6 +1,7 @@
-﻿/// CSEvil 库 由疯光无线开发
-/// 正式名称C#Evil V0.20
-/// crazylights.cnblogs.com
+﻿/// C#Light/Evil V0.36Alpha
+/// 作者 疯光无限
+/// https://github.com/lightszero/CSLightStudio
+/// http://crazylights.cnblogs.com
 /// 请勿删除此声明
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,14 @@ namespace CSLE
     public class CLS_Environment : ICLS_Environment, ICLS_Environment_Compiler
     {
 
-        public CLS_Environment(ICLS_Logger logger, bool useNamespace = false)
+        public CLS_Environment(ICLS_Logger logger)
         {
+            //if(useNamespace==true)
+            //{
+            //    throw new Exception("使用命名空间还不能完全兼容，建议关闭");
+            //}
             this.logger = logger;
-            this.useNamespace = useNamespace;
+            //this.useNamespace = useNamespace;
             tokenParser = new CLS_TokenParser();
             compiler = new CLS_Expression_Compiler(logger);
             RegType(new CLS_Type_Int());
@@ -32,33 +37,40 @@ namespace CSLE
                 RegFunction(new FunctionTrace());
             }
         }
-        public bool useNamespace
-        {
-            get;
-            private set;
-        }
+        //public bool useNamespace
+        //{
+        //    get;
+        //    private set;
+        //}
 
         Dictionary<CLType, ICLS_Type> types = new Dictionary<CLType, ICLS_Type>();
         Dictionary<string, ICLS_Type> typess = new Dictionary<string, ICLS_Type>();
         Dictionary<string, ICLS_Function> calls = new Dictionary<string, ICLS_Function>();
+        Dictionary<string, ICLS_Type_Dele> deleTypes = new Dictionary<string, ICLS_Type_Dele>();
         public void RegType(ICLS_Type type)
         {
             types[type.type] = type;
 
             string typename = type.keyword;
-            if (useNamespace)
-            {
+            //if (useNamespace)
+            //{
 
-                if (string.IsNullOrEmpty(type._namespace) == false)
-                {
-                    typename = type._namespace + "." + type.keyword;
-                }
-            }
+            //    if (string.IsNullOrEmpty(type._namespace) == false)
+            //    {
+            //        typename = type._namespace + "." + type.keyword;
+            //    }
+            //}
             typess[typename] = type;
             if (tokenParser.types.Contains(typename) == false)
             {
                 tokenParser.types.Add(typename);
             }
+        }
+
+        public void RegDeleType(ICLS_Type_Dele type)
+        {
+            RegType(type);
+            deleTypes.Add(type.GetParamSign(this), type);
         }
         public ICLS_Type GetType(CLType type)
         {
@@ -69,6 +81,16 @@ namespace CSLE
                 logger.Log_Error("(CLScript)类型未注册:" + type.ToString());
             }
             return types[type];
+        }
+        public ICLS_Type_Dele GetDeleTypeBySign(string sign)
+        {
+            if (deleTypes.ContainsKey(sign) == false)
+            {
+                logger.Log_Error("(CLScript)类型未注册:" + sign);
+
+            }
+            return deleTypes[sign];
+
         }
         public ICLS_Type GetTypeByKeyword(string keyword)
         {

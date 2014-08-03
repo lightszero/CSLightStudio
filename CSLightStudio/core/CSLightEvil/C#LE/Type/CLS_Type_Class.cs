@@ -4,22 +4,7 @@ using System.Text;
 
 namespace CSLE
 {
-    class DeleScript
-    {
-        public SInstance callthis;
-        public SType calltype;
-        public string function;
-    }
-    public class DeleSystem
-    {
-        public DeleSystem(object source, System.Reflection.EventInfo _event)
-        {
-            this.source = source;
-            this._event = _event;
-        }
-        public object source;
-        public System.Reflection.EventInfo _event;
-    }
+
     public class SType : ICLS_TypeFunction
     {
 
@@ -100,15 +85,15 @@ namespace CSLE
                     else
                     {
                         var value = i.Value.expr_defvalue.ComputeValue(contentMemberCalc);
-                        if(i.Value.type.type!=value.type)
+                        if (i.Value.type.type != value.type)
                         {
                             sv.value_value.member[i.Key] = new CLS_Content.Value();
                             sv.value_value.member[i.Key].type = i.Value.type.type;
-                            sv.value_value.member[i.Key].value = content.environment.GetType(value.type).ConvertTo(content,value.value,i.Value.type.type);
+                            sv.value_value.member[i.Key].value = content.environment.GetType(value.type).ConvertTo(content, value.value, i.Value.type.type);
                         }
                         else
                         {
-                            sv.value_value.member[i.Key] =value;
+                            sv.value_value.member[i.Key] = value;
                         }
 
                     }
@@ -171,11 +156,12 @@ namespace CSLE
                     content.CallType = this;
                     content.CallThis = null;
                     content.function = function;
-                    int i = 0;
-                    foreach (var p in this.functions[function]._params)
+                    // int i = 0;
+                    for (int i = 0; i < functions[function]._paramtypes.Count; i++)
+                    //foreach (var p in this.functions[function]._params)
                     {
-                        content.DefineAndSet(p.Key, p.Value.type, _params[i]);
-                        i++;
+                        content.DefineAndSet(functions[function]._paramnames[i], functions[function]._paramtypes[i].type, _params[i]);
+                        //i++;
                     }
                     //var value = this.functions[function].expr_runtime.ComputeValue(content);
                     CLS_Content.Value value = null;
@@ -233,11 +219,12 @@ namespace CSLE
                     content.CallType = this;
                     content.CallThis = object_this as SInstance;
                     content.function = func;
-                    int i = 0;
-                    foreach (var p in this.functions[func]._params)
+                    for (int i = 0; i < this.functions[func]._paramtypes.Count; i++)
+                    //int i = 0;
+                    //foreach (var p in this.functions[func]._params)
                     {
-                        content.DefineAndSet(p.Key, p.Value.type, _params[i].value);
-                        i++;
+                        content.DefineAndSet(this.functions[func]._paramnames[i], this.functions[func]._paramtypes[i].type, _params[i].value);
+                        //i++;
                     }
                     CLS_Content.Value value = null;
                     if (this.functions[func].expr_runtime != null)
@@ -296,9 +283,22 @@ namespace CSLE
         {
             public bool bPublic;
             public bool bStatic;
-            public Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
+            public List<string> _paramnames = new List<string>();
+            public List<ICLS_Type> _paramtypes = new List<ICLS_Type>();
+            //public Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
             public ICLS_Type _returntype;
             public ICLS_Expression expr_runtime;
+            public string GetParamSign()
+            {
+                string sign = "";
+                if (_returntype != null && _returntype.type != null && (Type)_returntype.type != typeof(void))
+                    sign += _returntype.keyword;
+                foreach(var p in _paramtypes)
+                {
+                    sign += "," + p.keyword;
+                }
+                return sign;
+            }
         }
         public class Member
         {

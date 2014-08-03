@@ -43,6 +43,7 @@
     <Compile Include="C#LE\Compitler\CLS_Compiler_05Function.cs" />
     <Compile Include="C#LE\Compitler\CLS_Compiler_06Loop.cs" />
     <Compile Include="C#LE\Compitler\CLS_Compiler_07OO.cs" />
+    <Compile Include="C#LE\Delegate\Delegate.cs" />
     <Compile Include="C#LE\Expression\CLS_Expression_Block.cs" />
     <Compile Include="C#LE\Expression\CLS_Expression_Define.cs" />
     <Compile Include="C#LE\Expression\CLS_Expression_GetValue.cs" />
@@ -73,8 +74,11 @@
     <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOpWithValue.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
     <Compile Include="C#LE\FunctionTrace.cs" />
+    <Compile Include="C#LE\RegHelper_DeleAction3Param.cs" />
+    <Compile Include="C#LE\RegHelper_DeleAction2Param.cs" />
+    <Compile Include="C#LE\RegHelper_DeleAction1Param.cs" />
     <Compile Include="C#LE\RegHelper_Function.cs" />
-    <Compile Include="C#LE\RegHelper_Action.cs" />
+    <Compile Include="C#LE\RegHelper_DeleAction.cs" />
     <Compile Include="C#LE\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Class.cs" />

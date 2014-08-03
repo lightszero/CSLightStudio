@@ -48,7 +48,7 @@ namespace CSLE
 
                 if (tokens[i].type == TokenType.PUNCTUATION && tokens[i].text == "[")
                 {
-                    if (tokens[i + 1].text == "NotScipt" || (tokens[i + 1].text == "CSEvil" && tokens[i + 3].text == "NotScipt"))
+                    if (tokens[i + 1].text == "NotScipt" || (tokens[i + 1].text == "CSLE" && tokens[i + 3].text == "NotScipt"))
                     {
                         bJumpClass = true;
                         i = i + 2;
@@ -104,66 +104,66 @@ namespace CSLE
                 stype = new CLS_Type_Class(classname, filename);
             if (onlyGotType) return stype;
 
-            if (env.useNamespace && usinglist != null)
-            {//使用命名空间,替换token
+            //if (env.useNamespace && usinglist != null)
+            //{//使用命名空间,替换token
 
-                List<Token> newTokens = new List<Token>();
-                for (int i = ibegin; i <= iend; i++)
-                {
-                    if (tokens[i].type == TokenType.IDENTIFIER)
-                    {
-                        string ntype = null;
-                        string shortname = tokens[i].text;
-                        int startpos = i;
-                        while (ntype == null)
-                        {
+            //    List<Token> newTokens = new List<Token>();
+            //    for (int i = ibegin; i <= iend; i++)
+            //    {
+            //        if (tokens[i].type == TokenType.IDENTIFIER)
+            //        {
+            //            string ntype = null;
+            //            string shortname = tokens[i].text;
+            //            int startpos = i;
+            //            while (ntype == null)
+            //            {
 
-                            foreach (var u in usinglist)
-                            {
-                                string ttype = u + "." + shortname;
-                                if (env.GetTypeByKeywordQuiet(ttype) != null)
-                                {
-                                    ntype = ttype;
+            //                foreach (var u in usinglist)
+            //                {
+            //                    string ttype = u + "." + shortname;
+            //                    if (env.GetTypeByKeywordQuiet(ttype) != null)
+            //                    {
+            //                        ntype = ttype;
 
-                                    break;
-                                }
+            //                        break;
+            //                    }
 
-                            }
-                            if (ntype != null) break;
-                            if ((startpos + 2) <= iend && tokens[startpos + 1].text == "." && tokens[startpos + 2].type == TokenType.IDENTIFIER)
-                            {
-                                shortname += "." + tokens[startpos + 2].text;
+            //                }
+            //                if (ntype != null) break;
+            //                if ((startpos + 2) <= iend && tokens[startpos + 1].text == "." && tokens[startpos + 2].type == TokenType.IDENTIFIER)
+            //                {
+            //                    shortname += "." + tokens[startpos + 2].text;
 
-                                startpos += 2;
-                                if (env.GetTypeByKeywordQuiet(shortname) != null)
-                                {
-                                    ntype = shortname;
+            //                    startpos += 2;
+            //                    if (env.GetTypeByKeywordQuiet(shortname) != null)
+            //                    {
+            //                        ntype = shortname;
 
-                                    break;
-                                }
-                                continue;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        if (ntype != null)
-                        {
-                            var t = tokens[i];
-                            t.text = ntype;
-                            t.type = TokenType.TYPE;
-                            newTokens.Add(t);
-                            i = startpos;
-                            continue;
-                        }
-                    }
-                    newTokens.Add(tokens[i]);
-                }
-                tokens = newTokens;
-                ibegin = 0;
-                iend = tokens.Count - 1;
-            }
+            //                        break;
+            //                    }
+            //                    continue;
+            //                }
+            //                else
+            //                {
+            //                    break;
+            //                }
+            //            }
+            //            if (ntype != null)
+            //            {
+            //                var t = tokens[i];
+            //                t.text = ntype;
+            //                t.type = TokenType.TYPE;
+            //                newTokens.Add(t);
+            //                i = startpos;
+            //                continue;
+            //            }
+            //        }
+            //        newTokens.Add(tokens[i]);
+            //    }
+            //    tokens = newTokens;
+            //    ibegin = 0;
+            //    iend = tokens.Count - 1;
+            //}
 
             stype.compiled = false;
             (stype.function as SType).functions.Clear();
@@ -244,7 +244,9 @@ namespace CSLE
                                         var pid = tokens[j - 1].text;
                                         var type = env.GetTypeByKeyword(ptype);
                                         // _params[pid] = type;
-                                        func._params.Add(pid, type);
+                                        //func._params.Add(pid, type);
+                                        func._paramnames.Add(pid);
+                                        func._paramtypes.Add(type);
                                     }
                                 }
                             }

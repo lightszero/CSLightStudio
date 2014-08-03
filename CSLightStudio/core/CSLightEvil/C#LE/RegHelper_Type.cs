@@ -73,7 +73,7 @@ namespace CSLE
                     {
                         CLS_Content.Value v = new CLS_Content.Value();
 
-                        v.value = new DeleSystem(null, targete);
+                        v.value = new DeleObject(null, targete);
                         v.type = targete.EventHandlerType;
                         return v;
                     }
@@ -122,7 +122,14 @@ namespace CSLE
             List<object> _oparams = new List<object>();
             foreach (var p in _params)
             {
-                _oparams.Add(p.value);
+                if (p.value is DeleObject)
+                {
+                    _oparams.Add((p.value as DeleObject).deleInstance);
+                }
+                else
+                {
+                    _oparams.Add(p.value);
+                }
                 types.Add(p.type);
             }
 
@@ -159,12 +166,11 @@ namespace CSLE
                 }
                 else
                 {
-                    var targete = type.GetEvent(valuename);
+                    System.Reflection.EventInfo targete = type.GetEvent(valuename);
                     if (targete != null)
                     {
-
                         CLS_Content.Value v = new CLS_Content.Value();
-                        v.value = new DeleSystem(object_this, targete);
+                        v.value =  new DeleObject(object_this, targete);
                         v.type = targete.EventHandlerType;
                         return v;
                     }
