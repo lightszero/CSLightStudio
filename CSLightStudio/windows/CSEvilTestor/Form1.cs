@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace CSEvilTestor
 {
+
     public partial class Form1 : Form, CSLE.ICLS_Logger
     {
         public Form1()
@@ -15,34 +16,41 @@ namespace CSEvilTestor
             InitializeComponent();
         }
         CSLE.CLS_Environment env = null;// 
+        class Item
+        {
+            public string path;
+            public string test;
+            public override string ToString()
+            {
+                return path;
+            }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool useNamespace = true;
-            env = new CSLE.CLS_Environment(this, useNamespace);//如果要启用命名空间，第二个参数要打开
-            
-            env.RegType(new CSLE.RegHelper_Type(typeof(TestDele)));
-            env.RegType(new CSLE.RegHelper_Type(typeof(Program)));
-            env.RegType(new CSLE.RegHelper_DeleAction("Action"));
+            Debug.Logger = this;
+            //bool useNamespace = false;
+            env = new CSLE.CLS_Environment(this);//如果要启用命名空间，第二个参数要打开
+            TestReg.Reg(env);
+
             //查找所有脚本文件
-            string[] files = System.IO.Directory.GetFiles("script", "*.cs");
-            //处理文件，组织成项目文件
-            Dictionary<string, IList<CSLE.Token>> scriptProject = new Dictionary<string, IList<CSLE.Token>>();
-            foreach (var f in files)
+            string[] dirs = System.IO.Directory.GetDirectories("script");
+
+            foreach (var d in dirs)
             {
-                string code = System.IO.File.ReadAllText(f);
-                var tokens = env.ParserToken(code);
-                scriptProject[f] = tokens;
+                try
+                {
+                    Item i = new Item();
+                    i.path = d;
+                    i.test = System.IO.File.ReadAllText(d + "/test.txt");
+
+                    listItem.Items.Add(i);
+                }
+                catch (Exception err)
+                {
+
+                }
             }
-            using(System.IO.Stream s =System.IO.File.Open("Test.CSLEDLL.bytes",System.IO.FileMode.Create))
-            {
-                env.Project_PacketToStream(scriptProject, s);
-            }
-            using (System.IO.Stream s = System.IO.File.Open("Test.CSLEDLL.bytes", System.IO.FileMode.Open))
-            {
-                scriptProject=env.Project_FromPacketStream( s);
-            }
-            //编译脚本项目
-            env.Project_Compiler(scriptProject,true);
+
 
         }
 
@@ -50,39 +58,19 @@ namespace CSEvilTestor
 
         public void Log(string str)
         {
-            this.listBox1.Items.Add(str);
+            this.listDebug.Items.Add(str);
         }
 
         public void Log_Warn(string str)
         {
-            this.listBox1.Items.Add("<W>" + str);
+            this.listDebug.Items.Add("<W>" + str);
         }
 
         public void Log_Error(string str)
         {
-            this.listBox1.Items.Add("<E>" + str);
+            this.listDebug.Items.Add("<E>" + str);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string code = textBox1.Text;
-            var tokens = env.tokenParser.Parse(code);
-            var expr = env.Expr_CompilerToken(tokens);
-
-            CSLE.CLS_Content content = env.CreateContent();//创建一个上下文，出错以后可以用此上下文捕获信息
-            try
-            {
-                env.Expr_Execute(expr, content);
-            }
-            catch(Exception err)
-            {
-                string errValue = content.DumpValue();
-                string errStack = content.DumpStack(null);
-                string errSystem = "SystemError:\n" + err.ToString();
-
-                MessageBox.Show(errValue + errStack + errSystem);
-            }
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -94,14 +82,150 @@ namespace CSEvilTestor
             this.Log("Run GetI= " + value.type.ToString() + "|" + value.value.ToString());
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-                TestDele.instance.Run();
-        }
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            listDebug.Items.Clear();
+        }
+
+        private void listItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            builded = false;
+            this.Text = "builded=" + builded;
+
+            Item i = listItem.SelectedItem as Item;
+            if (i == null) return;
+            textBox1.Text = i.test;
+        }
+        bool builded = false;
+        public void Build(string path, bool useTry)
+        {
+            if (builded) return;
+
+
+            string[] allfile = System.IO.Directory.GetFiles(path, "*.cs", System.IO.SearchOption.AllDirectories);
+            int succ = 0;
+            Dictionary<string, IList<CSLE.Token>> project = new Dictionary<string, IList<CSLE.Token>>();
+            foreach (var file in allfile)
+            {
+                IList<CSLE.Token> tokens = null;
+                if (useTry)
+                {
+
+                    try
+                    {
+                        tokens = env.ParserToken(System.IO.File.ReadAllText(file));
+
+                    }
+                    catch (Exception err)
+                    {
+                        this.Log_Error("ErrInFile:" + file);
+                        MessageBox.Show(err.ToString());
+                        continue;
+                    }
+                }
+                else
+                {
+                    tokens = env.ParserToken(System.IO.File.ReadAllText(file));
+                }
+
+                project[file] = tokens;
+                succ++;
+            }
+            Log("file parse:" + succ + "/" + allfile.Length);
+            if (succ == allfile.Length)
+            {
+                if (useTry)
+                {
+                    try
+                    {
+                        env.Project_Compiler(project, true);
+                    }
+                    catch (Exception err)
+                    {
+
+                        MessageBox.Show(err.ToString());
+                    }
+                }
+                env.Project_Compiler(project, true);
+            }
+            builded = true;
+            Log("build OK.");
+            this.Text = "builded=" + builded;
+        }
+
+        void Run(string code, bool useTry)
+        {
+            if (!builded)
+            {
+                Log_Error("Build 失败无法运行");
+            }
+
+
+
+            CSLE.CLS_Content content = env.CreateContent();//创建一个上下文，出错以后可以用此上下文捕获信息
+            if (useTry)
+            {
+                try
+                {
+                    __Run(code, content);
+                }
+                catch (Exception err)
+                {
+                    string errValue = content.DumpValue();
+                    string errStack = content.DumpStack(null);
+                    string errSystem = "SystemError:\n" + err.ToString();
+
+                    MessageBox.Show(errValue + errStack + errSystem);
+                }
+            }
+            else
+            {
+                __Run(code, content);
+            }
+        }
+
+        private void __Run(string code, CSLE.CLS_Content content)
+        {
+            var tokens = env.tokenParser.Parse(code);
+            var expr = env.Expr_CompilerToken(tokens);
+            env.Expr_Execute(expr, content);
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {//Build Only
+            Item i = listItem.SelectedItem as Item;
+            if (i == null) return;
+            Build(i.path, true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {//Build &Run
+            Item i = listItem.SelectedItem as Item;
+            if (i == null) return;
+            Build(i.path, true);
+            Run(i.test, true);
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Item i = listItem.SelectedItem as Item;
+            if (i == null) return;
+            Build(i.path, false);
+            Run(i.test, false);
+        }
+    }
+
+    public class Debug
+    {
+        public static CSLE.ICLS_Logger Logger;
+        public static void Log(string str)
+        {
+            Logger.Log(str);
         }
     }
 }
