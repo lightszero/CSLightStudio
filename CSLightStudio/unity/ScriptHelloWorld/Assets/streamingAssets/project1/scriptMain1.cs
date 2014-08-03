@@ -13,6 +13,7 @@ public class ScriptMain1
             GameObject sub = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sub.transform.parent = root.transform;
             sub.transform.localPosition = new Vector3(i, 0, 0);
+            sub.GetComponent("Transform");
         }
 
     }
