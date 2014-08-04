@@ -27,6 +27,7 @@ namespace CSEvilTestor
 
             env.RegType(new CSLE.RegHelper_Type(typeof(Exception)));
             env.RegType(new CSLE.RegHelper_Type(typeof(NotSupportedException)));
+            env.RegType(new CSLE.RegHelper_Type(typeof(NotImplementedException)));
             env.RegType(new CSLE.RegHelper_Type(typeof(TestClass)));
 
         }

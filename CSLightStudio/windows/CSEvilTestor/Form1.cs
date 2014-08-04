@@ -221,6 +221,11 @@ namespace CSEvilTestor
             Build(i.path, false);
             Run(i.test, false);
         }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
     public class Debug

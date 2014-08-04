@@ -8,16 +8,31 @@ class Test05
 {
     public static void Run()
     {
-        if(c5==null)
+        if (c5 == null)
         {
             c5 = new C5();
-           
-            throw new NotSupportedException("E2");
-        }
 
-        throw new Exception("Make one Error");
+        }
+        try
+        {
+
+
+            throw new NotImplementedException("E2");
+        }
+        catch (NotSupportedException err)
+        {
+            Debug.Log("not here.");
+        }
+        catch (NotImplementedException err)
+        {
+            Debug.Log("Got.");
+        }
+        catch (Exception err)
+        {
+            Debug.Log("Got 2.");
+        }
     }
-    static C5 c5 =null;
+    static C5 c5 = null;
 }
 
 class C5

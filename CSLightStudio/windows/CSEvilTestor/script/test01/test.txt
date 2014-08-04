@@ -1,4 +1,4 @@
 ﻿//这个测试完成Helloworld.
 
 
-Test01.Run();
+Script_TestConstructor tc= new Script_TestConstructor();

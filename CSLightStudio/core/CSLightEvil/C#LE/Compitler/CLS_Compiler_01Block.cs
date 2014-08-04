@@ -385,6 +385,14 @@ namespace CSLE
                                 values.Add(subvalue);
                             bTest = true;
                         }
+                        else if (tlist[expbegin].text == "try")
+                        {
+                            ICLS_Expression subvalue = Compiler_Expression_Loop_Try(tlist, content, expbegin, expend);
+                            if (null == subvalue) return false;
+                            else
+                                values.Add(subvalue);
+                            bTest = true;
+                        }
                         else if (tlist[expbegin].text == "return")
                         {
                             ICLS_Expression subvalue = Compiler_Expression_Loop_Return(tlist, content,expbegin, expend);

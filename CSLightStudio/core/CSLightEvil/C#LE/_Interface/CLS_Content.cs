@@ -93,6 +93,21 @@ namespace CSLE
             }
             stackExpr.Pop();
         }
+        public void Record(out List<string> depth)
+        {
+            depth = tvalues.Peek();
+        }
+        public void Restore(List<string> depth, ICLS_Expression expr)
+        {
+            while(tvalues.Peek()!=depth)
+            {
+                tvalues.Pop();
+            }
+            while(stackExpr.Peek()!=expr)
+            {
+                stackExpr.Pop();
+            }
+        }
 		public string DumpValue()
 		{
 			string svalues = "";

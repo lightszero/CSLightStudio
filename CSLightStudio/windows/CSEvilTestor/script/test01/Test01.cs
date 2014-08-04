@@ -1,23 +1,18 @@
-﻿using CSEvilTestor;
-//using CSEvilTestor;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System.Collections;
 
-class Test01
+public class Script_TestConstructor
 {
-    public static void Run()
-    {
-        Debug.Log("Hello world.");
 
-        TestClass c1 = new TestClass();
-        Test(c1);
-    }
-    static string hi = "sdfasdf";
-    static void Test(TestClass c1)
+    private int a;
+
+    public Script_TestConstructor()
     {
-        Debug.Log("hi=" + hi);
-        c1.name = hi;
+
+    }
+
+    public void Test()
+    {
+
     }
 }
-

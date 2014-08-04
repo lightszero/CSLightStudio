@@ -63,6 +63,7 @@
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopContinue.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopFor.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopForEach.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopTry.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopIf.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopReturn.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_Math2Value.cs" />
