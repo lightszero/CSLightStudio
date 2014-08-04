@@ -374,6 +374,28 @@ namespace CSLE
 
         public bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
+            if (code == logictoken.equal)//[6] = {Boolean op_Equality(CLScriptExt.Vector3, CLScriptExt.Vector3)}
+            {
+                if(left==null || right.type==null)
+                {
+                    return left == right.value;
+                }
+                else
+                {
+                    return left == right.value;
+                }
+            }
+            else if (code == logictoken.not_equal)//[7] = {Boolean op_Inequality(CLScriptExt.Vector3, CLScriptExt.Vector3)}
+            {
+                if (left == null || right.type == null)
+                {
+                    return left != right.value;
+                }
+                else
+                {
+                    return left != right.value;
+                }
+            }
             throw new NotImplementedException();
         }
 
