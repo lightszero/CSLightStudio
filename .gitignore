@@ -1,3 +1,8 @@
 *.dll
 *.pdb
 *.suo
+/CSLightStudio/windows/bin
+/CSLightStudio/windows/CSEvilTestor/obj
+/CSLightStudio/windows/CSEvilTestor/bin
+/CSLightStudio/windows/CSLightTestor/obj
+/CSLightStudio/core/CSLightEvil/obj
