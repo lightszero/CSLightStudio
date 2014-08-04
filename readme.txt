@@ -8,6 +8,9 @@ C#Light已经是正式版，在商业项目中检验过
 C#Light/Evil是在C#Light的基础上增加面向对象部分
 虽然Alpha但是稳定性也很高，如果不使用面向对象就是C#Light
 
+0.37Alpha
+加入了try catch throw机制，用法同c#
+
 0.36.3Alpha
 加入interface继承机制
 2014-08-03  0.36.2 Alpha
