@@ -63,7 +63,7 @@ namespace CSLE
             types.Add("float");
             types.Add("double");
             types.Add("string");
-            
+
 
             keywords.Add("if");
             keywords.Add("as");
@@ -87,6 +87,10 @@ namespace CSLE
             keywords.Add("public");
             keywords.Add("private");
             keywords.Add("static");
+
+            keywords.Add("try");
+            keywords.Add("catch");
+            keywords.Add("throw");
 
         }
         public List<string> types
@@ -301,12 +305,12 @@ namespace CSLE
                     if (t.text == s)
                     {
                         t.type = TokenType.TYPE;
-                        if(line[i]=='<'||line[i]=='[')
+                        if (line[i] == '<' || line[i] == '[')
                             break;
                         return nstart + t.text.Length;
                     }
                 }
-                if (i<line.Length&&( line[i] == '<' || line[i] == '['))//检查特别类型
+                if (i < line.Length && (line[i] == '<' || line[i] == '['))//检查特别类型
                 {
                     foreach (string s in types)
                     {
@@ -457,9 +461,9 @@ namespace CSLE
                 int nstart = FindStart(lines, n);
                 t.line = this.line;
                 int nend = GetToken(lines, nstart, out t);
-                if(nend>=0)
+                if (nend >= 0)
                 {
-                    for(int i=nstart;i<nend;i++)
+                    for (int i = nstart; i < nend; i++)
                     {
                         if (lines[i] == '\n')
                             line++;
@@ -482,12 +486,12 @@ namespace CSLE
 
                         }
                     }
-                    if (ts.Count >= 3 && t.type == TokenType.PUNCTUATION &&t.text==">"
+                    if (ts.Count >= 3 && t.type == TokenType.PUNCTUATION && t.text == ">"
                         && ts[ts.Count - 1].type == TokenType.TYPE
-                        && ts[ts.Count - 2].type == TokenType.PUNCTUATION&&ts[ts.Count-2].text=="<"
-                        && ts[ts.Count-3].type== TokenType.IDENTIFIER )
+                        && ts[ts.Count - 2].type == TokenType.PUNCTUATION && ts[ts.Count - 2].text == "<"
+                        && ts[ts.Count - 3].type == TokenType.IDENTIFIER)
                     {//模板函数调用,合并之
-                        string ntype =ts[ts.Count-3].text+ ts[ts.Count - 2].text + ts[ts.Count - 1].text + t.text;
+                        string ntype = ts[ts.Count - 3].text + ts[ts.Count - 2].text + ts[ts.Count - 1].text + t.text;
                         t.type = TokenType.IDENTIFIER;
                         t.text = ntype;
                         t.pos = ts[ts.Count - 2].pos;
@@ -529,7 +533,7 @@ namespace CSLE
 
                 type += strs[t.text];
                 strindex.Add(type);
-                int line =t.line-1;
+                int line = t.line - 1;
                 while (line >= lines.Count)
                     lines.Add((UInt16)index);
 
@@ -593,7 +597,7 @@ namespace CSLE
                 stream.Read(bufu, 0, 2);
                 linecount = BitConverter.ToUInt16(bufu, 0);
                 UInt16[] linetoken = new UInt16[linecount];
-              
+
                 for (int i = 0; i < linecount; i++)
                 {
                     stream.Read(bufu, 0, 2);
@@ -607,7 +611,7 @@ namespace CSLE
 
                     if ((i + 1) < linecount)
                     {
-                        for (int j = linetoken[i]; j < linetoken[i+1]; j++)
+                        for (int j = linetoken[i]; j < linetoken[i + 1]; j++)
                         {
                             var t = tokens[j];
                             t.line = i + 1;
@@ -616,14 +620,14 @@ namespace CSLE
                     }
                     else
                     {
-                         for (int j = linetoken[i]; j<tokens.Count;j++)
-                         {
-                             var t = tokens[j];
-                             t.line = i + 1;
-                             tokens[j] = t;
-                         }
+                        for (int j = linetoken[i]; j < tokens.Count; j++)
+                        {
+                            var t = tokens[j];
+                            t.line = i + 1;
+                            tokens[j] = t;
+                        }
                     }
-                 
+
                     token = linetoken[i];
                 }
             }
