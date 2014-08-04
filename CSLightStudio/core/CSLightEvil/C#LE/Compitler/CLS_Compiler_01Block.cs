@@ -401,6 +401,14 @@ namespace CSLE
                                 values.Add(subvalue);
                             bTest = true;
                         }
+                        else if (tlist[expbegin].text == "throw")
+                        {
+                            ICLS_Expression subvalue = Compiler_Expression_FunctionThrow(tlist, content, expbegin, expend);
+                            if (null == subvalue) return false;
+                            else
+                                values.Add(subvalue);
+                            bTest = true;
+                        }
                         else if(tlist[expbegin].text=="true"||tlist[expbegin].text=="false"||tlist[expbegin].text=="null")
                         {
                             //算数表达式

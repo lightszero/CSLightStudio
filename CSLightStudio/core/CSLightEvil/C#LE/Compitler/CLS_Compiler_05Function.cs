@@ -83,6 +83,23 @@ namespace CSLE
 
             //return null;
         }
+        public ICLS_Expression Compiler_Expression_FunctionThrow(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
+        {
+            CLS_Expression_Throw func = new CLS_Expression_Throw(pos, posend, tlist[pos].line, tlist[posend].line);
+
+            ICLS_Expression subvalue;
+            bool succ = Compiler_Expression(tlist, content, pos + 1, posend, out subvalue);
+            if (succ)
+            {
+                func.listParam.Add(subvalue);
+            }
+        
+         
+            return func;
+            //trace ,单值直接dump,否则按逗号分隔的表达式处理
+
+            //return null;
+        }
 
         public ICLS_Expression Compiler_Expression_FunctionNew(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {
