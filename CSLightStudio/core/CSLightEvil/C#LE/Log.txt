@@ -1,4 +1,8 @@
-﻿0.36.3Alpha
+﻿0.37Alpha
+修改了不少小的问题
+另外完成了try catch throw，和C#的用法一致
+
+0.36.3Alpha
 加入interface继承机制
 
 0.36.2Alpha
