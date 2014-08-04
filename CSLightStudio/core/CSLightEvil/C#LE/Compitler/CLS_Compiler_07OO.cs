@@ -10,7 +10,7 @@ namespace CSLE
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        IList<ICLS_Type> _FileCompiler(string filename, IList<Token> tokens, bool embDeubgToken,ICLS_Environment env, bool onlyGotType = false)
+        IList<ICLS_Type> _FileCompiler(string filename, IList<Token> tokens, bool embDeubgToken, ICLS_Environment env, bool onlyGotType = false)
         {
             List<ICLS_Type> typelist = new List<ICLS_Type>();
 
@@ -55,12 +55,35 @@ namespace CSLE
                         continue;
                     }
                 }
-                if (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "class")
+                if (tokens[i].type == TokenType.KEYWORD && (tokens[i].text == "class" || tokens[i].text == "interface"))
                 {
                     string name = tokens[i + 1].text;
+                    //在这里检查继承
+                    List<string> typebase = null;
                     int ibegin = i + 2;
-                    while (tokens[ibegin].text != "{")
-                        ibegin++;
+                    if (onlyGotType)
+                    {
+                        while (tokens[ibegin].text != "{")
+                        {
+                            ibegin++;
+                        }
+                    }
+                    else
+                    {
+                        if (tokens[ibegin].text == ":")
+                        {
+                            typebase = new List<string>();
+                            ibegin++;
+                        }
+                        while (tokens[ibegin].text != "{")
+                        {
+                            if (tokens[ibegin].type == TokenType.TYPE)
+                            {
+                                typebase.Add(tokens[ibegin].text);
+                            }
+                            ibegin++;
+                        }
+                    }
                     int iend = FindBlock(env, tokens, ibegin);
                     if (bJumpClass)
                     {
@@ -78,12 +101,12 @@ namespace CSLE
                     }
                     if (bJumpClass)
                     {//忽略这个Class
-                        ICLS_Type type = Compiler_Class(env, name, filename, tokens, ibegin, iend, embDeubgToken, true);
-                        bJumpClass = false;
+                        //ICLS_Type type = Compiler_Class(env, name, (tokens[i].text == "interface"), filename, tokens, ibegin, iend, embDeubgToken, true);
+                        //bJumpClass = false;
                     }
                     else
                     {
-                        ICLS_Type type = Compiler_Class(env, name, filename, tokens, ibegin, iend, embDeubgToken, onlyGotType, usingList);
+                        ICLS_Type type = Compiler_Class(env, name, (tokens[i].text == "interface"), typebase, filename, tokens, ibegin, iend, embDeubgToken, onlyGotType, usingList);
                         if (type != null)
                         {
                             typelist.Add(type);
@@ -96,12 +119,25 @@ namespace CSLE
 
             return typelist;
         }
-        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, string filename,IList<Token> tokens, int ibegin, int iend,bool EmbDebugToken, bool onlyGotType = false, IList<string> usinglist = null)
+        ICLS_Type Compiler_Class(ICLS_Environment env, string classname, bool bInterface, IList<string> basetype, string filename, IList<Token> tokens, int ibegin, int iend, bool EmbDebugToken, bool onlyGotType = false, IList<string> usinglist = null)
         {
 
             CLS_Type_Class stype = env.GetTypeByKeywordQuiet(classname) as CLS_Type_Class;
+
             if (stype == null)
-                stype = new CLS_Type_Class(classname, filename);
+                stype = new CLS_Type_Class(classname, bInterface, filename);
+
+            if (basetype != null && basetype.Count != 0 && onlyGotType == false)
+            {
+                List<ICLS_Type> basetypess = new List<ICLS_Type>();
+                foreach (var t in basetype)
+                {
+                    ICLS_Type type = env.GetTypeByKeyword(t);
+                    basetypess.Add(type);
+                }
+                stype.SetBaseType(basetypess);
+            }
+
             if (onlyGotType) return stype;
 
             //if (env.useNamespace && usinglist != null)
@@ -174,7 +210,7 @@ namespace CSLE
             //属性语法            //Type id{get{},set{}};
             bool bPublic = false;
             bool bStatic = false;
-            if(EmbDebugToken)//SType 嵌入Token
+            if (EmbDebugToken)//SType 嵌入Token
             {
                 stype.EmbDebugToken(tokens);
             }
@@ -231,10 +267,10 @@ namespace CSLE
 
                             int funcparambegin = i + 2;
                             int funcparamend = FindBlock(env, tokens, funcparambegin);
-                            if (funcparamend-funcparambegin>1)
+                            if (funcparamend - funcparambegin > 1)
                             {
-                              
-                               
+
+
                                 //Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
                                 for (int j = funcparambegin; j <= funcparamend; j++)
                                 {
@@ -252,18 +288,72 @@ namespace CSLE
                             }
 
                             int funcbegin = funcparamend + 1;
-                            int funcend = FindBlock(env, tokens, funcbegin);
+                            if (tokens[funcbegin].text == "{")
+                            {
+                                int funcend = FindBlock(env, tokens, funcbegin);
+                                this.Compiler_Expression_Block(tokens, env, funcbegin, funcend, out func.expr_runtime);
 
-                            ICLS_Expression funcexpr;
-                            this.Compiler_Expression_Block(tokens, env, funcbegin, funcend, out func.expr_runtime);
+                                (stype.function as SType).functions.Add(idname, func);
 
-                            (stype.function as SType).functions.Add(idname, func);
+                                i = funcend;
+                            }
+                            else if (tokens[funcbegin].text == ";")
+                            {
 
-                            i = funcend;
+                                func.expr_runtime = null;
+                                (stype.function as SType).functions.Add(idname, func);
+                                i = funcbegin;
+                            }
+                            else
+                            {
+                                throw new Exception("不可识别的函数表达式");
+                            }
                         }
                         else if (tokens[i + 2].type == CSLE.TokenType.PUNCTUATION && tokens[i + 2].text == "{")//语句块开始，这是 getset属性
                         {
-                            throw new Exception("未支持getset");
+                            //get set 成员定义
+
+                            bool setpublic = true;
+                            bool haveset = false;
+                            for (int j = i + 3; j <= iend; j++)
+                            {
+                                if (tokens[j].text == "get")
+                                {
+                                    setpublic = true;
+                                }
+                                if (tokens[j].text == "private")
+                                {
+                                    setpublic = false;
+                                }
+                                if (tokens[j].text == "set")
+                                {
+                                    haveset = true;
+                                }
+                                if (tokens[j].text == "}")
+                                {
+                                    break;
+                                }
+                            }
+
+
+                            var member = new SType.Member();
+                            member.bStatic = bStatic;
+                            member.bPublic = bPublic;
+                            member.bReadOnly = !(haveset && setpublic);
+                            member.type = idtype;
+                            logger.Log("发现Get/Set:" + idname);
+                            ICLS_Expression expr = null;
+
+                            if (tokens[i + 2].text == "=")
+                            {
+                                int jbegin = i + 3;
+                                int jdep;
+                                int jend = FindCodeAny(tokens, ref jbegin, out jdep);
+
+                                bool b = Compiler_Expression(tokens, env, jbegin, jend, out  member.expr_defvalue);
+                                i = jend;
+                            }
+                            (stype.function as SType).members.Add(idname, member);
                         }
                         else if (tokens[i + 2].type == CSLE.TokenType.PUNCTUATION && (tokens[i + 2].text == "=" || tokens[i + 2].text == ";"))//这是成员定义
                         {
@@ -272,6 +362,7 @@ namespace CSLE
                             var member = new SType.Member();
                             member.bStatic = bStatic;
                             member.bPublic = bPublic;
+                            member.bReadOnly = false;
                             member.type = idtype;
 
                             ICLS_Expression expr = null;

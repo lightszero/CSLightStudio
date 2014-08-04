@@ -18,13 +18,19 @@ namespace CSLE
         ////    //this._GUID = Guid.Empty;
 
         //}
-        public SType(string keyword, string _namespace = "", string filename = null)
+        public SType(string keyword, string _namespace = "", string filename = null, bool bInterface = false, IList<string> basetype = null)
         {
             this.Name = keyword;
             this.Namespace = _namespace;
             this.filename = filename;
+            this.bInterface = bInterface;
         }
         public string filename
+        {
+            get;
+            private set;
+        }
+        public bool bInterface
         {
             get;
             private set;
@@ -293,7 +299,7 @@ namespace CSLE
                 string sign = "";
                 if (_returntype != null && _returntype.type != null && (Type)_returntype.type != typeof(void))
                     sign += _returntype.keyword;
-                foreach(var p in _paramtypes)
+                foreach (var p in _paramtypes)
                 {
                     sign += "," + p.keyword;
                 }
@@ -305,6 +311,7 @@ namespace CSLE
             public ICLS_Type type;
             public bool bPublic;
             public bool bStatic;
+            public bool bReadOnly;
             public ICLS_Expression expr_defvalue;
         }
 
@@ -320,15 +327,20 @@ namespace CSLE
         public SType type;
         public Dictionary<string, CLS_Content.Value> member = new Dictionary<string, CLS_Content.Value>();//成员
     }
-    public class CLS_Type_Class : ICLS_Type
+    public class CLS_Type_Class :ICLS_Type_WithBase
     {
-        public CLS_Type_Class(string keyword, string filename = null)
+        public CLS_Type_Class(string keyword, bool bInterface, string filename = null)
         {
             this.keyword = keyword;
             this._namespace = "";
-            type = new SType(keyword, "", filename);
+            type = new SType(keyword, "", filename, bInterface);
             compiled = false;
         }
+        public void SetBaseType(IList<ICLS_Type> types)
+        {
+            this.types = types;
+        }
+        IList<ICLS_Type> types;
         public void EmbDebugToken(IList<Token> tokens)
         {
             ((SType)type).EmbDebugToken(tokens);
@@ -364,6 +376,11 @@ namespace CSLE
 
         public object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
+            var type = env.environment.GetType(targetType);
+            if(this.types.Contains(type))
+            {
+                return src;
+            }
             throw new NotImplementedException();
         }
 
@@ -376,7 +393,7 @@ namespace CSLE
         {
             if (code == logictoken.equal)//[6] = {Boolean op_Equality(CLScriptExt.Vector3, CLScriptExt.Vector3)}
             {
-                if(left==null || right.type==null)
+                if (left == null || right.type == null)
                 {
                     return left == right.value;
                 }

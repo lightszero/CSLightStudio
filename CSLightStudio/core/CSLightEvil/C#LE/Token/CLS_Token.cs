@@ -81,6 +81,8 @@ namespace CSLE
             keywords.Add("in");
             //OO支持 新增关键字
             keywords.Add("class");
+            keywords.Add("interface");
+
             keywords.Add("using");
             keywords.Add("public");
             keywords.Add("private");

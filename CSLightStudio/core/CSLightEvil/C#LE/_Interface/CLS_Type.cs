@@ -124,6 +124,7 @@ namespace CSLE
         {
             get;
         }
+            
         ICLS_Value MakeValue(object value);
         //自动转型能力
         object ConvertTo(CLS_Content env, object src, CLType targetType);
@@ -141,6 +142,11 @@ namespace CSLE
 
     }
 
+    public interface ICLS_Type_WithBase:ICLS_Type
+    {
+        void SetBaseType(IList<ICLS_Type> types);
+
+    }
     public interface ICLS_Type_Dele:ICLS_Type
     {
         string GetParamSign(ICLS_Environment env);
