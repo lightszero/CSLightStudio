@@ -67,6 +67,10 @@ namespace CSLE
     }
     public interface ICLS_Environment
     {
+        string version
+        {
+            get;
+        }
         //bool useNamespace
         //{
         //    get;
@@ -76,7 +80,7 @@ namespace CSLE
         ICLS_Type GetType(CLType type);
         ICLS_Type_Dele GetDeleTypeBySign(string sign);
         ICLS_Type GetTypeByKeyword(string keyword);
-         ICLS_Type GetTypeByKeywordQuiet(string keyword);
+        ICLS_Type GetTypeByKeywordQuiet(string keyword);
 
         void RegFunction(ICLS_Function func);
         ICLS_Function GetFunction(string name);
@@ -110,7 +114,7 @@ namespace CSLE
 
         void File_PreCompilerToken(string filename, IList<Token> listToken);
 
-        void File_CompilerToken(string filename, IList<Token> listToken,bool embDebugToken);
+        void File_CompilerToken(string filename, IList<Token> listToken, bool embDebugToken);
 
         void Project_PacketToStream(Dictionary<string, IList<Token>> project, System.IO.Stream outstream);
 
@@ -123,8 +127,8 @@ namespace CSLE
         ICLS_Expression Compiler_NoBlock(IList<Token> tlist, ICLS_Environment content);//表达式，一条语句
         ICLS_Expression Optimize(ICLS_Expression value, ICLS_Environment content);
 
-        IList<ICLS_Type> FileCompiler(ICLS_Environment env,string filename,IList<Token> tlist,bool embDebugToken );
-        IList<ICLS_Type> FilePreCompiler(ICLS_Environment env,string filename,IList<Token> tlist);
+        IList<ICLS_Type> FileCompiler(ICLS_Environment env, string filename, IList<Token> tlist, bool embDebugToken);
+        IList<ICLS_Type> FilePreCompiler(ICLS_Environment env, string filename, IList<Token> tlist);
 
     }
 

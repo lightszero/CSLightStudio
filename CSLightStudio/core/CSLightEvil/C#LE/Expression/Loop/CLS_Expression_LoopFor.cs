@@ -57,8 +57,18 @@ namespace CSLE
             {
                 if (expr_block != null)
                 {
-                    var v = expr_block.ComputeValue(content);
-                    if (v != null && v.breakBlock > 1) break; ;
+                    if (expr_block is CLS_Expression_Block)
+                    {
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null && v.breakBlock > 1) break; ;
+                    }
+                    else
+                    {
+                        content.DepthAdd();
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null && v.breakBlock > 1) break; ;
+                        content.DepthRemove();
+                    }
                     //if (v.breakBlock == 1) continue;
                     //if (v.breakBlock == 2) break;
                     //if (v.breakBlock == 10) return v;

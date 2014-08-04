@@ -1,0 +1,7 @@
+﻿0.36.1Alpha
+Buf fixed:
+for(xxx)
+{
+   int i;
+}
+for循环里只有一行变量定义会导致作用域问题，此bug已修正

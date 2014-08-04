@@ -299,6 +299,8 @@ namespace CSLE
                     if (t.text == s)
                     {
                         t.type = TokenType.TYPE;
+                        if(line[i]=='<'||line[i]=='[')
+                            break;
                         return nstart + t.text.Length;
                     }
                 }

@@ -1,5 +1,5 @@
-﻿/// C#Light/Evil V0.36Alpha
-/// 作者 疯光无限
+﻿/// C#Light/Evil
+/// 作者 疯光无限 版本见ICLS_Environment.version
 /// https://github.com/lightszero/CSLightStudio
 /// http://crazylights.cnblogs.com
 /// 请勿删除此声明
@@ -14,6 +14,13 @@ namespace CSLE
     public class CLS_Environment : ICLS_Environment, ICLS_Environment_Compiler
     {
 
+        public string version
+        {
+            get
+            {
+                return "0.36.1Alpha";
+            }
+        }
         public CLS_Environment(ICLS_Logger logger)
         {
             //if(useNamespace==true)

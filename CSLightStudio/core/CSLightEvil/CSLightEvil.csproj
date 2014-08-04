@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -73,13 +73,13 @@
     <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOp.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOpWithValue.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
-    <Compile Include="C#LE\FunctionTrace.cs" />
-    <Compile Include="C#LE\RegHelper_DeleAction3Param.cs" />
-    <Compile Include="C#LE\RegHelper_DeleAction2Param.cs" />
-    <Compile Include="C#LE\RegHelper_DeleAction1Param.cs" />
-    <Compile Include="C#LE\RegHelper_Function.cs" />
-    <Compile Include="C#LE\RegHelper_DeleAction.cs" />
-    <Compile Include="C#LE\RegHelper_Type.cs" />
+    <Compile Include="C#LE\RegHelper\FunctionTrace.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleAction3Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleAction2Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleAction1Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_Function.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleAction.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Class.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Double.cs" />
@@ -96,6 +96,9 @@
     <Compile Include="C#LE\_Interface\CLS_Loger.cs" />
     <Compile Include="C#LE\_Interface\CLS_Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="C#LE\Log.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

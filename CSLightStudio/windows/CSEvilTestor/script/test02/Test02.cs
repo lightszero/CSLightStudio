@@ -8,13 +8,15 @@ class Test02
 {
     public static void Run()
     {
+        Action<int> deleTest = Test2;
+
+        int config_citygrade = 0;
         TestDele.instance.ClearDele();
 
         //直接注册回调的用法,+=,-=
         TestDele.instance.onUpdate += Test;
 
         //用Delegate类型指向函数的语法
-        Action<int> deleTest = Test2;
         TestDele.instance.onUpdate2 += deleTest;
         TestDele.instance.onUpdate3 += Test3;
 
