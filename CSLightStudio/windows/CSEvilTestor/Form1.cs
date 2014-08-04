@@ -153,7 +153,10 @@ namespace CSEvilTestor
                         MessageBox.Show(err.ToString());
                     }
                 }
-                env.Project_Compiler(project, true);
+                else
+                {
+                    env.Project_Compiler(project, true);
+                }
             }
             builded = true;
             Log("build OK.");

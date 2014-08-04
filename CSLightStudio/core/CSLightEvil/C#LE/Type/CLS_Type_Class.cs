@@ -166,7 +166,7 @@ namespace CSLE
                     for (int i = 0; i < functions[function]._paramtypes.Count; i++)
                     //foreach (var p in this.functions[function]._params)
                     {
-                        content.DefineAndSet(functions[function]._paramnames[i], functions[function]._paramtypes[i].type, _params[i]);
+                        content.DefineAndSet(functions[function]._paramnames[i], functions[function]._paramtypes[i].type, _params[i].value);
                         //i++;
                     }
                     //var value = this.functions[function].expr_runtime.ComputeValue(content);

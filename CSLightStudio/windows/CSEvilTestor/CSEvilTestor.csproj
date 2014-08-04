@@ -65,6 +65,7 @@
     <Compile Include="script\test02\Test02.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="testfunc\TestClass.cs" />
     <Compile Include="testfunc\TestDele.cs" />
     <Compile Include="TestReg.cs" />
     <EmbeddedResource Include="Form1.resx">
