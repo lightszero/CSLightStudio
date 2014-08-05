@@ -30,6 +30,7 @@ class Script
         if (env == null)
         {
             env = new CSLE.CLS_Environment(new ScriptLogger());
+            env.logger.Log("C#LightEvil Inited.Ver="+ env.version);
         }
     }
     public static void Reset()
@@ -47,8 +48,8 @@ class Script
         {
             var tokens = env.tokenParser.Parse(System.IO.File.ReadAllText(v));
             project.Add(v, tokens);
-            env.Project_Compiler(project, true);
         }
+        env.Project_Compiler(project, true);
     }
     public static object Eval(string script)
     {
