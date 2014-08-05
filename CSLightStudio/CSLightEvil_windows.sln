@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightTestor", "windows\CS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSEvilTestor", "windows\CSEvilTestor\CSEvilTestor.csproj", "{B321C533-C288-4FDB-A34A-1C25B063F669}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightEvil35", "core\CSLightEvil\CSLightEvil35.csproj", "{8D3C48F1-DFB1-4344-8962-5D09CB02BAC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B321C533-C288-4FDB-A34A-1C25B063F669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B321C533-C288-4FDB-A34A-1C25B063F669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B321C533-C288-4FDB-A34A-1C25B063F669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D3C48F1-DFB1-4344-8962-5D09CB02BAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D3C48F1-DFB1-4344-8962-5D09CB02BAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D3C48F1-DFB1-4344-8962-5D09CB02BAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D3C48F1-DFB1-4344-8962-5D09CB02BAC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
