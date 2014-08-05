@@ -81,7 +81,7 @@ public class ScriptMgr
 
 
         //每一种回调类型要独立注册
-        //env.RegDeleType(new CSLE.RegHelper_DeleAction("Action")); unity 用的dotnet 2.0 没有Action
+        env.RegDeleType(new CSLE.RegHelper_DeleAction("Action")); //unity 用的dotnet 2.0 没有Action
         env.RegDeleType(new CSLE.RegHelper_DeleAction<int>("Action<int>")); ;
 
 

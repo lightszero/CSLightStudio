@@ -14,14 +14,12 @@ public class mode2 : MonoBehaviour {
     public float ScriptUpdateFPS = 5.0f;
 
 	// Update is called once per frame
-    int fc = 0;
 	void Update () {
         timer += Time.deltaTime;
         if (timer > (1.0f / ScriptUpdateFPS))//限制脚本更新频率，不能太快，会死人
         {
             timer = 0;
-            App.CallUpdate(fc);
-            fc++;
+            App.CallUpdate();
         }
 
 	}
@@ -64,13 +62,13 @@ public class App
         if (onclick != null)
             onclick(i);
     }
-    public static void CallUpdate(int c)
+    public static void CallUpdate()
     {
         if(onupdate!=null)
         {
-            onupdate(c);
+            onupdate();
         }
     }
-    public static event Action<int> onclick = (i) => { };
-    public static event Action<int> onupdate = (i) => { };
+    public static event Action<int> onclick;
+    public static event Action onupdate;
 }
