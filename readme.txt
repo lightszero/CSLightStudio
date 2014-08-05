@@ -3,6 +3,11 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：119706192
 
+0.39.1Alpha
+unity提供了Framework例子，两种驱动模式
+一种程序管理状态机，脚本实现状态
+另一种脚本管理状态机，程序提供接口
+
 20140805 0.39Alpha
 支持了 while表达式与do while表达式
 加入了unity的一些例子

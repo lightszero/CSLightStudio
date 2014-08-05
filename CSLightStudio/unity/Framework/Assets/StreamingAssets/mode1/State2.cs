@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
-
+//This is Dynmic Script
 class State2: IState
 {
     public StateMgr mgr

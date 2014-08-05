@@ -22,3 +22,9 @@
 /CSLightStudio/unity/ScriptHelloWorld/*.csproj
 /CSLightStudio/unity/ScriptHelloWorld/Library
 /CSLightStudio/unity/ScriptHelloWorld/obj
+/CSLightStudio/unity/Framework/obj
+/CSLightStudio/unity/Framework/Library
+/CSLightStudio/unity/Framework/Temp
+/CSLightStudio/unity/Framework/*.csproj
+/CSLightStudio/unity/Framework/*.sln
+/CSLightStudio/unity/Framework/*.suo

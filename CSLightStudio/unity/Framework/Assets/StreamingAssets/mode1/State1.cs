@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using Object = UnityEngine.Object;//如果发生名字冲突可以这样写
+//This is Dynmic Script
 class State1 : IState
 {
     public StateMgr mgr
