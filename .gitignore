@@ -6,3 +6,8 @@
 /CSLightStudio/windows/CSEvilTestor/bin
 /CSLightStudio/windows/CSLightTestor/obj
 /CSLightStudio/core/CSLightEvil/obj
+/CSLightStudio/unity/MonoBehaviour/Library
+/CSLightStudio/unity/MonoBehaviour/obj
+/CSLightStudio/unity/MonoBehaviour/*.csproj
+/CSLightStudio/unity/MonoBehaviour/*.sln
+/CSLightStudio/unity/MonoBehaviour/*.suo

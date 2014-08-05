@@ -1,0 +1,12 @@
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\Assembly-CSharp.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\Assembly-CSharp.pdb
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\CSLightEvil.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\UnityEditor.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\UnityEngine.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\Mono.Cecil.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\nunit.framework.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\Unity.DataContract.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\obj\Debug\Assembly-CSharp.dll
+E:\github\CSLightStudio\CSLightStudio\unity\ScriptHelloWorld\obj\Debug\Assembly-CSharp.pdb
