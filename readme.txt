@@ -3,6 +3,9 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：119706192
 
+20140805 0.39Alpha
+支持了 while表达式与do while表达式
+加入了unity的一些例子
 
 0.38Alpha
 完整支持了数组
