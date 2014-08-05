@@ -15,6 +15,7 @@ class State1 : IState
     GameObject root = null;
     public void OnInit()
     {
+        Debug.Log("Init");
         root = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 
         for (int i = 0; i < 10; i++)

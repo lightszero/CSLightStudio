@@ -75,18 +75,21 @@ public class ScriptMgr
         env.RegType(new CSLE.RegHelper_Type(typeof(UnityEngine.Object)));
         env.RegType(new CSLE.RegHelper_Type(typeof(Transform)));
         //对于AOT环境，比如IOS，get set不能用RegHelper直接提供，就用AOTExt里面提供的对应类替换
-        env.RegType(new CSLE.RegHelper_Type(typeof(int[]),"int[]"));//数组要独立注册
+        env.RegType(new CSLE.RegHelper_Type(typeof(int[]), "int[]"));//数组要独立注册
         env.RegType(new CSLE.RegHelper_Type(typeof(List<int>), "List<int>"));//模板类要独立注册
 
 
 
         //每一种回调类型要独立注册
-        //env.RegDeleType(new CSLE.RegHelper_DeleAction("Action"));
+        //env.RegDeleType(new CSLE.RegHelper_DeleAction("Action")); unity 用的dotnet 2.0 没有Action
         env.RegDeleType(new CSLE.RegHelper_DeleAction<int>("Action<int>")); ;
 
+
         env.RegType(new CSLE.RegHelper_Type(typeof(StateMgr)));
+        env.RegType(new CSLE.RegHelper_Type(typeof(Rect)));
         env.RegType(new CSLE.RegHelper_Type(typeof(ScriptInstanceState)));
         env.RegType(new CSLE.RegHelper_Type(typeof(PrimitiveType)));
+        env.RegType(new CSLE.RegHelper_Type(typeof(App)));
 
     }
 
@@ -110,10 +113,29 @@ public class ScriptMgr
             env.Project_Compiler(project, true);
             projectLoaded = true;
         }
-        catch(Exception err)
+        catch (Exception err)
         {
-            
-            Debug.LogError("编译脚本项目失败，请检查"+ err.ToString());
+
+            Debug.LogError("编译脚本项目失败，请检查" + err.ToString());
+        }
+    }
+    public void Execute(string code)
+    {
+        var content = env.CreateContent();
+
+
+        try
+        {
+            var tokens = env.ParserToken(code);
+            var expr = env.Expr_CompilerToken(tokens);
+            expr.ComputeValue(content);
+        }
+        catch (Exception err)
+        {
+            var dumpv = content.DumpValue();
+            var dumps = content.DumpStack(null);
+            var dumpSys = err.ToString();
+            Debug.LogError(dumpv + dumps + dumpSys);
         }
     }
 }
