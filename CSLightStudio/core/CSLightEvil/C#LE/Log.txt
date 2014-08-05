@@ -1,4 +1,6 @@
-﻿0.39Alpha
+﻿0.39.1 脚本定义类型bug修正
+
+0.39Alpha
 支持了 while表达式与do while表达式
 加入了unity的一些例子
 

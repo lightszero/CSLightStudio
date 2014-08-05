@@ -9,11 +9,22 @@ class Test04
     public static void Run()
     {
         IT4 impl1 = new IT4_Impl();
-        Debug.Log(impl1.name);
-        IT4 impl2 = new IT4_Impl2();
-        Debug.Log(impl2.name);
-
+        impl1.Call1();
+        impl2 = new IT4_Impl();
+        Test04.impl2 = new IT4_Impl2();
+        Test04.impl2.Call1();
+        Test04 t4 = new Test04();
+        t4.Run1();
     }
+    void Run1()
+    {
+        impl1 = new IT4_Impl();
+        impl1.Call1();
+        this.impl1 = new IT4_Impl2();
+        this.impl1.Call1();
+    }
+    static IT4 impl2;
+    IT4 impl1;
 
 }
 interface IT4
@@ -40,12 +51,12 @@ class IT4_Impl : IT4
 
     public void Call1()
     {
-        Debug.Log("Call1");
+        Debug.Log("IT4_Impl.Call1");
     }
 
     public void Call2(int i, string n)
     {
-        Debug.Log("Call2(" + i + "," + n + ")");
+        Debug.Log("IT4_Impl.Call2(" + i + "," + n + ")");
     }
 
     public string name
@@ -70,12 +81,12 @@ class IT4_Impl2 : IT4
 
     public void Call1()
     {
-        Debug.Log("Call1");
+        Debug.Log("IT4_Impl2.Call1");
     }
 
     public void Call2(int i, string n)
     {
-        Debug.Log("Call2(" + i + "," + n + ")");
+        Debug.Log("IT4_Impl2.Call2(" + i + "," + n + ")");
     }
 
     public string name

@@ -1,6 +1,2 @@
-﻿//这个测试测试一些奇特的类型名
-//List<string>
-//List<List<int>>
-//List<List<List<double>>>
-
+﻿//这个测试测试try catch throw
 Test05.Run();

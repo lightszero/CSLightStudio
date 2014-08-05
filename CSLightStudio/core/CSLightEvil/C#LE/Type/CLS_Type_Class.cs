@@ -205,7 +205,14 @@ namespace CSLE
             {
                 if (value != null && value.GetType() != (Type)this.members[valuename].type.type)
                 {
-                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
+                    if (value is SInstance)
+                    {
+                        value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
+                    else
+                    {
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
                 }
                 this.staticMemberInstance[valuename].value = value;
                 return;
@@ -233,12 +240,14 @@ namespace CSLE
                         //i++;
                     }
                     CLS_Content.Value value = null;
-                    if (this.functions[func].expr_runtime != null)
-                        value = this.functions[func].expr_runtime.ComputeValue(content);
-                    else
+                    var funcobj = this.functions[func];
+                    if(this.bInterface)
                     {
-
+                        funcobj = (object_this as SInstance).type.functions[func];
                     }
+                    if (funcobj.expr_runtime != null)
+                        value = funcobj.expr_runtime.ComputeValue(content);
+
                     contentParent.OutStack(content);
                     return value;
                 }
@@ -266,7 +275,14 @@ namespace CSLE
             {
                 if (value != null && value.GetType() != (Type)this.members[valuename].type.type)
                 {
-                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
+                    if (value is SInstance)
+                    {
+                        value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
+                    else
+                    {
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
                 }
                 sin.member[valuename].value = value;
                 return;
