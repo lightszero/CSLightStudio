@@ -13,3 +13,5 @@ do
 	trace("i="+i);
 	i++;
 }while(i<10);
+
+return 0;
