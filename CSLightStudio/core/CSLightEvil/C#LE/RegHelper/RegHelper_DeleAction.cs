@@ -6,9 +6,10 @@ namespace CSLE
 {
 
 
+
     public class RegHelper_DeleAction : RegHelper_Type ,ICLS_Type_Dele
     {
-        delegate void Action();
+
         public RegHelper_DeleAction( string setkeyword)
             : base(typeof(Action), setkeyword)
         {

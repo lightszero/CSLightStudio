@@ -278,8 +278,12 @@ namespace CSLE
                     }
 
                 }
-
-                throw new Exception("值没有定义过");
+                string err = CallType.Name + "\n";
+                foreach(var m in CallType.members)
+                {
+                    err += m.Key + ",";
+                }
+                throw new Exception("值没有定义过" + name + "," + err);
 
             }
             if ((Type)values[name].type == typeof(CLS_Type_Var.var) && value != null)

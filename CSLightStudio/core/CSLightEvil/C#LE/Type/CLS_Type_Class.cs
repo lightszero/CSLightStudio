@@ -243,6 +243,7 @@ namespace CSLE
                     var funcobj = this.functions[func];
                     if(this.bInterface)
                     {
+                        content.CallType = (object_this as SInstance).type;
                         funcobj = (object_this as SInstance).type.functions[func];
                     }
                     if (funcobj.expr_runtime != null)
