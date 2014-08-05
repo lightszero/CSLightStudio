@@ -11,3 +11,14 @@
 /CSLightStudio/unity/MonoBehaviour/*.csproj
 /CSLightStudio/unity/MonoBehaviour/*.sln
 /CSLightStudio/unity/MonoBehaviour/*.suo
+/CSLightStudio/unity/MonoBehaviour/Temp
+/CSLightStudio/unity/MonoBehaviour/Assembly-CSharp.csproj
+/CSLightStudio/unity/MonoBehaviour/Assembly-CSharp-vs.csproj
+/CSLightStudio/unity/MonoBehaviour/MonoBehaviour.sln
+/CSLightStudio/unity/MonoBehaviour/MonoBehaviour-csharp.sln
+/CSLightStudio/unity/MonoBehaviour/MonoBehaviour-csharp.v12.suo
+/CSLightStudio/unity/ScriptHelloWorld/*.sln
+/CSLightStudio/unity/ScriptHelloWorld/*.suo
+/CSLightStudio/unity/ScriptHelloWorld/*.csproj
+/CSLightStudio/unity/ScriptHelloWorld/Library
+/CSLightStudio/unity/ScriptHelloWorld/obj
