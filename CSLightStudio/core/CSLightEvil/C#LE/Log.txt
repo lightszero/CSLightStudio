@@ -1,4 +1,7 @@
-﻿0.37Alpha
+﻿0.38Alpha
+完整支持了数组
+
+0.37Alpha
 修改了不少小的问题
 另外完成了try catch throw，和C#的用法一致
 
