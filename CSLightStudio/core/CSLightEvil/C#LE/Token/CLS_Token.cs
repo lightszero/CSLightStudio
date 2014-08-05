@@ -305,16 +305,16 @@ namespace CSLE
                     if (t.text == s)
                     {
                         t.type = TokenType.TYPE;
-                        if (line[i] == '<' || line[i] == '[')
+                        if (line[i] == '<'/*  || line[i] == '['*/)
                             break;
                         return nstart + t.text.Length;
                     }
                 }
-                if (i < line.Length && (line[i] == '<' || line[i] == '['))//检查特别类型
+                if (i < line.Length && (line[i] == '<'/* || line[i] == '['*/))//检查特别类型
                 {
                     foreach (string s in types)
                     {
-                        if (line.IndexOf(s, nstart) == nstart)
+                        if (s.Length>t.text.Length&& line.IndexOf(s, nstart) == nstart)
                         {
                             t.type = TokenType.TYPE;
                             t.text = s;

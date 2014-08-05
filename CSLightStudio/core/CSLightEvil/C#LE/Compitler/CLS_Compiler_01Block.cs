@@ -271,6 +271,7 @@ namespace CSLE
                     }
                     if (!bTest && tlist[expbegin].type == TokenType.TYPE)
                     {
+
                         if (tlist[expbegin + 1].type == TokenType.IDENTIFIER)//定义表达式或者定义并赋值表达式
                         {
                             if (expend == expbegin + 1)//定义表达式
@@ -292,6 +293,30 @@ namespace CSLE
                             else
                             {
                                 LogError(tlist,"无法识别的表达式:", expbegin ,expend);
+                                return false;
+                            }
+                        }
+                        else if (tlist[expbegin + 1].text == "[" && tlist[expbegin + 2].text == "]" && tlist[expbegin + 3].type == TokenType.IDENTIFIER)//定义表达式或者定义并赋值表达式
+                        {
+                            if (expend == expbegin + 3)//定义表达式
+                            {
+                                ICLS_Expression subvalue = Compiler_Expression_DefineArray(tlist, content, expbegin, expend);
+                                if (null == subvalue) return false;
+                                else
+                                    values.Add(subvalue);
+                                bTest = true;
+                            }
+                            else if (expend > expbegin + 4 && tlist[expbegin + 4].type == TokenType.PUNCTUATION && tlist[expbegin + 4].text == "=")
+                            {//定义并赋值表达式
+                                ICLS_Expression subvalue = Compiler_Expression_DefineAndSetArray(tlist, content, expbegin, expend);
+                                if (null == subvalue) return false;
+                                else
+                                    values.Add(subvalue);
+                                bTest = true;
+                            }
+                            else
+                            {
+                                LogError(tlist, "无法识别的表达式:", expbegin, expend);
                                 return false;
                             }
                         }

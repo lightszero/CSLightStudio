@@ -1,0 +1,9 @@
+﻿//7001 array
+
+int[] ints2=new int[3];
+ints2[1]=44;
+trace("="+ints2[1]);
+
+int[] ints3=new int[]{55,55,55};
+ints3[1]=44;
+trace("="+ints3[1]);

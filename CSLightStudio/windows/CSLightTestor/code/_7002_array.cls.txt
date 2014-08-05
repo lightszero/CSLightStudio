@@ -1,0 +1,5 @@
+﻿//7001 array
+
+string[] ints2=new string[]{"55","55","55"};
+ints2[1]="44";
+trace("="+ints2[1]);

@@ -235,7 +235,15 @@ namespace CSLE
 
         public virtual void IndexSet(CLS_Content environment, object object_this, object key, object value)
         {
+            var m = type.GetMethods();
             var targetop = type.GetMethod("set_Item");
+            if(targetop==null)
+            {
+                targetop = type.GetMethod("Set");
+                //targetop = type.GetMethod("SetValue",new Type[]{typeof(object),typeof(int)});
+                //targetop.Invoke(object_this, new object[]{value, key});
+                //return;
+            }
             targetop.Invoke(object_this, new object[] { key, value });
         }
     }

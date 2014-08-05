@@ -3,4 +3,4 @@ Student s =new Student();
 
 int i=s.vs2[1];
 
-s.ToString<int>(1);
+s.ToString();
