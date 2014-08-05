@@ -1,4 +1,8 @@
-﻿0.38Alpha
+﻿0.39Alpha
+支持了 while表达式与do while表达式
+加入了unity的一些例子
+
+0.38Alpha
 完整支持了数组
 
 0.37Alpha

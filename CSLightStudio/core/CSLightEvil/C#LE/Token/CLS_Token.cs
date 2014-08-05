@@ -71,6 +71,8 @@ namespace CSLE
             keywords.Add("break");
             keywords.Add("continue");
             keywords.Add("for");
+            keywords.Add("do");
+            keywords.Add("while");
             keywords.Add("trace");
             keywords.Add("return");
             keywords.Add("true");

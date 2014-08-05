@@ -27,6 +27,8 @@ namespace CLScriptTestor
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
             scriptService = new CSLE.CLS_Environment(this); //初始化CLScript
             scriptService.RegFunction(new CSLE.RegHelper_Function((_call)testCallAdd));
             scriptService.RegFunction(new CSLE.RegHelper_Function((_call)testCallDec));

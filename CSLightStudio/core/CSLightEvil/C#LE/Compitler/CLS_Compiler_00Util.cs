@@ -293,6 +293,14 @@ namespace CSLE
                         {
                             return FindCodeKeyWord_ForEach(tokens, i);
                         }
+                        if (start.Value.text == "while")
+                        {
+                            return FindCodeKeyWord_While(tokens, i);
+                        }
+                        if (start.Value.text == "do")
+                        {
+                            return FindCodeKeyWord_Dowhile(tokens, i);
+                        }
                         if (start.Value.text == "if")
                         {
                             return FindCodeKeyWord_If(tokens, i);
@@ -431,6 +439,18 @@ namespace CSLE
                         if (start.Value.text == "for")
                         {
                             return FindCodeKeyWord_For(tokens, i);
+                        }
+                        if (start.Value.text == "foreach")
+                        {
+                            return FindCodeKeyWord_ForEach(tokens, i);
+                        }
+                        if (start.Value.text == "while")
+                        {
+                            return FindCodeKeyWord_While(tokens, i);
+                        }
+                        if (start.Value.text == "do")
+                        {
+                            return FindCodeKeyWord_Dowhile(tokens, i);
                         }
                         if (start.Value.text == "if")
                         {
@@ -629,6 +649,28 @@ namespace CSLE
             return fe2;
         }
         int FindCodeKeyWord_ForEach(IList<Token> tokens, int pos)
+        {
+            int b1;
+            int fs1 = pos + 1;
+            int fe1 = FindCodeAny(tokens, ref fs1, out b1);
+
+            int b2;
+            int fs2 = fe1 + 1;
+            int fe2 = FindCodeAny(tokens, ref fs2, out b2);
+            return fe2;
+        }
+        int FindCodeKeyWord_While(IList<Token> tokens, int pos)
+        {
+            int b1;
+            int fs1 = pos + 1;
+            int fe1 = FindCodeAny(tokens, ref fs1, out b1);
+
+            int b2;
+            int fs2 = fe1 + 1;
+            int fe2 = FindCodeAny(tokens, ref fs2, out b2);
+            return fe2;
+        }
+        int FindCodeKeyWord_Dowhile(IList<Token> tokens, int pos)
         {
             int b1;
             int fs1 = pos + 1;

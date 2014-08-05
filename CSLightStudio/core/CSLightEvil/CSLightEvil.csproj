@@ -62,6 +62,8 @@
     <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticSetValue.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopBreak.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopContinue.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopWhile.cs" />
+    <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopDowhile.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopFor.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopForEach.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopTry.cs" />

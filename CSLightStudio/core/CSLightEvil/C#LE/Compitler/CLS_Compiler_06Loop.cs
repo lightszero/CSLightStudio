@@ -116,6 +116,95 @@ namespace CSLE
             }
             return null;
         }
+        public ICLS_Expression Compiler_Expression_Loop_While(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
+        {
+            int b1;
+            int fs1 = pos + 1;
+            int fe1 = FindCodeAny(tlist, ref fs1, out b1);
+            CLS_Expression_LoopWhile value = new CLS_Expression_LoopWhile(pos, fe1, tlist[pos].line, tlist[fe1].line);
+
+
+            //while(xxx)
+            {
+                ICLS_Expression subvalue;
+                bool succ = Compiler_Expression(tlist, content, fs1, fe1, out subvalue);
+                if (succ)
+                {
+                    value.tokenEnd = fe1;
+                    value.lineEnd = tlist[fe1].line;
+                    value.listParam.Add(subvalue);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            //while(...){yyy}
+
+            int b2;
+            int fs2 = fe1 + 1;
+            int fe2 = FindCodeAny(tlist, ref fs2, out b2);
+            {
+                ICLS_Expression subvalue;
+                bool succ = Compiler_Expression_Block(tlist, content, fs2, fe2, out subvalue);
+                if (succ)
+                {
+                    value.tokenEnd = fe2;
+                    value.lineEnd = tlist[fe2].line;
+                    value.listParam.Add(subvalue);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return value;
+        }
+        public ICLS_Expression Compiler_Expression_Loop_Dowhile(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
+        {
+            int b1;
+            int fs1 = pos + 1;
+            int fe1 = FindCodeAny(tlist, ref fs1, out b1);
+            CLS_Expression_LoopDowhile value = new CLS_Expression_LoopDowhile(pos, fe1, tlist[pos].line, tlist[fe1].line);
+
+            //do(xxx)while(...)
+            {
+                ICLS_Expression subvalue;
+                bool succ = Compiler_Expression_Block(tlist, content, fs1, fe1, out subvalue);
+                if (succ)
+                {
+                    value.tokenEnd = fe1;
+                    value.lineEnd = tlist[fe1].line;
+                    value.listParam.Add(subvalue);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            //do{...]while(yyy);
+            if (tlist[fe1 + 1].text != "while") return null;
+            int b2;
+            int fs2 = fe1 + 2;
+            int fe2 = FindCodeAny(tlist, ref fs2, out b2);
+            {
+                ICLS_Expression subvalue;
+                bool succ = Compiler_Expression(tlist, content, fs2, fe2, out subvalue);
+                if (succ)
+                {
+                    value.tokenEnd = fe2;
+                    value.lineEnd = tlist[fe2].line;
+                    value.listParam.Add(subvalue);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return value;
+        }
 
         public ICLS_Expression Compiler_Expression_Loop_If(IList<Token> tlist, ICLS_Environment content, int pos, int posend)
         {

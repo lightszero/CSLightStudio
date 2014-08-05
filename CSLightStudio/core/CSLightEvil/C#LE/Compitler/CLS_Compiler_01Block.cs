@@ -402,6 +402,22 @@ namespace CSLE
                                 values.Add(subvalue);
                             bTest = true;
                         }
+                        else if (tlist[expbegin].text == "while")
+                        {
+                            ICLS_Expression subvalue = Compiler_Expression_Loop_While(tlist, content, expbegin, expend);
+                            if (null == subvalue) return false;
+                            else
+                                values.Add(subvalue);
+                            bTest = true;
+                        }
+                        else if (tlist[expbegin].text == "do")
+                        {
+                            ICLS_Expression subvalue = Compiler_Expression_Loop_Dowhile(tlist, content, expbegin, expend);
+                            if (null == subvalue) return false;
+                            else
+                                values.Add(subvalue);
+                            bTest = true;
+                        }
                         else if (tlist[expbegin].text == "if")
                         {
                             ICLS_Expression subvalue = Compiler_Expression_Loop_If(tlist,content, expbegin, expend);

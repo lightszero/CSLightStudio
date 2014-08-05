@@ -98,7 +98,7 @@ namespace CSLE
 
         public override string ToString()
         {
-            return "If|";
+            return "Try|";
         }
     }
 }

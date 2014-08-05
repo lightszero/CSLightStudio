@@ -1,0 +1,15 @@
+﻿//4003 loops
+
+int i=0;
+
+while(i<10)
+{
+   trace("i="+i);
+   i++;
+}
+
+do
+{
+	trace("i="+i);
+	i++;
+}while(i<10);

@@ -52,16 +52,31 @@ namespace CSLE
             CLS_Content.Value value = null;
             if (bif && expr_go1 != null)
             {
-
-                value= expr_go1.ComputeValue(content);
-
+                if (expr_go1 is CLS_Expression_Block)
+                {
+                    value = expr_go1.ComputeValue(content);
+                }
+                else
+                {
+                    content.DepthAdd();
+                    value = expr_go1.ComputeValue(content);
+                    content.DepthRemove();
+                }
 
             }
             else if (!bif && expr_go2 != null)
             {
 
-                value= expr_go2.ComputeValue(content);
-
+                if (expr_go2 is CLS_Expression_Block)
+                {
+                    value = expr_go2.ComputeValue(content);
+                }
+                else
+                {
+                    content.DepthAdd();
+                    value = expr_go2.ComputeValue(content);
+                    content.DepthRemove();
+                }
 
             }
 
