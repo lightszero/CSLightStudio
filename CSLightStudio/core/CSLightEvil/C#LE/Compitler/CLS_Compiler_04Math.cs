@@ -48,6 +48,10 @@ namespace CSLE
                 }
 
             }
+            else if (tlist[oppos].text == "=>")
+            {//lambda
+                return Compiler_Expression_Lambda(tlist, content, pos, posend);
+            }
             else if (tlist[oppos].text == "." && pos == oppos - 1 && tlist[pos].type == TokenType.TYPE)
             {
 
@@ -100,7 +104,7 @@ namespace CSLE
                 if (tlist[oppos].text == "(")
                 {
                     ICLS_Expression v;
-                    bool succ = Compiler_Expression(tlist, content, oppos + 3, posend , out v);
+                    bool succ = Compiler_Expression(tlist, content, oppos + 3, posend, out v);
                     CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(pos, posend, tlist[pos].line, tlist[posend].line);
                     convert.listParam.Add(v);
                     convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
@@ -120,15 +124,15 @@ namespace CSLE
                     value.listParam.Add(valueright);
                     return value;
                 }
-                else   if (tlist[oppos].text == "as")
-                     {
-                         CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(left, oppos + 1, tlist[left].line, tlist[oppos + 1].line);
-                         convert.listParam.Add(valueleft);
-                         convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
+                else if (tlist[oppos].text == "as")
+                {
+                    CLS_Expression_TypeConvert convert = new CLS_Expression_TypeConvert(left, oppos + 1, tlist[left].line, tlist[oppos + 1].line);
+                    convert.listParam.Add(valueleft);
+                    convert.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
 
 
-                         return convert;
-                     }
+                    return convert;
+                }
                 bool succ2 = Compiler_Expression(tlist, content, right, rightend, out valueright);
                 if (succ1 && succ2 && valueright != null && valueleft != null)
                 {
@@ -166,7 +170,7 @@ namespace CSLE
                         }
                         else
                         {
-                            throw new Exception("非法的Member Set表达式"+valueleft);
+                            throw new Exception("非法的Member Set表达式" + valueleft);
                         }
 
 
@@ -179,7 +183,7 @@ namespace CSLE
 
                         CLS_Expression_GetValue vg = valueright as CLS_Expression_GetValue;
                         CLS_Expression_Function vf = valueright as CLS_Expression_Function;
-                       
+
                         if (vg != null)
                         {
                             CLS_Expression_MemberFind value = new CLS_Expression_MemberFind(left, rightend, tlist[left].line, tlist[rightend].line);
@@ -198,7 +202,7 @@ namespace CSLE
 
                         else
                         {
-                            throw new Exception("不可识别的表达式"+ valueleft+"."+valueright);
+                            throw new Exception("不可识别的表达式" + valueleft + "." + valueright);
                         }
 
                         //value.listParam.Add(valueright);
@@ -258,7 +262,7 @@ namespace CSLE
                     }
                     else
                     {
-                        char mathop=tlist[oppos].text[0];
+                        char mathop = tlist[oppos].text[0];
                         if (mathop == '?')
                         {
                             CLS_Expression_Math3Value value = new CLS_Expression_Math3Value(left, rightend, tlist[left].line, tlist[rightend].line);
@@ -276,10 +280,10 @@ namespace CSLE
                             CLS_Expression_Math2Value value = new CLS_Expression_Math2Value(left, rightend, tlist[left].line, tlist[rightend].line);
                             value.listParam.Add(valueleft);
                             value.listParam.Add(valueright);
-                            value.mathop =mathop;
+                            value.mathop = mathop;
                             return value;
                         }
-                   
+
                     }
 
 

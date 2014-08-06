@@ -48,4 +48,36 @@ namespace CSLE
         public Delegate deleInstance;
         public CLS_Content deleContent;
     }
+
+    public class DeleLambda  //指向Lambda表达式
+    {
+        public DeleLambda(CLS_Content content,IList<ICLS_Expression> param,ICLS_Expression func)
+        {
+            this.content = content.Clone();
+            this.expr_func = func;
+            foreach(var p in param)
+            {
+                CLS_Expression_GetValue v1 = p as CLS_Expression_GetValue;
+                CLS_Expression_Define v2 = p as CLS_Expression_Define;
+                if (v1 != null)
+                {
+                    paramTypes.Add(null);
+                    paramNames.Add(v1.value_name);
+                }
+                else if (v2 != null)
+                {
+                    paramTypes.Add(v2.value_type);
+                    paramNames.Add(v2.value_name);
+                }
+                else
+                {
+                    throw new Exception("DeleLambda 参数不正确");
+                }
+            }
+        }
+        public List<Type> paramTypes = new List<Type>();
+        public List<string> paramNames = new List<string>(); 
+        public CLS_Content content;
+        public ICLS_Expression expr_func;
+    }
 }

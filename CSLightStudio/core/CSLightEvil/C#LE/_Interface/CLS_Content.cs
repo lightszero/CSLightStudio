@@ -6,6 +6,18 @@ namespace CSLE
 {
     public class CLS_Content
     {
+        public CLS_Content Clone()
+        {
+            CLS_Content con = new CLS_Content(environment,useDebug);
+            foreach(var c in this.values)
+            {
+                con.values.Add(c.Key, c.Value);
+            }
+            con.CallThis = this.CallThis;
+            con.CallType = this.CallType;
+
+            return con;
+        }
         public ICLS_Environment environment
         {
             get;
@@ -32,15 +44,16 @@ namespace CSLE
             get
             {
                 string strout = "";
-                if(this.CallType!=null)
+                if (this.CallType != null)
                 {
-                    if(string.IsNullOrEmpty(this.CallType.filename)==false)
-                        strout+="("+this.CallType.filename+")";
+                    if (string.IsNullOrEmpty(this.CallType.filename) == false)
+                        strout += "(" + this.CallType.filename + ")";
                     strout += this.CallType.Name + ":";
                 }
                 strout += this.function;
                 return strout;
             }
+
         }
         public bool useDebug
         {

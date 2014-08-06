@@ -70,5 +70,11 @@ namespace CSLE
             DeleObject obj = new DeleObject(dele, content);
             return obj;
         }
+
+
+        public DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

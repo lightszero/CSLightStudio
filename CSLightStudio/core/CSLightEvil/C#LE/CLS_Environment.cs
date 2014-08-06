@@ -18,7 +18,7 @@ namespace CSLE
         {
             get
             {
-                return "0.39.2Alpha";
+                return "0.39.3Alpha";
             }
         }
         public CLS_Environment(ICLS_Logger logger)
@@ -37,6 +37,8 @@ namespace CSLE
             RegType(new CLS_Type_Double());
             RegType(new CLS_Type_String());
             RegType(new CLS_Type_Var());
+            RegType(new CLS_Type_Lambda());
+
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();
             //if (!useNamespace)//命名空间模式不能直接用函数

@@ -151,5 +151,7 @@ namespace CSLE
     {
         string GetParamSign(ICLS_Environment env);
         DeleObject CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function);
+
+        DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda);
     }
 }

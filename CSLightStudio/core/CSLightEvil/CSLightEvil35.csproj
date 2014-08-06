@@ -56,6 +56,7 @@
     <Compile Include="C#LE\Expression\Function\CLS_Expression_FunctionNewArray.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexSetValue.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_Lambda.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFunction.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberSetValue.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="C#LE\Type\CLS_Type_Double.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Float.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Int.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Lambda.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Null.cs" />
     <Compile Include="C#LE\Type\CLS_Type_String.cs" />
     <Compile Include="C#LE\Type\CLS_Type_UInt.cs" />

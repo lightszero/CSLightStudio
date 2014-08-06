@@ -69,5 +69,27 @@ namespace CSLE
             DeleObject obj = new DeleObject(dele,content);
             return obj;
         }
+
+
+        public DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda)
+        {
+            CLS_Content content = lambda.content.Clone();
+            var pnames = lambda.paramNames;
+            var expr = lambda.expr_func;
+            Action<T> dele = (T param0) =>
+                {
+                    content.DepthAdd();
+
+
+                    content.DefineAndSet(pnames[0], typeof(T), param0);
+
+                    expr.ComputeValue(content);
+
+                    content.DepthRemove();
+                };
+
+            DeleObject obj = new DeleObject(dele, content);
+            return obj;
+        }
     }
 }

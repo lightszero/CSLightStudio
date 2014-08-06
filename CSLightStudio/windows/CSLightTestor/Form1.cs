@@ -49,6 +49,8 @@ namespace CLScriptTestor
 
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(DateTime)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(TimeSpan)));
+
+            scriptService.RegDeleType(new CSLE.RegHelper_DeleAction<int>("Action<int>"));
             //CLScriptExt.Type_Vector3());
             InitCodeFile();
             ScriptNET.Runtime.RuntimeHost.Initialize();

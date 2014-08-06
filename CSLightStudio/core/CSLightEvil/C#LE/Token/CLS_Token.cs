@@ -184,10 +184,12 @@ namespace CSLE
                 }
                 return nstart + t.text.Length;
             }
-            else if (line[nstart] == '=')//= ==
+            else if (line[nstart] == '=')//= == =>
             {
                 t.type = TokenType.PUNCTUATION;
                 if (nstart < line.Length - 1 && line[nstart + 1] == '=')
+                    t.text = line.Substring(nstart, 2);
+                else if (nstart < line.Length - 1 && line[nstart + 1] == '>')
                     t.text = line.Substring(nstart, 2);
                 else
                     t.text = line.Substring(nstart, 1);

@@ -53,6 +53,7 @@ namespace CSLE
 
             if (_listParam != null && _listParam.Count > 0)
             {
+
                 CLS_Content.Value v = _listParam[0].ComputeValue(content);
                 object val = v.value;
                 if ((Type)value_type == typeof(CLS_Type_Var.var))

@@ -11,7 +11,7 @@ namespace CSLE
             int b1;
             int fs1 = pos + 1;
             int fe1 = FindCodeAny(tlist, ref fs1, out b1);
-            CLS_Expression_LoopFor value = new CLS_Expression_LoopFor(pos, fe1, tlist[pos].line, tlist[fe1].line);
+            CLS_Expression_LoopFor value = new CLS_Expression_LoopFor(pos, posend, tlist[pos].line, tlist[posend].line);
 
             int testbegin = fs1 + 1;
             if (b1 != 1)
