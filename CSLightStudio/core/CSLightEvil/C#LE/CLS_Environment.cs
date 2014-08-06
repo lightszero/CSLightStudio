@@ -95,7 +95,8 @@ namespace CSLE
         {
             if (deleTypes.ContainsKey(sign) == false)
             {
-                logger.Log_Error("(CLScript)类型未注册:" + sign);
+                return null;
+                //logger.Log_Error("(CLScript)类型未注册:" + sign);
 
             }
             return deleTypes[sign];
