@@ -37,7 +37,7 @@ namespace CSLE
         {
             get
             {
-                return new DeleObject(null);
+                return new DeleObject(null, null);
 
             }
         }
@@ -51,13 +51,13 @@ namespace CSLE
             //return "";
         }
 
-        public Delegate CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function)
+        public DeleObject CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function)
         {
 
+            CLS_Content content = new CLS_Content(env);
             Action<T1, T2, T3> dele = (T1 param0, T2 param1, T3 param2) =>
             {
-
-                CLS_Content content = new CLS_Content(env);
+                content.DepthAdd();
                 content.CallThis = callthis;
                 content.CallType = calltype;
                 content.function = function;
@@ -68,8 +68,10 @@ namespace CSLE
                 content.DefineAndSet(func._paramnames[2], func._paramtypes[2].type, param2);
 
                 func.expr_runtime.ComputeValue(content);
+                content.DepthRemove();
             };
-            return dele;
+            DeleObject obj = new DeleObject(dele, content);
+            return obj;
         }
     }
 }

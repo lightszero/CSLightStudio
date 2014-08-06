@@ -293,7 +293,8 @@ namespace CSLE
 
         public void DefineAndSet(string name,CLType type,object value)
         {
-            if (values.ContainsKey(name)) throw new Exception(type.ToString()+":"+name+"已经定义过");
+            if (values.ContainsKey(name)) 
+                throw new Exception(type.ToString()+":"+name+"已经定义过");
             Value v = new Value();
             v.type = type;
             v.value = value;
@@ -305,22 +306,29 @@ namespace CSLE
         }
         public Value Get(string name)
         {
-            if(name=="this")
+            Value v = GetQuiet(name);
+            if(v==null)
+                throw new Exception("值"+name+"没有定义过");
+            return v;
+        }
+        public Value GetQuiet(string name)
+        {
+            if (name == "this")
             {
-                 Value v = new Value();
-                 v.type = CallType;
-                 v.value = CallThis;
-                 return v;
+                Value v = new Value();
+                v.type = CallType;
+                v.value = CallThis;
+                return v;
             }
 
             if (values.ContainsKey(name))//优先上下文变量
                 return values[name];
 
-            if(CallType!=null)
+            if (CallType != null)
             {
-                if(CallType.members.ContainsKey(name))
+                if (CallType.members.ContainsKey(name))
                 {
-                    if(CallType.members[name].bStatic)
+                    if (CallType.members[name].bStatic)
                     {
                         return CallType.staticMemberInstance[name];
                     }
@@ -329,15 +337,13 @@ namespace CSLE
                         return CallThis.member[name];
                     }
                 }
-                if(CallType.functions.ContainsKey(name))
+                if (CallType.functions.ContainsKey(name))
                 {
                     Value v = new Value();
                     //如果直接得到代理实例，
-                     string sign =CallType.functions[name].GetParamSign();
-                    ICLS_Type_Dele deletype =this.environment.GetDeleTypeBySign(sign);
-                    Delegate dele = deletype.CreateDelegate(environment, CallType, CallThis, name);
-
-                    DeleObject value = new DeleObject(dele);
+                    string sign = CallType.functions[name].GetParamSign();
+                    ICLS_Type_Dele deletype = this.environment.GetDeleTypeBySign(sign);
+                    DeleObject value = deletype.CreateDelegate(environment, CallType, CallThis, name);
 
                     //DeleScript dele =new DeleScript();
                     //dele.function = name;
@@ -349,9 +355,7 @@ namespace CSLE
 
                 }
             }
-
-            throw new Exception("值"+name+"没有定义过");
-
+            return null;
         }
         public Stack<List<string>> tvalues = new Stack<List<string>>();
         public void DepthAdd()//控制变量作用域，深一层

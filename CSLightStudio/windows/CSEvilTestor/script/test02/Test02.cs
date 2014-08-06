@@ -10,6 +10,10 @@ class Test02
     {
         Action<int> deleTest = Test2;
 
+        deleTest(13333);
+        Test02.deleTest2 = deleTest;
+        Test02.deleTest2(333);
+
         int config_citygrade = 0;
         TestDele.instance.ClearDele();
 
@@ -24,11 +28,15 @@ class Test02
         TestDele.instance.AddDele(Test2);
         TestDele.instance.AddDele(deleTest);
 
-
+        Test02 ttt = new Test02();
+        ttt.deleTest3 = deleTest;
+        ttt.deleTest3(3334);
         TestDele.instance.Run();
     }
     static int i = 0;
+    static Action<int> deleTest2 = null;
 
+    Action<int> deleTest3; 
     static void Test()
     {
         Debug.Log("i=" + i);

@@ -52,7 +52,30 @@ namespace CSLE
                 }
             }
             CLS_Content.Value v = null;
-            if (content.CallType != null && content.CallType.functions.ContainsKey(funcname))
+            v = content.GetQuiet(funcname);
+            if(v!=null)
+            {
+                if (v.value is DeleObject)
+                {
+
+                    object vr = (v.value as DeleObject).Call(content,list);
+                    v = new CLS_Content.Value();
+                    v.value = vr;
+                    if(v.value==null)
+                    {
+                        v.type = null;
+                    }
+                    else
+                    {
+                        v.type = v.value.GetType();
+                    }
+                }
+                else
+                {
+                    throw new Exception(funcname + "不是函数");
+                }
+            }
+            else if(content.CallType != null && content.CallType.functions.ContainsKey(funcname))
             {
                 if (content.CallType.functions[funcname].bStatic)
                 {

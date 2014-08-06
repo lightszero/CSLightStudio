@@ -181,6 +181,24 @@ namespace CSLE
                     return value;
                 }
             }
+            else if (this.members.ContainsKey(function))
+            {
+                if (this.members[function].bStatic == true)
+                {
+                    DeleObject dele = this.staticMemberInstance[function].value as DeleObject;
+                    if (dele != null)
+                    {
+                        CLS_Content.Value value = new CLS_Content.Value();
+                        value.type = null;
+                        value.value = dele.Call(contentParent, _params);
+                        if (value.value != null)
+                            value.type = value.value.GetType();
+
+                        return value;
+                    }
+                }
+
+            }
             throw new NotImplementedException();
         }
 
@@ -208,6 +226,10 @@ namespace CSLE
                     if (value is SInstance)
                     {
                         value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
+                    else if(value is DeleObject)
+                    {
+
                     }
                     else
                     {
@@ -241,7 +263,7 @@ namespace CSLE
                     }
                     CLS_Content.Value value = null;
                     var funcobj = this.functions[func];
-                    if(this.bInterface)
+                    if (this.bInterface)
                     {
                         content.CallType = (object_this as SInstance).type;
                         funcobj = (object_this as SInstance).type.functions[func];
@@ -252,6 +274,24 @@ namespace CSLE
                     contentParent.OutStack(content);
                     return value;
                 }
+            }
+            else if (this.members.ContainsKey(func))
+            {
+                if (this.members[func].bStatic == false)
+                {
+                    DeleObject dele =(object_this as SInstance).member[func].value as DeleObject;
+                    if (dele != null)
+                    {
+                        CLS_Content.Value value = new CLS_Content.Value();
+                        value.type = null;
+                        value.value = dele.Call(contentParent,_params);
+                        if (value.value != null)
+                            value.type = value.value.GetType();
+
+                        return value;
+                    }
+                }
+
             }
             throw new NotImplementedException();
         }
@@ -279,6 +319,10 @@ namespace CSLE
                     if (value is SInstance)
                     {
                         value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
+                    }
+                    else if (value is DeleObject)
+                    {
+
                     }
                     else
                     {
@@ -344,7 +388,7 @@ namespace CSLE
         public SType type;
         public Dictionary<string, CLS_Content.Value> member = new Dictionary<string, CLS_Content.Value>();//成员
     }
-    public class CLS_Type_Class :ICLS_Type_WithBase
+    public class CLS_Type_Class : ICLS_Type_WithBase
     {
         public CLS_Type_Class(string keyword, bool bInterface, string filename = null)
         {
@@ -394,7 +438,7 @@ namespace CSLE
         public object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
             var type = env.environment.GetType(targetType);
-            if(this.types.Contains(type))
+            if (this.types.Contains(type))
             {
                 return src;
             }
