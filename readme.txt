@@ -1,5 +1,7 @@
 ﻿C#Light/Evil 是一组pure C#写成的脚本语言
+项目主页http://www.cltri.com/ 或者http://lightszero.github.io/
 能够对Unity等的逻辑热更新提供莫大的帮助
+你可以在
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：119706192
 

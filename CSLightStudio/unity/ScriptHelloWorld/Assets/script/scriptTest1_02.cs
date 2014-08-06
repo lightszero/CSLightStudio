@@ -11,6 +11,7 @@ public class scriptTest1_02 : MonoBehaviour {
 
     void Start()
     {
+#if UNITY_STANDALONE
         string script1 =System.IO.File.ReadAllText(Application.streamingAssetsPath+"/scriptclass1.cs");
         Script.Init();
         //将函数Today()注册给脚本使用
@@ -21,6 +22,7 @@ public class scriptTest1_02 : MonoBehaviour {
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(System.DayOfWeek)));
 
         Script.BuildFile("scriptclass1.cs", script1);
+#endif
 	}
 
 	// Update is called once per frame

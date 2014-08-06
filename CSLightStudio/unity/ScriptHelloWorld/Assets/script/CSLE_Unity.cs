@@ -40,6 +40,7 @@ class Script
     }
     public static void BuildProject(string path)
     {
+#if UNITY_STANDALONE
         if (env == null)
             Init();
         string[] files = System.IO.Directory.GetFiles(path, "*.cs", System.IO.SearchOption.AllDirectories);
@@ -50,6 +51,7 @@ class Script
             project.Add(v, tokens);
         }
         env.Project_Compiler(project, true);
+#endif
     }
     public static object Eval(string script)
     {
@@ -78,7 +80,7 @@ class Script
     }
 
 
-    static CSLE.CLS_Content content = null;
+    public static CSLE.CLS_Content content = null;
     public static void SetValue(string name, object v)
     {
         if (env == null)
