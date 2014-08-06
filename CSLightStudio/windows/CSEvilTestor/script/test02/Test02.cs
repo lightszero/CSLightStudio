@@ -37,6 +37,13 @@ class Test02
                 Debug.Log("a=" + a);
             };
         TestDele.instance.onUpdate2 += t;
+
+        TestDele.instance.onUpdate2 += (b) =>
+        {
+            Debug.Log("b=" + b);
+        };
+
+
         TestDele.instance.Run();
     }
     static int i = 0;

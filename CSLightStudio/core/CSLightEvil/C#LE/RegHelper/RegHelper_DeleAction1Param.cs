@@ -24,20 +24,35 @@ namespace CSLE
                 DeleObject info = left as DeleObject;
                 DeleObject calldele = right.value as DeleObject;
                 if (code == '+')
+                {
                     info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
                 else if (code == '-')
+                {
                     info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
 
 
             }
-
-            return null;
+            if (left is DeleObject && right.value is DeleLambda)
+            {
+                DeleObject info = left as DeleObject;
+                DeleObject calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                if (code == '+')
+                {
+                    info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
+            }
+            throw new NotSupportedException();
         }
         public override object DefValue
         {
             get
             {
-                return new DeleObject(null,null);
+                return new DeleObject(null, null);
 
             }
         }
@@ -66,7 +81,7 @@ namespace CSLE
                 func.expr_runtime.ComputeValue(content);
                 content.DepthRemove();
             };
-            DeleObject obj = new DeleObject(dele,content);
+            DeleObject obj = new DeleObject(dele, content);
             return obj;
         }
 

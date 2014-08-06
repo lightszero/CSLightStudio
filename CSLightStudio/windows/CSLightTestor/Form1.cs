@@ -49,6 +49,7 @@ namespace CLScriptTestor
 
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(DateTime)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(TimeSpan)));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(Form1)));
 
             scriptService.RegDeleType(new CSLE.RegHelper_DeleAction<int>("Action<int>"));
             //CLScriptExt.Type_Vector3());
@@ -56,10 +57,13 @@ namespace CLScriptTestor
             ScriptNET.Runtime.RuntimeHost.Initialize();
 
         }
-
+        public static event Action<int> onact;
 
         delegate int _call(int a, int b);
-
+        public static void Try()
+        {
+            if (onact != null) onact(33);
+        }
         static int testCallAdd(int a, int b)
         {
             Console.WriteLine("a=" + a + " b=" + b);

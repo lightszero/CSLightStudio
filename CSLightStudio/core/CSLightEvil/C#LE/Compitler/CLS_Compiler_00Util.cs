@@ -840,6 +840,9 @@ namespace CSLE
                     case ".":
                         max = 10;
                         break;
+                    case "=>":
+                        max = 11;
+                        break;
                     case "[":
                         max = 10;
                         break;

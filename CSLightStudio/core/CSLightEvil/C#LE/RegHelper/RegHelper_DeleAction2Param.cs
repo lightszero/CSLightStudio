@@ -24,14 +24,29 @@ namespace CSLE
                 DeleObject info = left as DeleObject;
                 DeleObject calldele = right.value as DeleObject;
                 if (code == '+')
+                {
                     info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
                 else if (code == '-')
+                {
                     info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
 
 
             }
-
-            return null;
+            if (left is DeleObject && right.value is DeleLambda)
+            {
+                DeleObject info = left as DeleObject;
+                DeleObject calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                if (code == '+')
+                {
+                    info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    return null;
+                }
+            }
+            throw new NotSupportedException();
         }
         public override object DefValue
         {
@@ -74,7 +89,24 @@ namespace CSLE
 
         public DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda)
         {
-            throw new NotImplementedException();
+            CLS_Content content = lambda.content.Clone();
+            var pnames = lambda.paramNames;
+            var expr = lambda.expr_func;
+            Action<T1,T2> dele = (T1 param0,T2 param1) =>
+            {
+                content.DepthAdd();
+
+
+                content.DefineAndSet(pnames[0], typeof(T1), param0);
+                content.DefineAndSet(pnames[1], typeof(T2), param1);
+
+                expr.ComputeValue(content);
+
+                content.DepthRemove();
+            };
+
+            DeleObject obj = new DeleObject(dele, content);
+            return obj;
         }
     }
 }
