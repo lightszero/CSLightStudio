@@ -226,6 +226,29 @@ namespace CSEvilTestor
         {
 
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int succ = 0;
+            for(int i=0;i<listItem.Items.Count;i++)
+            {
+                Item item = listItem.Items[i] as Item;
+                try
+                {
+                    builded = false;
+                    Build(item.path, false);
+                    Run(item.test, false);
+                    Log("Build Succ("+i+"/"+ listItem.Items.Count+")"+ item.path);
+                    succ++;
+                }
+                catch(Exception err)
+                {
+                    Log("Build Fail(" + i + "/" + listItem.Items.Count + ")" + item.path);
+
+                }
+            }
+            Log("Test Result:(" + succ + "/" + listItem.Items.Count + ")");
+        }
     }
 
     public class Debug

@@ -31,6 +31,12 @@ class Test02
         Test02 ttt = new Test02();
         ttt.deleTest3 = deleTest;
         ttt.deleTest3(3334);
+
+        Action<int> t = (a) =>
+            {
+                Debug.Log("a=" + a);
+            };
+        TestDele.instance.onUpdate2 += t;
         TestDele.instance.Run();
     }
     static int i = 0;

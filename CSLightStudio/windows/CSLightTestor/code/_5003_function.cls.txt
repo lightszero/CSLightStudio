@@ -8,7 +8,7 @@ Action<int> callnoname = (abc)=>
 {
 	//d is closeure
      trace("nonamecall abc="+abc+"d="+d);
-	 throw "abc";
+	 //throw "abc";
 };
 callnoname(44565);
 return;
