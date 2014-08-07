@@ -52,7 +52,10 @@ public class scriptTest2 : MonoBehaviour {
 			Clear();
             ResetScriptEnv();
             Script.BuildProject(Application.streamingAssetsPath + "/project1");
+            DateTime t1 = DateTime.Now;
             Script.Eval("ScriptMain1.Start();");
+            DateTime t2 = DateTime.Now;
+            Debug.Log("t1=" + (t2 - t1).TotalSeconds);
             updateCode = "ScriptMain1.Update();";
 
         }

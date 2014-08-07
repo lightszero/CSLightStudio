@@ -23,7 +23,7 @@ public class ScriptTestEval : MonoBehaviour
 
     void OnGUI()
     {
-        textcode = GUI.TextField(new Rect(0, 0, Screen.width, Screen.height / 2 - 25), textcode);
+        textcode = GUI.TextArea(new Rect(0, 0, Screen.width, Screen.height / 2 - 25), textcode);
 
         if (GUI.Button(new Rect(0, Screen.height / 2 - 25, 200, 50), "Call"))
         {
