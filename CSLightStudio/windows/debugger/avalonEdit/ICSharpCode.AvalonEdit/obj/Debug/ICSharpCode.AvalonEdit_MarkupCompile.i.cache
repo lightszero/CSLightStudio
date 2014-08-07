@@ -16,5 +16,5 @@ TRACE;DEBUG;DOTNET35
 14-490763244
 CodeCompletion\CompletionList.xaml;CodeCompletion\InsightWindow.xaml;Search\SearchPanel.xaml;Search\DropDownButton.xaml;TextEditor.xaml;themes\generic.xaml;
 
-False
+True
 

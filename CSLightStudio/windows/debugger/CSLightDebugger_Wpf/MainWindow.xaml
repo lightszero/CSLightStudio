@@ -1,41 +1,99 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="CSLightDebugger_Wpf.MainWindow"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit" x:Class="CSLightDebugger_Wpf.MainWindow"
+        Title="MainWindow" Height="538.196" Width="856.64">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="161*"/>
+            <RowDefinition Height="131*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="211*"/>
+            <ColumnDefinition Width="408*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="FileList" Grid.Row="1" Margin="0,0,5.045,5">
+            <TreeView x:Name="FileList" Grid.Row="1" SelectedItemChanged="FileList_SelectedItemChanged"/>
+        </GroupBox>
+        <Image Source="1.jpg" Grid.ColumnSpan="2" Margin="0,0,193.131,0"></Image>
+        <Menu Grid.ColumnSpan="2" Margin="0,0,0.131,0">
+            <MenuItem Header="SetProjectPath" Click="MenuItem_Click" />
+        </Menu>
+        <GridSplitter HorizontalAlignment="Left" Grid.RowSpan="2" Width="10" Margin="-5,2,0,0" Grid.Row="1" Grid.Column="1"/>
+        <GroupBox Header="Console" Grid.Row="2" Margin="5,35,0.131,0.328" Grid.Column="1">
+            <TabControl>
+                <TabItem Header="Console1">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="Console2">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="Console3">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+        <GroupBox Header="Debug" Grid.Row="2" Margin="0,35,5,0.328">
+            <TabControl>
+                <TabItem Header="Stack">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="BreakPoint">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="Watch">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+        <GroupBox x:Name="fileEditTitle" Grid.Column="1" Header="Code" Grid.Row="1" Margin="4.955,0,0.131,5">
+            <avalonedit:TextEditor x:Name="fileEdit" ShowLineNumbers="True" HorizontalScrollBarVisibility="Auto" SyntaxHighlighting="C#" Text="&quot;11&quot;;//sadf" >
+                <avalonedit:TextEditor.LineNumbersForeground>
+                    <ImageBrush ImageSource="2.jpg"/>
+                </avalonedit:TextEditor.LineNumbersForeground>
+            </avalonedit:TextEditor>
+        </GroupBox>
+        <GridSplitter Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="10" Margin="0,-5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <ToolBarPanel Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" Height="30" Margin="0,5,0,0" Background="#FF646464" Orientation="Horizontal">
+            <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Height="30">
+                <Button>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Stretch="Fill" Source="play.jpg"></Image>
+                            <TextBlock Text="Run" />
+                        </StackPanel>
+                        
+                    </Button.Content>
+                </Button>
+                <Button>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Stretch="Fill" Source="stop.jpg"></Image>
+                            <TextBlock Text="Stop" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </ToolBar>
+            <ToolBar Width="250" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left">
 
-        <avalonDock:DockingManager>
-            <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Horizontal">
-                    <avalonDock:LayoutDocumentPaneGroup>
-                        <avalonDock:LayoutDocumentPane>
-                            <avalonDock:LayoutDocument ContentId="document1" Title="Document 1"  >
-                                <StackPanel>
-                                    <TextBox Text="Document 1 Content"/>
-                                    <Button Content="Click to add 2 documents" />
-                                </StackPanel>
-                            </avalonDock:LayoutDocument>
-                            <avalonDock:LayoutDocument ContentId="document2" Title="Document 2">
-                                <TextBox Text="{Binding TestTimer, Mode=OneWay, StringFormat='Document 2 Attached to Timer ->\{0\}'}"/>
-                            </avalonDock:LayoutDocument>
-                        </avalonDock:LayoutDocumentPane>
-                    </avalonDock:LayoutDocumentPaneGroup>
-                    <avalonDock:LayoutAnchorablePaneGroup DockWidth="150">
-                        <avalonDock:LayoutAnchorablePane>
-                            <avalonDock:LayoutAnchorable ContentId="toolWindow1" Title="Tool Window 1" CanFloat="False" CanAutoHide="False" CanHide="False" >
-                                <StackPanel>
+                <Button>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Stretch="Fill" Source="step.jpg"></Image>
+                            <TextBlock Text="Step" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Content="跳入">
 
-                                    <TextBox Text="{Binding TestTimer, Mode=OneWay, StringFormat='Tool Window 1 Attached to Timer ->\{0\}'}"/>
-                                </StackPanel>
-                            </avalonDock:LayoutAnchorable>
-                            <avalonDock:LayoutAnchorable ContentId="toolWindow2" Title="Tool Window 2" CanHide="True" CanFloat="True" CanAutoHide="False">
-                                <TextBlock Text="{Binding FocusedElement}"/>
-                            </avalonDock:LayoutAnchorable>
-                        </avalonDock:LayoutAnchorablePane>
-                    </avalonDock:LayoutAnchorablePaneGroup>
-                </avalonDock:LayoutPanel>
-            </avalonDock:LayoutRoot>
-        </avalonDock:DockingManager>
+                </Button>
+                <Button Content="跳出">
+
+                </Button>
+            </ToolBar>
+
+        </ToolBarPanel>
+
     </Grid>
 </Window>
