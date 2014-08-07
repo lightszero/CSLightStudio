@@ -1,0 +1,16 @@
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\bin\Debug\ICSharpCode.AvalonEdit.xml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\bin\Debug\ICSharpCode.AvalonEdit.dll
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\bin\Debug\ICSharpCode.AvalonEdit.pdb
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.csprojResolveAssemblyReference.cache
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.cache
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit_MarkupCompile.lref
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\CodeCompletion\CompletionList.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\CodeCompletion\InsightWindow.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\Search\SearchPanel.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\Search\DropDownButton.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\TextEditor.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\themes\generic.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.g.resources
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.dll
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\ICSharpCode.AvalonEdit\obj\Debug\ICSharpCode.AvalonEdit.pdb

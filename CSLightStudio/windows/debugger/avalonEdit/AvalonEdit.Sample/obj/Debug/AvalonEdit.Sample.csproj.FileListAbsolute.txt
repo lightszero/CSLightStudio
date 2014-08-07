@@ -1,0 +1,10 @@
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\bin\Debug\AvalonEdit.Sample.exe
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\bin\Debug\AvalonEdit.Sample.pdb
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.csprojResolveAssemblyReference.cache
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\Window1.baml
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\Window1.g.cs
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\App.g.cs
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample_MarkupCompile.cache
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.g.resources
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.exe
+E:\github\CSLightStudio\CSLightStudio\windows\debugger\avalonEdit\AvalonEdit.Sample\obj\Debug\AvalonEdit.Sample.pdb
