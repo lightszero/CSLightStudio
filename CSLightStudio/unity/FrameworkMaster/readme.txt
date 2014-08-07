@@ -1,1 +1,3 @@
-FrameworkMaster���һ�ָ����Ͻ��Ľű�ʹ�÷�ʽ
+﻿FrameworkMaster完成一种更加严谨的脚本使用方式
+脚本不再写在steamingassets里
+独立建立脚本项目并将脚本打包存储
