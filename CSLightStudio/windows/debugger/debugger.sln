@@ -3,17 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "debugger", "debugger\debugger.csproj", "{2FF22931-B897-4379-A592-604985C2616D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLightDebugger_Wpf", "CSLightDebugger_Wpf\CSLightDebugger_Wpf.csproj", "{68B84DF8-8176-4D11-9390-733A0A551FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "debugger_IntegrationTests", "debugger\debugger_IntegrationTests\debugger_IntegrationTests.csproj", "{23C60714-7930-4471-BD45-C4CA9B258D3C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{67E7FB75-D916-4C14-98DE-64CA7E79D35A}"
-	ProjectSection(SolutionItems) = preProject
-		IntegrationTests.testsettings = IntegrationTests.testsettings
-		UnitTests.testsettings = UnitTests.testsettings
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "debugger_UnitTests", "debugger\debugger_UnitTests\debugger_UnitTests.csproj", "{E70B5E87-6412-42C0-B8F2-A1530246238F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.AvalonEdit", "avalonEdit\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj", "{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FF22931-B897-4379-A592-604985C2616D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FF22931-B897-4379-A592-604985C2616D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FF22931-B897-4379-A592-604985C2616D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FF22931-B897-4379-A592-604985C2616D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23C60714-7930-4471-BD45-C4CA9B258D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23C60714-7930-4471-BD45-C4CA9B258D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23C60714-7930-4471-BD45-C4CA9B258D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23C60714-7930-4471-BD45-C4CA9B258D3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E70B5E87-6412-42C0-B8F2-A1530246238F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E70B5E87-6412-42C0-B8F2-A1530246238F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E70B5E87-6412-42C0-B8F2-A1530246238F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E70B5E87-6412-42C0-B8F2-A1530246238F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B84DF8-8176-4D11-9390-733A0A551FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B84DF8-8176-4D11-9390-733A0A551FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B84DF8-8176-4D11-9390-733A0A551FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B84DF8-8176-4D11-9390-733A0A551FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
