@@ -1,0 +1,1 @@
+FrameworkMaster完成一种更加严谨的脚本使用方式

@@ -28,3 +28,9 @@
 /CSLightStudio/unity/Framework/*.csproj
 /CSLightStudio/unity/Framework/*.sln
 /CSLightStudio/unity/Framework/*.suo
+/CSLightStudio/unity/FrameworkMaster/Unity/obj
+/CSLightStudio/unity/FrameworkMaster/Unity/Library
+/CSLightStudio/unity/FrameworkMaster/Mode1Script/bin
+/CSLightStudio/unity/FrameworkMaster/Mode1Script/obj
+/CSLightStudio/unity/FrameworkMaster/Mode2Script/obj
+/CSLightStudio/unity/FrameworkMaster/Mode2Script/bin

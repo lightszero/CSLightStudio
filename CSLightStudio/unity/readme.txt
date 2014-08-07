@@ -1,0 +1,8 @@
+据雨松MOMO测试反馈
+当CSLightEvil35.dll和NGUI一起使用会产生冲突
+如遇这种情况请删除项目中的此DLL，直接将core下的C#LE目录嵌入项目中即可
+
+1.ScriptHelloworld为基本测试项目，提供最基本的脚本调用接口展示
+2.MonoBehaviour为在MonoBehaviour调用脚本的展示
+2.Framework为需要用脚本编写框架的展示
+3.FrameworkMaster为把脚本从Unity项目中拿出来使用的展示
