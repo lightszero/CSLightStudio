@@ -20,9 +20,11 @@ namespace CSLightDebugger_Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        CSLE.Remote.IRemoteServer server = new CSLE.Remote.RemoteServer();
         public MainWindow()
         {
             InitializeComponent();
+            server.StartServer(5588);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
