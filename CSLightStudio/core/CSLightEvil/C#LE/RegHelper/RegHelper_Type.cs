@@ -38,6 +38,10 @@ namespace CSLE
                 types.Add(p.type);
             }
             var targetop = type.GetMethod(function, types.ToArray());
+            if (targetop == null && type.BaseType != null)//加上父类型静态函数查找,典型的现象是 GameObject.Destory
+            {
+                targetop = type.BaseType.GetMethod(function, types.ToArray());
+            }
             CLS_Content.Value v = new CLS_Content.Value();
             v.value = targetop.Invoke(null, _oparams.ToArray());
             v.type = targetop.ReturnType;
@@ -48,28 +52,36 @@ namespace CSLE
 
         public virtual CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename)
         {
-            var targetp = type.GetProperty(valuename);
-            if (targetp != null)
+            var targetf = type.GetField(valuename);
+            if (targetf != null)
             {
                 CLS_Content.Value v = new CLS_Content.Value();
-                v.value = targetp.GetValue(null, null);
-                v.type = targetp.PropertyType;
+                v.value = targetf.GetValue(null);
+                v.type = targetf.FieldType;
                 return v;
             }
             else
             {
-                var targetf = type.GetField(valuename);
-                if (targetf != null)
+                var methodf = type.GetMethod("get_" + valuename);
+                if (methodf != null)
                 {
                     CLS_Content.Value v = new CLS_Content.Value();
-                    v.value = targetf.GetValue(null);
-                    v.type = targetf.FieldType;
+                    v.value = methodf.Invoke(null, null);
+                    v.type = methodf.ReturnType;
                     return v;
                 }
+                //var targetf = type.GetField(valuename);
+                //if (targetf != null)
+                //{
+                //    CLS_Content.Value v = new CLS_Content.Value();
+                //    v.value = targetf.GetValue(null);
+                //    v.type = targetf.FieldType;
+                //    return v;
+                //}
                 else
                 {
                     var targete = type.GetEvent(valuename);
-                    if(targete!=null)
+                    if (targete != null)
                     {
                         CLS_Content.Value v = new CLS_Content.Value();
 
@@ -86,26 +98,24 @@ namespace CSLE
         public virtual void StaticValueSet(CLS_Content content, string valuename, object value)
         {
 
-            var targetp = type.GetProperty(valuename);
-            if (targetp != null)
+            var targetf = type.GetField(valuename);
+            if (targetf != null)
             {
-                if (value != null && value.GetType() != targetp.PropertyType)
+                if (value != null && value.GetType() != targetf.FieldType)
                 {
-                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetp.PropertyType);
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
                 }
-                targetp.SetValue(null, value, null);
+                targetf.SetValue(null, value);
                 return;
             }
             else
             {
-                var targetf = type.GetField(valuename);
-                if (targetf != null)
+                var methodf = type.GetMethod("set_" + valuename);
+                if (methodf != null)
                 {
-                    if (value != null && value.GetType() != targetf.FieldType)
-                    {
-                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
-                    }
-                    targetf.SetValue(null, value);
+
+                    methodf.Invoke(null, new object[] { value });
+
                     return;
                 }
             }
@@ -137,7 +147,7 @@ namespace CSLE
             CLS_Content.Value v = new CLS_Content.Value();
             if (targetop == null)
             {
-                throw new Exception("函数不存在function:" + type.ToString() + "." + func                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            );
+                throw new Exception("函数不存在function:" + type.ToString() + "." + func);
             }
             v.value = targetop.Invoke(object_this, _oparams.ToArray());
             v.type = targetop.ReturnType;
@@ -146,65 +156,80 @@ namespace CSLE
 
         public virtual CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
-            var targetp = type.GetProperty(valuename);
-            if (targetp != null)
+            var m = type.GetMethods();
+            var targetf = type.GetField(valuename);
+            if (targetf != null)
             {
                 CLS_Content.Value v = new CLS_Content.Value();
-                v.value = targetp.GetValue(object_this, null);
-                v.type = targetp.PropertyType;
+                v.value = targetf.GetValue(object_this);
+                v.type = targetf.FieldType;
                 return v;
             }
+
+            //var targetp = type.GetProperty(valuename);
+            //if (targetp != null)
+            //{
+            //    CLS_Content.Value v = new CLS_Content.Value();
+            //    v.value = targetp.GetValue(object_this, null);
+            //    v.type = targetp.PropertyType;
+            //    return v;
+            //}
             else
-            {
-                var targetf = type.GetField(valuename);
-                if (targetf != null)
+            {//用get set 方法替代属性操作，AOT环境属性操作有问题
+                var methodf = type.GetMethod("get_" + valuename);
+                if (methodf != null)
                 {
                     CLS_Content.Value v = new CLS_Content.Value();
-                    v.value = targetf.GetValue(object_this);
-                    v.type = targetf.FieldType;
+                    v.value = methodf.Invoke(object_this, null);
+                    v.type = methodf.ReturnType;
                     return v;
                 }
+                //var targetf = type.GetField(valuename);
+                //if (targetf != null)
+                //{
+                //    CLS_Content.Value v = new CLS_Content.Value();
+                //    v.value = targetf.GetValue(object_this);
+                //    v.type = targetf.FieldType;
+                //    return v;
+                //}
                 else
                 {
                     System.Reflection.EventInfo targete = type.GetEvent(valuename);
                     if (targete != null)
                     {
                         CLS_Content.Value v = new CLS_Content.Value();
-                        v.value =  new DeleObject(object_this, targete);
+                        v.value = new DeleObject(object_this, targete);
                         v.type = targete.EventHandlerType;
                         return v;
                     }
                 }
             }
-               
+
             return null;
         }
 
         public virtual void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
-
-            var targetp = type.GetProperty(valuename);
-            if (targetp != null)
+            //先操作File
+            var targetf = type.GetField(valuename);
+            if (targetf != null)
             {
-                if (value != null && value.GetType() != targetp.PropertyType)
+                if (value != null && value.GetType() != targetf.FieldType)
                 {
-                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetp.PropertyType);
-                }
 
-                targetp.SetValue(object_this, value, null);
+                    value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
+                }
+                targetf.SetValue(object_this, value);
                 return;
             }
             else
             {
-                var targetf = type.GetField(valuename);
-                if (targetf != null)
+                var methodf = type.GetMethod("set_" + valuename);
+                if (methodf != null)
                 {
-                    if (value != null && value.GetType() != targetf.FieldType)
-                    {
 
-                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, targetf.FieldType);
-                    }
-                    targetf.SetValue(object_this, value);
+                    methodf.Invoke(object_this, new object[] { value });
+
                     return;
                 }
             }
@@ -221,11 +246,11 @@ namespace CSLE
         {
             //var m =type.GetMembers();
             var targetop = type.GetMethod("get_Item");
-            if(targetop==null)
+            if (targetop == null)
             {
                 targetop = type.GetMethod("Get");
             }
-            
+
             CLS_Content.Value v = new CLS_Content.Value();
             v.type = targetop.ReturnType;
             v.value = targetop.Invoke(object_this, new object[] { key });
@@ -237,7 +262,7 @@ namespace CSLE
         {
             var m = type.GetMethods();
             var targetop = type.GetMethod("set_Item");
-            if(targetop==null)
+            if (targetop == null)
             {
                 targetop = type.GetMethod("Set");
                 //targetop = type.GetMethod("SetValue",new Type[]{typeof(object),typeof(int)});
@@ -325,7 +350,7 @@ namespace CSLE
             else if (code == '%')//[4] = {CLScriptExt.Vector3 op_Modulus(CLScriptExt.Vector3, CLScriptExt.Vector3)}
                 call = _type.GetMethod("op_Modulus", new Type[] { this.type, right.type });
 
-            
+
             var obj = call.Invoke(null, new object[] { left, right.value });
             //function.StaticCall(env,"op_Addtion",new List<ICL>{})
             return obj;
@@ -334,7 +359,7 @@ namespace CSLE
         public virtual bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
             System.Reflection.MethodInfo call = null;
-            
+
             //var m = _type.GetMethods();
             if (code == logictoken.more)//[2] = {Boolean op_GreaterThan(CLScriptExt.Vector3, CLScriptExt.Vector3)}
                 call = _type.GetMethod("op_GreaterThan");
@@ -346,12 +371,12 @@ namespace CSLE
                 call = _type.GetMethod("op_LessThanOrEqual");
             else if (code == logictoken.equal)//[6] = {Boolean op_Equality(CLScriptExt.Vector3, CLScriptExt.Vector3)}
             {
-                if(left==null || right.type==null)
+                if (left == null || right.type == null)
                 {
                     return left == right.value;
                 }
                 call = _type.GetMethod("op_Equality");
-                if(call==null)
+                if (call == null)
                 {
                     return type.Equals(right.value);
                 }
@@ -363,7 +388,7 @@ namespace CSLE
                     return left != right.value;
                 }
                 call = _type.GetMethod("op_Inequality");
-                if(call==null)
+                if (call == null)
                 {
                     return !type.Equals(right.value);
                 }
