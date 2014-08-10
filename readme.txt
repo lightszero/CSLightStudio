@@ -5,6 +5,9 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
 
+0.39.4Alpha 
+修改了一处关于属性调用的机制,怀疑可以让IOS平台调用更便捷，明日待测
+
 20140806 0.39.3Alpha 匿名函数支持
 目前的C#LightEvil对比C#已经没有特性的明显差异
 C#LightEvil核心已经没有功能好增加
