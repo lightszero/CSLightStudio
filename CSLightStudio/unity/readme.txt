@@ -4,5 +4,6 @@
 
 1.ScriptHelloworld为基本测试项目，提供最基本的脚本调用接口展示
 2.MonoBehaviour为在MonoBehaviour调用脚本的展示
-2.Framework为需要用脚本编写框架的展示
-3.FrameworkMaster为把脚本从Unity项目中拿出来使用的展示
+3.Framework为需要用脚本编写框架的展示
+4.FrameworkMaster为把脚本从Unity项目中拿出来使用的展示
+5.FrameworkWithNGUI

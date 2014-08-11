@@ -1,0 +1,9 @@
+Flag = Flag-US
+Language = English
+English = English
+French = Français
+Info = Localization example
+Sound = Sound
+Music = Music
+Desc = English localization
+Paragraph = This example shows how to implement localization using NGUI. In order to localize a widget, simply attach [000000]UILocalize[-] script to it. The script will localize the sprite if it's a [000000]UISprite[-], or the text if it's a [000000]UILabel[-]. If you want to localize something else, just implement the [000000]OnLocalize[-] function. Either way, the actual data is defined via text assets specified on the [000000]Localization[-] script which must be present in the scene.

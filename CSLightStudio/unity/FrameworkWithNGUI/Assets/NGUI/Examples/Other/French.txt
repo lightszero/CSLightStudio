@@ -1,0 +1,9 @@
+﻿Flag = Flag-FR
+Language = Français
+English = English
+French = Français
+Info = Par exemple la localisation
+Sound = Son
+Music = Musique
+Desc = La localisation française
+Paragraph = Cet exemple montre comment implémenter la localisation en utilisant NGUI. Pour localiser un widget, il suffit d'y attacher le script [000000]UILocalize[-]. Ce script localisera le sprite si c'est un [000000]UISprite[-], ou le texte si c'est un [000000]UILabel[-]. Si vous voulez localiser autre chose, il suffit d'implémenter la fonction [000000]OnLocalize[-]. Dans tous les cas, les données sont définies par l'intermédiaire de documents texte spécifiés dans le script [000000]Localization[-] qui doit être présent dans la scène.
