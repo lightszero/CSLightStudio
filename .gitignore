@@ -35,3 +35,8 @@
 /CSLightStudio/unity/FrameworkMaster/Mode2Script/obj
 /CSLightStudio/unity/FrameworkMaster/Mode2Script/bin
 /CSLightStudio/windows/debugger/CSLightDebugger_Wpf/obj
+/CSLightStudio/unity/FrameworkWithNGUI/*.csproj
+/CSLightStudio/unity/FrameworkWithNGUI/*.sln
+/CSLightStudio/unity/FrameworkWithNGUI/*.suo
+/CSLightStudio/unity/FrameworkWithNGUI/Library
+/CSLightStudio/unity/FrameworkWithNGUI/obj
