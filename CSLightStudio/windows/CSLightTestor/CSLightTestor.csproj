@@ -84,6 +84,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="code\_3002_mathandlogic.cls.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="code\_1004_expression.cls.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

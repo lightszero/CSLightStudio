@@ -39,12 +39,11 @@ namespace CSLE
             RegType(new CLS_Type_Var());
             RegType(new CLS_Type_Lambda());
             RegType(new CLS_Type_Delegate());
-            RegType(new RegHelper_Type(typeof(short),"short"));
-            RegType(new RegHelper_Type(typeof(ushort), "ushort"));
-            RegType(new RegHelper_Type(typeof(char), "char"));
-            RegType(new RegHelper_Type(typeof(byte), "byte"));
-            RegType(new RegHelper_Type(typeof(sbyte), "sbyte"));
-
+            RegType(new CLS_Type_Byte()); 
+            RegType(new CLS_Type_Char()); 
+            RegType(new CLS_Type_UShort());
+            RegType(new CLS_Type_Sbyte()); 
+            RegType(new CLS_Type_Short());
 
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();

@@ -333,7 +333,7 @@ namespace CSLE
         {
             returntype = type;
             System.Reflection.MethodInfo call = null;
-            //var m = type.GetMethods();
+            var m = ((Type)type).GetMembers();
             if (code == '+')
                 call = _type.GetMethod("op_Addition", new Type[] { this.type, right.type });
             else if (code == '-')//base = {CLScriptExt.Vector3 op_Subtraction(CLScriptExt.Vector3, CLScriptExt.Vector3)}

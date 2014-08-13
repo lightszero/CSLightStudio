@@ -1,0 +1,13 @@
+﻿//3002
+
+byte b =12;
+byte bt = b+3;
+trace ("b="+b +" bt="+bt);
+
+sbyte sb= -12;
+sbyte sb2= bt+b;
+trace ("sb="+sb +" sb2="+sb2);
+
+short ssb=123;
+short ssb2= ssb+4;
+trace ("ssb="+ssb +" ssb2="+ssb2);
