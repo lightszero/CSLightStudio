@@ -77,11 +77,6 @@ namespace CSLE
             }
         }
 
-        public void RegDeleType(ICLS_Type_Dele type)
-        {
-            RegType(type);
-            //deleTypes.Add(type.GetParamSign(this), type);
-        }
         public ICLS_Type GetType(CLType type)
         {
             if (type == null)
