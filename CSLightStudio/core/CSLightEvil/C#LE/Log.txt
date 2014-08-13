@@ -1,6 +1,6 @@
 ﻿0.42Beta
 加入了新的基本类型 byte sbyte short ushort 
-
+见C#LightTestor _3002_ 测试
 
 0.41Beta 调整了委托的实现机制，注册使用更便捷
 
