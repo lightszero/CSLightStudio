@@ -6,11 +6,10 @@ namespace CSLE
 {
 
 
-
     public class RegHelper_DeleAction : RegHelper_Type, ICLS_Type_Dele
     {
 
-        public RegHelper_DeleAction(Type type,string setkeyword)
+        public RegHelper_DeleAction(Type type, string setkeyword)
             : base(type, setkeyword)
         {
 
@@ -21,10 +20,14 @@ namespace CSLE
         {
             returntype = null;
 
-            if (left is DeleEvent && right.value is DeleFunction)
+            if (left is DeleEvent)
             {
                 DeleEvent info = left as DeleEvent;
-                Delegate calldele = CreateDelegate(env.environment, right.value as DeleFunction);
+                Delegate calldele = null;
+                if (right.value is DeleFunction) calldele = CreateDelegate(env.environment, right.value as DeleFunction);
+                else if (right.value is DeleLambda) calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                else if (right.value is Delegate) calldele = right.value as Delegate;
+
                 if (code == '+')
                 {
                     info._event.AddEventHandler(info.source, calldele);
@@ -36,33 +39,25 @@ namespace CSLE
                     return null;
                 }
 
-
             }
-            else if (left is DeleEvent && right.value is DeleLambda)
+            else if(left is Delegate)
             {
-                DeleEvent info = left as DeleEvent;
-                Delegate calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                Delegate info = left as Delegate;
+                Delegate calldele = null;
+                if (right.value is DeleFunction) calldele = CreateDelegate(env.environment, right.value as DeleFunction);
+                else if (right.value is DeleLambda) calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                else if (right.value is Delegate) calldele = right.value as Delegate;
                 if (code == '+')
                 {
-                    info._event.AddEventHandler(info.source, calldele);
-                    return null;
-                }
-            }
-            else if (left is DeleEvent && right.value is Delegate)
-            {
-                DeleEvent info = left as DeleEvent;
-                if (code == '+')
-                {
-                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    Delegate.Combine(info, calldele);
                     return null;
                 }
                 else if (code == '-')
                 {
-                    info._event.AddEventHandler(info.source, right.value as Delegate);
-                    return null;
+                    Delegate.Remove(info, calldele);
                 }
             }
-            throw new NotSupportedException();
+            return new NotSupportedException();
         }
 
 

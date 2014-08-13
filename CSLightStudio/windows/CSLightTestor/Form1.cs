@@ -51,7 +51,7 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(TimeSpan)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(Form1)));
 
-            scriptService.RegDeleType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>"));
+            scriptService.RegType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>"));
             //CLScriptExt.Type_Vector3());
             InitCodeFile();
             ScriptNET.Runtime.RuntimeHost.Initialize();

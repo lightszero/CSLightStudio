@@ -18,7 +18,7 @@ class Test02
 
         int config_citygrade = 0;
         TestDele.instance.ClearDele();
-        TestDele.instance.onUpdateD = () =>
+        TestDele.instance.onUpdateD += () =>
         {
             Debug.Log("direct.");
         };
