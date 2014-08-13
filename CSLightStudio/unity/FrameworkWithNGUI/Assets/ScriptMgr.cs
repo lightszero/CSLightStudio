@@ -90,7 +90,8 @@ public class ScriptMgr
         env.RegType(new CSLE.RegHelper_Type(typeof(Rect)));
         env.RegType(new CSLE.RegHelper_Type(typeof(ScriptInstanceState)));
         env.RegType(new CSLE.RegHelper_Type(typeof(PrimitiveType)));
-        env.RegDeleType(new CSLE.RegHelper_UIEventListener_VoidDelegate("VoidDelegate"));
+        env.RegType(new CSLE.RegHelper_DeleAction<GameObject>(typeof(UIEventListener.VoidDelegate), "UIEventListener.VoidDelegate"));
+
     }
 
     public bool projectLoaded

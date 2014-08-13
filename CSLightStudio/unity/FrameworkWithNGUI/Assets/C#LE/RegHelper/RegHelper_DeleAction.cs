@@ -7,11 +7,11 @@ namespace CSLE
 
 
 
-    public class RegHelper_DeleAction : RegHelper_Type ,ICLS_Type_Dele
+    public class RegHelper_DeleAction : RegHelper_Type, ICLS_Type_Dele
     {
 
-        public RegHelper_DeleAction( string setkeyword)
-            : base(typeof(Action), setkeyword)
+        public RegHelper_DeleAction(Type type,string setkeyword)
+            : base(type, setkeyword)
         {
 
         }
@@ -21,73 +21,83 @@ namespace CSLE
         {
             returntype = null;
 
-            if (left is DeleObject && right.value is DeleObject)
+            if (left is DeleEvent && right.value is DeleFunction)
             {
-                DeleObject info = left as DeleObject;
-                DeleObject calldele = right.value as DeleObject;
+                DeleEvent info = left as DeleEvent;
+                Delegate calldele = CreateDelegate(env.environment, right.value as DeleFunction);
                 if (code == '+')
                 {
-                    info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    info._event.AddEventHandler(info.source, calldele);
                     return null;
                 }
                 else if (code == '-')
                 {
-                    info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    info._event.AddEventHandler(info.source, calldele);
                     return null;
                 }
 
 
             }
-            if (left is DeleObject && right.value is DeleLambda)
+            else if (left is DeleEvent && right.value is DeleLambda)
             {
-                DeleObject info = left as DeleObject;
-                DeleObject calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                DeleEvent info = left as DeleEvent;
+                Delegate calldele = CreateDelegate(env.environment, right.value as DeleLambda);
                 if (code == '+')
                 {
-                    info._event.AddEventHandler(info.source, calldele.deleInstance);
+                    info._event.AddEventHandler(info.source, calldele);
+                    return null;
+                }
+            }
+            else if (left is DeleEvent && right.value is Delegate)
+            {
+                DeleEvent info = left as DeleEvent;
+                if (code == '+')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    return null;
+                }
+                else if (code == '-')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
                     return null;
                 }
             }
             throw new NotSupportedException();
         }
-        public override object DefValue
-        {
-            get
-            {
-                return new DeleObject(null,null);
-
-            }
-        }
 
 
-        public string GetParamSign(ICLS_Environment env)
-        {
-            return "";
-        }
 
-        public DeleObject CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function)
+        public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
         {
             CLS_Content content = new CLS_Content(env);
+            DeleFunction _func = delefunc;
             Action dele = () =>
             {
 
                 content.DepthAdd();
-                content.CallThis = callthis;
-                content.CallType = calltype;
-                content.function = function;
-                var func = calltype.functions[function];
+                content.CallThis = _func.callthis;
+                content.CallType = _func.calltype;
+                content.function = _func.function;
+                var func = _func.calltype.functions[_func.function];
 
                 //content.DefineAndSet(function._paramnames[0], function._paramtypes[0].type, param0);
 
                 func.expr_runtime.ComputeValue(content);
                 content.DepthRemove();
             };
-            DeleObject obj = new DeleObject(dele,content);
-            return obj;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
 
 
-        public DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda)
+        public Delegate CreateDelegate(ICLS_Environment env, DeleLambda lambda)
         {
             CLS_Content content = lambda.content.Clone();
             var pnames = lambda.paramNames;
@@ -103,9 +113,15 @@ namespace CSLE
 
                 content.DepthRemove();
             };
-
-            DeleObject obj = new DeleObject(dele, content);
-            return obj;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
     }
 }

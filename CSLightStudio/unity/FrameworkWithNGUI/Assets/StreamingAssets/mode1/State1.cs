@@ -22,7 +22,7 @@ class State1 : IState
         this.uiRoot = rootSprite;
 
         GameObject o  =uiRoot.transform.Find("Button").gameObject;
-        UIEventListener.Get(o).onClick += (ooo) =>
+        UIEventListener.Get(o).onClick = (ooo) =>
             {
                 Debug.Log("onclick.");
                 mgr.ChangeState("state2");

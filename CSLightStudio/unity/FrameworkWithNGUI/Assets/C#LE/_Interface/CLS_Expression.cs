@@ -76,9 +76,9 @@ namespace CSLE
         //    get;
         //}
         void RegType(ICLS_Type type);
-        void RegDeleType(ICLS_Type_Dele type);
+        //void RegDeleType(ICLS_Type_Dele type);
         ICLS_Type GetType(CLType type);
-        ICLS_Type_Dele GetDeleTypeBySign(string sign);
+        //ICLS_Type_Dele GetDeleTypeBySign(string sign);
         ICLS_Type GetTypeByKeyword(string keyword);
         ICLS_Type GetTypeByKeywordQuiet(string keyword);
 

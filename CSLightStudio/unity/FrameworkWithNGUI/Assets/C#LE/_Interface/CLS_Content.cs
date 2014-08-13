@@ -354,17 +354,15 @@ namespace CSLE
                 {
                     Value v = new Value();
                     //如果直接得到代理实例，
-                    string sign = CallType.functions[name].GetParamSign();
-                    ICLS_Type_Dele deletype = this.environment.GetDeleTypeBySign(sign);
-                    if (deletype == null) return null;
-                    DeleObject value = deletype.CreateDelegate(environment, CallType, CallThis, name);
+                    DeleFunction dele = new DeleFunction(CallType,this.CallThis,name);
+
 
                     //DeleScript dele =new DeleScript();
                     //dele.function = name;
                     //dele.calltype = CallType;
                     //dele.callthis = CallThis;
-                    v.value = value;
-                    v.type = deletype.type;
+                    v.value = dele;
+                    v.type = typeof(DeleFunction);
                     return v;
 
                 }
