@@ -15,13 +15,17 @@ using System.Text;
             }
         }
         static TestDele g_this = null;
+        public delegate void myup();
+        public myup onUpdateD;
 
-        public event Action onUpdate;
+        public event myup onUpdate;
         public event Action<int> onUpdate2;
         public event Action<int,string> onUpdate3;
 
         public void Run()
         {
+            if (onUpdateD != null)
+                onUpdateD();
             if (onUpdate != null)
                 onUpdate();
             if(onUpdate2!=null)

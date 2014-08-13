@@ -7,7 +7,9 @@ using System.Text;
 class Test02
 {
     public static void Run()
+    
     {
+        TestDele.instance.onUpdateD = Test;
         Action<int> deleTest = Test2;
 
         deleTest(13333);
@@ -16,7 +18,11 @@ class Test02
 
         int config_citygrade = 0;
         TestDele.instance.ClearDele();
-
+        TestDele.instance.onUpdateD = () =>
+        {
+            Debug.Log("direct.");
+        };
+        TestDele.instance.onUpdateD = Test;
         //直接注册回调的用法,+=,-=
         TestDele.instance.onUpdate += Test;
 
@@ -52,7 +58,7 @@ class Test02
     Action<int> deleTest3; 
     static void Test()
     {
-        Debug.Log("i=" + i);
+        Debug.Log("Testi=" + i);
         i++;
     }
     static void Test2(int v)

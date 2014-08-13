@@ -7,11 +7,11 @@ namespace CSLE
 
 
 
-    public class RegHelper_DeleAction : RegHelper_Type ,ICLS_Type_Dele
+    public class RegHelper_DeleAction : RegHelper_Type, ICLS_Type_Dele
     {
 
-        public RegHelper_DeleAction( string setkeyword)
-            : base(typeof(Action), setkeyword)
+        public RegHelper_DeleAction(Type type,string setkeyword)
+            : base(type, setkeyword)
         {
 
         }
@@ -38,7 +38,7 @@ namespace CSLE
 
 
             }
-            if (left is DeleEvent && right.value is DeleLambda)
+            else if (left is DeleEvent && right.value is DeleLambda)
             {
                 DeleEvent info = left as DeleEvent;
                 Delegate calldele = CreateDelegate(env.environment, right.value as DeleLambda);
@@ -48,12 +48,26 @@ namespace CSLE
                     return null;
                 }
             }
+            else if (left is DeleEvent && right.value is Delegate)
+            {
+                DeleEvent info = left as DeleEvent;
+                if (code == '+')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    return null;
+                }
+                else if (code == '-')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    return null;
+                }
+            }
             throw new NotSupportedException();
         }
 
 
 
-        public Delegate CreateDelegate(ICLS_Environment env,DeleFunction delefunc)
+        public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
         {
             CLS_Content content = new CLS_Content(env);
             DeleFunction _func = delefunc;
@@ -71,8 +85,8 @@ namespace CSLE
                 func.expr_runtime.ComputeValue(content);
                 content.DepthRemove();
             };
-
-            return dele;
+            Delegate d = dele as Delegate;
+            return Delegate.CreateDelegate(this.type,d.Target, d.Method);
         }
 
 
@@ -92,9 +106,8 @@ namespace CSLE
 
                 content.DepthRemove();
             };
-
-
-            return dele;
+            Delegate d = dele as Delegate;
+            return Delegate.CreateDelegate(this.type, d.Target, d.Method);
         }
     }
 }
