@@ -8,8 +8,8 @@ namespace CSLE
 
     public class RegHelper_DeleAction<T,T1> : RegHelper_Type, ICLS_Type_Dele
     {
-        public RegHelper_DeleAction(string setkeyword)
-            : base(typeof(Action<T,T1>), setkeyword)
+        public RegHelper_DeleAction(Type type, string setkeyword)
+            : base(type, setkeyword)
         {
 
         }
@@ -36,7 +36,7 @@ namespace CSLE
 
 
             }
-            if (left is DeleEvent && right.value is DeleLambda)
+            else if (left is DeleEvent && right.value is DeleLambda)
             {
                 DeleEvent info = left as DeleEvent;
                 Delegate calldele = CreateDelegate(env.environment, right.value as DeleLambda);
@@ -45,9 +45,26 @@ namespace CSLE
                     info._event.AddEventHandler(info.source, calldele);
                     return null;
                 }
+
             }
+            else if (left is DeleEvent && right.value is Delegate)
+            {
+                DeleEvent info = left as DeleEvent;
+                if (code == '+')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    return null;
+                }
+                else if (code == '-')
+                {
+                    info._event.AddEventHandler(info.source, right.value as Delegate);
+                    return null;
+                }
+            }
+
             throw new NotSupportedException();
         }
+
 
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
@@ -68,7 +85,15 @@ namespace CSLE
                 func.expr_runtime.ComputeValue(content);
                 content.DepthRemove();
             };
-            return dele;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action<T,T1>))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
 
 
@@ -83,14 +108,21 @@ namespace CSLE
 
 
                 content.DefineAndSet(pnames[0], typeof(T), param0);
-                content.DefineAndSet(pnames[0], typeof(T1), param1);
+                content.DefineAndSet(pnames[1], typeof(T1), param1);
 
                 expr.ComputeValue(content);
 
                 content.DepthRemove();
             };
-
-            return dele;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action<T, T1>))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
     }
 }

@@ -86,7 +86,14 @@ namespace CSLE
                 content.DepthRemove();
             };
             Delegate d = dele as Delegate;
-            return Delegate.CreateDelegate(this.type,d.Target, d.Method);
+            if ((Type)this.type != typeof(Action))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
 
 
@@ -107,7 +114,14 @@ namespace CSLE
                 content.DepthRemove();
             };
             Delegate d = dele as Delegate;
-            return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            if ((Type)this.type != typeof(Action))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
     }
 }

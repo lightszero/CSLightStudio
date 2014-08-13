@@ -8,8 +8,8 @@ namespace CSLE
 
     public class RegHelper_DeleAction<T> : RegHelper_Type, ICLS_Type_Dele
     {
-        public RegHelper_DeleAction(string setkeyword)
-            : base(typeof(Action<T>), setkeyword)
+        public RegHelper_DeleAction(Type type, string setkeyword)
+            : base(type, setkeyword)
         {
 
         }
@@ -82,7 +82,15 @@ namespace CSLE
                 func.expr_runtime.ComputeValue(content);
                 content.DepthRemove();
             };
-            return dele;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action<T>))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
 
 
@@ -102,8 +110,15 @@ namespace CSLE
 
                     content.DepthRemove();
                 };
-
-            return dele;
+            Delegate d = dele as Delegate;
+            if ((Type)this.type != typeof(Action<T>))
+            {
+                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+            }
+            else
+            {
+                return dele;
+            }
         }
     }
 }

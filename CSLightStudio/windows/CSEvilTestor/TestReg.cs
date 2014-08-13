@@ -13,8 +13,8 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_Type(typeof(TestDele)));
             env.RegType(new CSLE.RegHelper_Type(typeof(Program)));
 
-            env.RegType(new CSLE.RegHelper_DeleAction<int,string>("Action<int,string>"));
-            env.RegType(new CSLE.RegHelper_DeleAction<int>("Action<int>"));
+            env.RegType(new CSLE.RegHelper_DeleAction<int,string>(typeof(Action<int,string>),"Action<int,string>"));
+            env.RegType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>"));
             env.RegType(new CSLE.RegHelper_DeleAction(typeof(Action),"Action"));
             env.RegType(new CSLE.RegHelper_DeleAction(typeof(TestDele.myup), "TestDele.myup"));
 
