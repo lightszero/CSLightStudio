@@ -25,7 +25,7 @@ class Test02
         TestDele.instance.onUpdate3 += Test3;
 
         //函数作为参数的用法
-        TestDele.instance.AddDele(Test2);
+        //TestDele.instance.AddDele(Test2);
         TestDele.instance.AddDele(deleTest);
 
         Test02 ttt = new Test02();

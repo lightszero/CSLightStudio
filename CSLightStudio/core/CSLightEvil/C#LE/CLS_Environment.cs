@@ -38,6 +38,7 @@ namespace CSLE
             RegType(new CLS_Type_String());
             RegType(new CLS_Type_Var());
             RegType(new CLS_Type_Lambda());
+            RegType(new CLS_Type_Delegate());
 
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();
@@ -55,7 +56,7 @@ namespace CSLE
         Dictionary<CLType, ICLS_Type> types = new Dictionary<CLType, ICLS_Type>();
         Dictionary<string, ICLS_Type> typess = new Dictionary<string, ICLS_Type>();
         Dictionary<string, ICLS_Function> calls = new Dictionary<string, ICLS_Function>();
-        Dictionary<string, ICLS_Type_Dele> deleTypes = new Dictionary<string, ICLS_Type_Dele>();
+        //Dictionary<string, ICLS_Type_Dele> deleTypes = new Dictionary<string, ICLS_Type_Dele>();
         public void RegType(ICLS_Type type)
         {
             types[type.type] = type;
@@ -79,7 +80,7 @@ namespace CSLE
         public void RegDeleType(ICLS_Type_Dele type)
         {
             RegType(type);
-            deleTypes.Add(type.GetParamSign(this), type);
+            //deleTypes.Add(type.GetParamSign(this), type);
         }
         public ICLS_Type GetType(CLType type)
         {
@@ -91,17 +92,17 @@ namespace CSLE
             }
             return types[type];
         }
-        public ICLS_Type_Dele GetDeleTypeBySign(string sign)
-        {
-            if (deleTypes.ContainsKey(sign) == false)
-            {
-                return null;
-                //logger.Log_Error("(CLScript)类型未注册:" + sign);
+        //public ICLS_Type_Dele GetDeleTypeBySign(string sign)
+        //{
+        //    if (deleTypes.ContainsKey(sign) == false)
+        //    {
+        //        return null;
+        //        //logger.Log_Error("(CLScript)类型未注册:" + sign);
 
-            }
-            return deleTypes[sign];
+        //    }
+        //    return deleTypes[sign];
 
-        }
+        //}
         public ICLS_Type GetTypeByKeyword(string keyword)
         {
             if (typess.ContainsKey(keyword) == false)

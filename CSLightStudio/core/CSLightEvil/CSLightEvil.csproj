@@ -90,6 +90,7 @@
     <Compile Include="C#LE\Type\CLS_Type_Class.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Double.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Float.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Delegate.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Lambda.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Int.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Null.cs" />

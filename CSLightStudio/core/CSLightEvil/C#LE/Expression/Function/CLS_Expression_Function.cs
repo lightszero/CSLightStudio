@@ -55,20 +55,24 @@ namespace CSLE
             v = content.GetQuiet(funcname);
             if(v!=null)
             {
-                if (v.value is DeleObject)
+                if(v.value is Delegate)
                 {
-
-                    object vr = (v.value as DeleObject).Call(content,list);
-                    v = new CLS_Content.Value();
-                    v.value = vr;
-                    if(v.value==null)
-                    {
-                        v.type = null;
-                    }
-                    else
-                    {
-                        v.type = v.value.GetType();
-                    }
+                    Delegate d = v.value as Delegate;
+                     v = new CLS_Content.Value();
+                     object[] obja = new object[list.Count];
+                     for (int i = 0; i < list.Count;i++ )
+                     {
+                         obja[i] = list[i].value;
+                     }
+                     v.value = d.DynamicInvoke(obja);
+                     if (v.value == null)
+                     {
+                         v.type = null;
+                     }
+                     else
+                     {
+                         v.type = v.value.GetType();
+                     }
                 }
                 else
                 {

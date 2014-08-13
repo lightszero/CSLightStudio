@@ -149,9 +149,11 @@ namespace CSLE
     }
     public interface ICLS_Type_Dele:ICLS_Type
     {
-        string GetParamSign(ICLS_Environment env);
-        DeleObject CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function);
+        //string GetParamSign(ICLS_Environment env);
+        //Delegate CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function);
 
-        DeleObject CreateDelegate(ICLS_Environment env, DeleLambda lambda);
+        Delegate CreateDelegate(ICLS_Environment env, DeleFunction lambda);
+
+        Delegate CreateDelegate(ICLS_Environment env, DeleLambda lambda);
     }
 }

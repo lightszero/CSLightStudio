@@ -185,12 +185,17 @@ namespace CSLE
             {
                 if (this.members[function].bStatic == true)
                 {
-                    DeleObject dele = this.staticMemberInstance[function].value as DeleObject;
+                    Delegate dele = this.staticMemberInstance[function].value as Delegate;
                     if (dele != null)
                     {
                         CLS_Content.Value value = new CLS_Content.Value();
                         value.type = null;
-                        value.value = dele.Call(contentParent, _params);
+                        object[] objs = new object[_params.Count];
+                        for (int i = 0; i < _params.Count; i++)
+                        {
+                            objs[i] = _params[i].value;
+                        }
+                        value.value = dele.DynamicInvoke(objs);
                         if (value.value != null)
                             value.type = value.value.GetType();
 
@@ -227,7 +232,7 @@ namespace CSLE
                     {
                         value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
                     }
-                    else if(value is DeleObject)
+                    else if (value is DeleEvent)
                     {
 
                     }
@@ -279,12 +284,17 @@ namespace CSLE
             {
                 if (this.members[func].bStatic == false)
                 {
-                    DeleObject dele =(object_this as SInstance).member[func].value as DeleObject;
+                    Delegate dele = (object_this as SInstance).member[func].value as Delegate;
                     if (dele != null)
                     {
                         CLS_Content.Value value = new CLS_Content.Value();
                         value.type = null;
-                        value.value = dele.Call(contentParent,_params);
+                        object[] objs = new object[_params.Count];
+                        for (int i = 0; i < _params.Count; i++)
+                        {
+                            objs[i] = _params[i].value;
+                        }
+                        value.value = dele.DynamicInvoke(objs);
                         if (value.value != null)
                             value.type = value.value.GetType();
 
@@ -320,7 +330,7 @@ namespace CSLE
                     {
                         value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
                     }
-                    else if (value is DeleObject)
+                    else if (value is DeleEvent)
                     {
 
                     }
