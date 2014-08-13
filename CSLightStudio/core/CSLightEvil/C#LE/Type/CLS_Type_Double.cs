@@ -4,37 +4,16 @@ using System.Text;
 
 namespace CSLE
 {
-    class CLS_Type_Double : ICLS_Type
+    class CLS_Type_Double : RegHelper_Type
     {
         public CLS_Type_Double()
+            : base(typeof(double), "double")
         {
                     
-            function = new RegHelper_TypeFunction(typeof(double));
+            //function = new RegHelper_TypeFunction(typeof(double));
         }
-        public string keyword
-        {
-
-            get { return "double"; }
-        }
-        public string _namespace
-        {
-            get { return ""; }
-        }
-        public CLType type
-        {
-            get { return typeof(double); }
-        }
-
-        public ICLS_Value MakeValue(object value)
-        {
-            CLS_Value_Value<double> v = new CLS_Value_Value<double>();
-            v.value_value = (double)value;
-            
-            return v;
-
-        }
-
-        public object ConvertTo(CLS_Content env, object src, CLType targetType)
+  
+        public override object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
             if ((Type)targetType == typeof(int))
             {
@@ -52,10 +31,10 @@ namespace CSLE
             {
                 return (float)(double)src;
             }
-            throw new NotImplementedException();
+            return base.ConvertTo(env, src, targetType);
         }
 
-        public object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out CLType returntype)
+        public override object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out CLType returntype)
         {
             returntype = typeof(double);
             if ((Type)right.type == typeof(int))
@@ -113,10 +92,10 @@ namespace CSLE
                 else if (code == '%')
                     return (double)left % (double)(float)right.value;
             }
-            throw new NotImplementedException();
+            return base.Math2Value(env, code, left, right, out returntype);
         }
 
-        public bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
+        public override bool MathLogic(CLS_Content env, logictoken code, object left, CLS_Content.Value right)
         {
             if ((Type)right.type == typeof(int))
             {
@@ -178,16 +157,12 @@ namespace CSLE
                 else if (code == logictoken.not_equal)
                     return (double)left != (float)right.value;
             }
-            throw new NotImplementedException();
+            return base.MathLogic(env, code, left, right);
         }
 
 
-        public ICLS_TypeFunction function
-        {
-            get;
-            private set;
-        }
-        public object DefValue
+
+        public override object DefValue
         {
             get { return (double)0; }
         }
