@@ -355,7 +355,7 @@ namespace CSLE
         {
             System.Reflection.MethodInfo call = null;
 
-            //var m = _type.GetMethods();
+            var m = _type.GetMethods();
             if (code == logictoken.more)//[2] = {Boolean op_GreaterThan(CLScriptExt.Vector3, CLScriptExt.Vector3)}
                 call = _type.GetMethod("op_GreaterThan");
             else if (code == logictoken.less)//[4] = {Boolean op_LessThan(CLScriptExt.Vector3, CLScriptExt.Vector3)}
@@ -370,10 +370,13 @@ namespace CSLE
                 {
                     return left == right.value;
                 }
+
+
+
                 call = _type.GetMethod("op_Equality");
                 if (call == null)
                 {
-                    return type.Equals(right.value);
+                    return left.Equals(right.value);
                 }
             }
             else if (code == logictoken.not_equal)//[7] = {Boolean op_Inequality(CLScriptExt.Vector3, CLScriptExt.Vector3)}
@@ -385,7 +388,7 @@ namespace CSLE
                 call = _type.GetMethod("op_Inequality");
                 if (call == null)
                 {
-                    return !type.Equals(right.value);
+                    return !left.Equals(right.value);
                 }
             }
             var obj = call.Invoke(null, new object[] { left, right.value });
