@@ -14,7 +14,7 @@ namespace CSLE
             func.funcname = tlist[pos].text;
             int begin = pos + 2;
             int dep;
-            int end = FindCodeAny(tlist, ref begin, out dep);
+            int end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
             if (tlist[pos + 1].type == TokenType.PUNCTUATION && tlist[pos + 1].text == "(")
             {
@@ -46,7 +46,7 @@ namespace CSLE
                 return Compiler_Expression_Function(tlist, content, pos, posend);
             int begin = pos + 1;
             int dep;
-            int end = FindCodeAny(tlist, ref begin, out dep);
+            int end = FindCodeAnyInFunc(tlist, ref begin, out dep);
             if (end != posend)
             {
                 return null;
@@ -65,7 +65,7 @@ namespace CSLE
                     func.lineEnd = tlist[end].line;
                 }
                 begin = end + 2;
-                end = FindCodeAny(tlist, ref begin, out dep);
+                end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
             }
             while (end < posend && begin <= end);
@@ -105,7 +105,7 @@ namespace CSLE
         {
             int begin = pos + 3;
             int dep;
-            int end = FindCodeAny(tlist, ref begin, out dep);
+            int end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
             if (tlist[pos + 2].type == TokenType.PUNCTUATION && tlist[pos + 2].text == "(")
             {
@@ -122,7 +122,7 @@ namespace CSLE
                         func.listParam.Add(param);
                     }
                     begin = end + 2;
-                    end = FindCodeAny(tlist, ref begin, out dep);
+                    end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
                 }
                 while (end < posend && begin <= end);
@@ -187,7 +187,7 @@ namespace CSLE
             func.funcname = tlist[pos].text;
             int begin = pos + 2;
             int dep;
-            int end = FindCodeAny(tlist, ref begin, out dep);
+            int end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
             if (tlist[pos + 1].type == TokenType.PUNCTUATION && tlist[pos + 1].text == "(")
             {
@@ -202,7 +202,7 @@ namespace CSLE
                         func.lineEnd = tlist[end].line;
                     }
                     begin = end + 2;
-                    end = FindCodeAny(tlist, ref begin, out dep);
+                    end = FindCodeAnyInFunc(tlist, ref begin, out dep);
 
                 }
                 while (end < posend && begin <= end);
