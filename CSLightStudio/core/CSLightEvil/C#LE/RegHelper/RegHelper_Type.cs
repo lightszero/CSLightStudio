@@ -151,7 +151,7 @@ namespace CSLE
 
         public virtual CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
-            var m = type.GetMethods();
+            //var m = type.GetMethods();
             var targetf = type.GetField(valuename);
             if (targetf != null)
             {
@@ -255,7 +255,7 @@ namespace CSLE
 
         public virtual void IndexSet(CLS_Content environment, object object_this, object key, object value)
         {
-            var m = type.GetMethods();
+            //var m = type.GetMethods();
             var targetop = type.GetMethod("set_Item");
             if (targetop == null)
             {
@@ -355,7 +355,7 @@ namespace CSLE
         {
             System.Reflection.MethodInfo call = null;
 
-            var m = _type.GetMethods();
+            //var m = _type.GetMethods();
             if (code == logictoken.more)//[2] = {Boolean op_GreaterThan(CLScriptExt.Vector3, CLScriptExt.Vector3)}
                 call = _type.GetMethod("op_GreaterThan");
             else if (code == logictoken.less)//[4] = {Boolean op_LessThan(CLScriptExt.Vector3, CLScriptExt.Vector3)}
