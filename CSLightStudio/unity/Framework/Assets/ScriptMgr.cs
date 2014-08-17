@@ -102,7 +102,7 @@ public class ScriptMgr
         env.RegType(new CSLE.RegHelper_Type(typeof(Time)));
 
         //env.RegType(new CSLE.RegHelper_Type(typeof(Debug)));
-        env.RegType(new MyRegDebug());
+        env.RegType(new MyRegDebug());//换我们扩展过的版本注册
 
         env.RegType(new CSLE.RegHelper_Type(typeof(GameObject)));
         env.RegType(new CSLE.RegHelper_Type(typeof(Component)));
