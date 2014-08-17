@@ -3,7 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+public class MyRegDebug : CSLE.RegHelper_Type
+{
+    public MyRegDebug()//重载一个专门扩展Debug.Log的注册器
+        : base(typeof(UnityEngine.Debug), "Debug")
+    {
+        function = new MyRegDebugFunc(typeof(UnityEngine.Debug));
+    }
+    public class MyRegDebugFunc : CSLE.RegHelper_TypeFunction
+    {
+        public MyRegDebugFunc(Type type)
+            : base(type)
+        {
 
+        }
+        public override CSLE.CLS_Content.Value StaticCall(CSLE.CLS_Content content, string function, IList<CSLE.CLS_Content.Value> _params)
+        {
+            if (function == "Log")//如果是Log函数
+            {
+                string logformscript = _params[0].value as string;//把第一个参数取出来改改
+                if (content.CallType != null)//如果有类型，就有文件名
+                {
+                    logformscript += "(scriptfile:" + content.CallType.filename + ")";
+                }
+                if(content.stackExpr.Count>0)//脚本堆栈里有东西，就有表达式，有表达式就有行数
+                {
+                    logformscript += "(line:" + content.stackExpr.Peek().lineBegin + ")";
+                }
+                _params[0].value = logformscript;
+            }
+            return base.StaticCall(content, function, _params);
+        }
+    }
+}
 /// <summary>
 /// 这个类实现脚本的Logger接口，脚本编译时的信息会从Log输出出来
 /// </summary>
@@ -69,7 +101,9 @@ public class ScriptMgr
         env.RegType(new CSLE.RegHelper_Type(typeof(Vector4)));
         env.RegType(new CSLE.RegHelper_Type(typeof(Time)));
 
-        env.RegType(new CSLE.RegHelper_Type(typeof(Debug)));
+        //env.RegType(new CSLE.RegHelper_Type(typeof(Debug)));
+        env.RegType(new MyRegDebug());
+
         env.RegType(new CSLE.RegHelper_Type(typeof(GameObject)));
         env.RegType(new CSLE.RegHelper_Type(typeof(Component)));
         env.RegType(new CSLE.RegHelper_Type(typeof(UnityEngine.Object)));
