@@ -8,10 +8,16 @@ public class Script_TestConstructor
 
     public Script_TestConstructor()
     {
-
+        Test();
+        Test2();
     }
 
     public void Test()
+    {
+
+    }
+
+    public static void Test2()
     {
 
     }

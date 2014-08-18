@@ -53,9 +53,9 @@ namespace CSLE
             }
             CLS_Content.Value v = null;
             v = content.GetQuiet(funcname);
-            if(v!=null)
+            if(v!=null&&v.value is Delegate)
             {
-                if(v.value is Delegate)
+                //if(v.value is Delegate)
                 {
                     Delegate d = v.value as Delegate;
                      v = new CLS_Content.Value();
@@ -74,10 +74,10 @@ namespace CSLE
                          v.type = v.value.GetType();
                      }
                 }
-                else
-                {
-                    throw new Exception(funcname + "不是函数");
-                }
+                //else
+                //{
+                //    throw new Exception(funcname + "不是函数");
+                //}
             }
             else if(content.CallType != null && content.CallType.functions.ContainsKey(funcname))
             {
