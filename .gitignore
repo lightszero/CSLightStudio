@@ -43,3 +43,11 @@
 CSLightStudio/unity/CSLightEvil35.dll
 CSLightStudio/unity/CSLightEvil35.dll
 CSLightStudio/unity/CSLightEvil35.dll
+/CSLightStudio/unity/perfermance/ttw
+/CSLightStudio/unity/perfermance/Library
+/CSLightStudio/unity/perfermance/obj
+/CSLightStudio/unity/perfermance/tt_Data
+/CSLightStudio/unity/perfermance/*.csproj
+/CSLightStudio/unity/perfermance/*.sln
+/CSLightStudio/unity/perfermance/*.suo
+/CSLightStudio/unity/perfermance/*.exe
