@@ -52,34 +52,8 @@ namespace CSLE
                 }
             }
             CLS_Content.Value v = null;
-            v = content.GetQuiet(funcname);
-            if(v!=null&&v.value is Delegate)
-            {
-                //if(v.value is Delegate)
-                {
-                    Delegate d = v.value as Delegate;
-                     v = new CLS_Content.Value();
-                     object[] obja = new object[list.Count];
-                     for (int i = 0; i < list.Count;i++ )
-                     {
-                         obja[i] = list[i].value;
-                     }
-                     v.value = d.DynamicInvoke(obja);
-                     if (v.value == null)
-                     {
-                         v.type = null;
-                     }
-                     else
-                     {
-                         v.type = v.value.GetType();
-                     }
-                }
-                //else
-                //{
-                //    throw new Exception(funcname + "不是函数");
-                //}
-            }
-            else if(content.CallType != null && content.CallType.functions.ContainsKey(funcname))
+
+            if (content.CallType != null && content.CallType.functions.ContainsKey(funcname))
             {
                 if (content.CallType.functions[funcname].bStatic)
                 {
@@ -92,9 +66,41 @@ namespace CSLE
 
                 }
             }
+
+
             else
             {
-                v = content.environment.GetFunction(funcname).Call(content, list);
+                v = content.GetQuiet(funcname);
+                if (v != null && v.value is Delegate)
+                {
+                    //if(v.value is Delegate)
+                    {
+                        Delegate d = v.value as Delegate;
+                        v = new CLS_Content.Value();
+                        object[] obja = new object[list.Count];
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            obja[i] = list[i].value;
+                        }
+                        v.value = d.DynamicInvoke(obja);
+                        if (v.value == null)
+                        {
+                            v.type = null;
+                        }
+                        else
+                        {
+                            v.type = v.value.GetType();
+                        }
+                    }
+                    //else
+                    //{
+                    //    throw new Exception(funcname + "不是函数");
+                    //}
+                }
+                else
+                {
+                    v = content.environment.GetFunction(funcname).Call(content, list);
+                }
             }
             //操作变量之
             //做数学计算
