@@ -1,4 +1,8 @@
-﻿0.42Beta
+﻿0.43Beta
+bool型oo漏了，补上
+
+
+0.42Beta
 加入了新的基本类型 byte sbyte short ushort 
 见C#LightTestor _3002_ 测试
 
