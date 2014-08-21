@@ -37,6 +37,7 @@ namespace CSLE
             RegType(new CLS_Type_Double());
             RegType(new CLS_Type_String());
             RegType(new CLS_Type_Var());
+            RegType(new CLS_Type_Bool());
             RegType(new CLS_Type_Lambda());
             RegType(new CLS_Type_Delegate());
             RegType(new CLS_Type_Byte()); 

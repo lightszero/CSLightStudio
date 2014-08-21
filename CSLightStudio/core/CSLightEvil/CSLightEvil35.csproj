@@ -90,6 +90,7 @@
     <Compile Include="C#LE\RegHelper\RegHelper_Function.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
+    <Compile Include="C#LE\Type\CLS_Type_Bool.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Class.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Delegate.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Double.cs" />

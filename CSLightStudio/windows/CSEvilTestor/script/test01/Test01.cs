@@ -1,4 +1,5 @@
 ﻿
+using CSEvilTestor;
 using System.Collections;
 
 public class Script_TestConstructor
@@ -8,13 +9,14 @@ public class Script_TestConstructor
 
     public Script_TestConstructor()
     {
-        Test();
+        bool a = Test();
+        Debug.Log("direct." + a);
         Test2();
     }
 
-    public void Test()
+    public bool Test()
     {
-
+        return false;
     }
 
     public static void Test2()
