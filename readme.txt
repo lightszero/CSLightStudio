@@ -5,6 +5,13 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
 
+0.43Beta
+bool型oo漏了，补上
+
+0.42Beta
+加入了新的基本类型(还在测试中) 
+见C#LightTestor _3002_ 测试
+
 20140813 0.41Beta
 调整委托和事件的实现方式，使用更简便
 
