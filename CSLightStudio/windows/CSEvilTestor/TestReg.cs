@@ -19,6 +19,8 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_DeleAction(typeof(TestDele.myup), "TestDele.myup"));
 
             env.RegType(new CSLE.RegHelper_Type(typeof(List<string>),"List<string>"));
+            env.RegType(new CSLE.RegHelper_Type(typeof(int[]), "int[]"));
+
             env.RegType(new CSLE.RegHelper_Type(typeof(List<int>), "List<int>"));
             env.RegType(new CSLE.RegHelper_Type(typeof(List<List<int>>), "List<List<int>>"));
             env.RegType(new CSLE.RegHelper_Type(typeof(List<List<List<double>>>), "List<List<List<double>>>"));

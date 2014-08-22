@@ -245,6 +245,11 @@ namespace CSLE
                             bctor = true;
                             i--;
                         }
+                            else if(tokens[i + 1].text == "["&&tokens[i+2].text=="]")
+                        {
+                            idtype = env.GetTypeByKeyword(tokens[i].text + "[]");
+                            i += 2;
+                        }
                         else if (tokens[i].text == "void")
                         {
 

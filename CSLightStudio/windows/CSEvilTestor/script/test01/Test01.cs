@@ -5,7 +5,8 @@ using System.Collections;
 public class Script_TestConstructor
 {
 
-    private int a;
+    private int[] a = new int[]{1,3,4};
+    public static int[] b = new int[234];
 
     public Script_TestConstructor()
     {
