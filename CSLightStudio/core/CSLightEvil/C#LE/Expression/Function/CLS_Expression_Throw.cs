@@ -63,8 +63,8 @@ namespace CSLE
                 }
             }
 
-            content.OutStack(this);
-            return rv;
+            //content.OutStack(this);
+            //return rv;
 
             //for 逻辑
             //做数学计算

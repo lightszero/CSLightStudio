@@ -342,7 +342,7 @@ namespace CSLE
                             member.bReadOnly = !(haveset && setpublic);
                             member.type = idtype;
                             logger.Log("发现Get/Set:" + idname);
-                            ICLS_Expression expr = null;
+                            //ICLS_Expression expr = null;
 
                             if (tokens[i + 2].text == "=")
                             {
@@ -365,7 +365,7 @@ namespace CSLE
                             member.bReadOnly = false;
                             member.type = idtype;
 
-                            ICLS_Expression expr = null;
+                            //ICLS_Expression expr = null;
 
                             if (tokens[i + 2].text == "=")
                             {

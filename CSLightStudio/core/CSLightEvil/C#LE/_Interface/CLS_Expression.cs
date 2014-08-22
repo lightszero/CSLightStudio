@@ -17,22 +17,22 @@ namespace CSLE
         {
             get;
         }
-        int tokenBegin
+        new int tokenBegin
         {
             get;
             set;
         }
-        int tokenEnd
+        new int tokenEnd
         {
             get;
             set;
         }
-        int lineBegin
+        new int lineBegin
         {
             get;
             set;
         }
-        int lineEnd
+        new int lineEnd
         {
             get;
             set;

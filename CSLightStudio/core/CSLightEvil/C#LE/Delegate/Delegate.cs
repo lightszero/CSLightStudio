@@ -55,7 +55,7 @@ namespace CSLE
         public DeleFunction(SType stype, SInstance _this, string function)
         {
             this.calltype = stype;
-            this.callthis = callthis;
+            this.callthis = _this;
             this.function = function;
         }
         public SType calltype;
