@@ -38,7 +38,7 @@ class Test02
         ttt.deleTest3 = deleTest;
         ttt.deleTest3(3334);
 
-        Action<int> t = (a) =>
+        Action < int > t = (a) =>
             {
                 Debug.Log("a=" + a);
             };

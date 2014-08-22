@@ -1,4 +1,13 @@
 ﻿//7001 array
+List < List<int>> list =new List<List<int>>();
+list.Add(new List<int>());
+list.Add(new List<int>());
+trace("listc="+list.Count);
+list[0].Add(1);
+list[0].Add(2);
+list[0].Add(4);
+trace("i="+list[0][1]);
+
 
 int[] ints2=new int[3];
 ints2[1]=44;

@@ -41,6 +41,7 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<CLScriptExt.Student>), "List<Student>"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<CLScriptExt.Vector3>), "List<Vector3>"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<int>), "List<int>"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<List<int>>), "List<List<int>>"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(int[]), "int[]"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(string[]), "string[]"));
 

@@ -296,36 +296,99 @@ namespace CSLE
                 }
                 t.text = line.Substring(nstart, i - nstart);
                 //判断字母类型： 关键字 类型 标识符
-                foreach (string s in keywords)
+                if (keywords.Contains(t.text))
+                //foreach (string s in keywords)
                 {
-                    if (t.text == s)
+                    //if (t.text == s)
                     {
                         t.type = TokenType.KEYWORD;
                         return nstart + t.text.Length;
                     }
                 }
-                foreach (string s in types)
+                if (types.Contains(t.text))
+                //foreach (string s in types)
                 {
-                    if (t.text == s)
+                    //if (t.text == s)
                     {
-                        t.type = TokenType.TYPE;
-                        if (line[i] == '<'/*  || line[i] == '['*/)
-                            break;
-                        return nstart + t.text.Length;
+                      
+                        while (line[i] == ' ' && i < line.Length)
+                        {
+                            i++;
+                        }
+                        if (line[i] == '<')/*  || line[i] == '['*/
+                        {
+                            int dep = 0;
+                            string text = t.text;
+                            while (i < line.Length)
+                            {
+                                if (line[i] == '<') dep++;
+                                if (line[i] == '>') dep--;
+                                if (line[i] == ';' || line[i] == '(' || line[i] == '{')
+                                {
+                                    break;
+                                }
+                                if (line[i] != ' ') text += line[i];
+                                i++;
+                                if (dep == 0)
+                                {
+                                    t.text = text;
+                                    break;
+                                }
+                            }
+                            if (types.Contains(t.text))
+                            {
+                                t.type = TokenType.TYPE;
+                                return i;
+                            }
+
+                        }
+                        else
+                        {
+                              t.type = TokenType.TYPE;
+                            return nstart + t.text.Length;
+                        }
                     }
+                }
+                while (line[i] == ' ' && i < line.Length)
+                {
+                    i++;
                 }
                 if (i < line.Length && (line[i] == '<'/* || line[i] == '['*/))//检查特别类型
                 {
-                    foreach (string s in types)
+                    int dep = 0;
+                    string text = t.text;
+                    while (i < line.Length)
                     {
-                        if (s.Length>t.text.Length&& line.IndexOf(s, nstart) == nstart)
+                        if (line[i] == '<') dep++;
+                        if (line[i] == '>') dep--;
+                        if(line[i]==';'||line[i]=='('||line[i]=='{')
                         {
-                            t.type = TokenType.TYPE;
-                            t.text = s;
-                            return nstart + s.Length;
+                            break;
                         }
-
+                        if (line[i] != ' ') text += line[i];
+                        i++;
+                        if (dep == 0)
+                        {
+                            t.text = text;
+                            break;
+                        }
                     }
+                    if (types.Contains(t.text))
+                    {
+                        t.type = TokenType.TYPE;
+                        return i;
+                    }
+
+                    //foreach (string s in types)
+                    //{
+                    //    if (s.Length > t.text.Length && line.IndexOf(s, nstart) == nstart)
+                    //    {
+                    //        t.type = TokenType.TYPE;
+                    //        t.text = s;
+                    //        return nstart + s.Length;
+                    //    }
+
+                    //}
                 }
                 t.type = TokenType.IDENTIFIER;
                 return nstart + t.text.Length;

@@ -275,7 +275,7 @@ namespace CSLE
             function = new RegHelper_TypeFunction(type);
             if (setkeyword != null)
             {
-                keyword = setkeyword;
+                keyword = setkeyword.Replace(" ","");
             }
             else
             {
