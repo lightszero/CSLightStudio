@@ -22,6 +22,9 @@ public class Script_TestConstructor
 
     public static void Test2()
     {
-
+        for(int i=0;i<10;i++)
+        {
+            TestClass.instance.Log();
+        }
     }
 }

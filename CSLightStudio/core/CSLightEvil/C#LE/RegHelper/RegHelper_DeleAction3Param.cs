@@ -67,18 +67,22 @@ namespace CSLE
             DeleFunction _func = delefunc;
             Action<T, T1, T2> dele = (T param0, T1 param1, T2 param2) =>
             {
-                content.DepthAdd();
-                content.CallThis = _func.callthis;
-                content.CallType = _func.calltype;
-                content.function = _func.function;
                 var func = _func.calltype.functions[_func.function];
+                if (func.expr_runtime != null)
+                {
+                    content.DepthAdd();
+                    content.CallThis = _func.callthis;
+                    content.CallType = _func.calltype;
+                    content.function = _func.function;
 
-                content.DefineAndSet(func._paramnames[0], func._paramtypes[0].type, param0);
-                content.DefineAndSet(func._paramnames[1], func._paramtypes[1].type, param1);
-                content.DefineAndSet(func._paramnames[2], func._paramtypes[2].type, param2);
 
-                func.expr_runtime.ComputeValue(content);
-                content.DepthRemove();
+                    content.DefineAndSet(func._paramnames[0], func._paramtypes[0].type, param0);
+                    content.DefineAndSet(func._paramnames[1], func._paramtypes[1].type, param1);
+                    content.DefineAndSet(func._paramnames[2], func._paramtypes[2].type, param2);
+
+                    func.expr_runtime.ComputeValue(content);
+                    content.DepthRemove();
+                }
             };
             Delegate d = dele as Delegate;
             if ((Type)this.type != typeof(Action<T, T1, T2>))
@@ -99,15 +103,18 @@ namespace CSLE
             var expr = lambda.expr_func;
             Action<T, T1, T2> dele = (T param0, T1 param1, T2 param2) =>
             {
-                content.DepthAdd();
+                if (expr != null)
+                {
+                    content.DepthAdd();
 
 
-                content.DefineAndSet(pnames[0], typeof(T), param0);
-                content.DefineAndSet(pnames[1], typeof(T1), param1);
-                content.DefineAndSet(pnames[2], typeof(T2), param2);
-                expr.ComputeValue(content);
+                    content.DefineAndSet(pnames[0], typeof(T), param0);
+                    content.DefineAndSet(pnames[1], typeof(T1), param1);
+                    content.DefineAndSet(pnames[2], typeof(T2), param2);
+                    expr.ComputeValue(content);
 
-                content.DepthRemove();
+                    content.DepthRemove();
+                }
             };
             Delegate d = dele as Delegate;
             if ((Type)this.type != typeof(Action<T, T1, T2>))

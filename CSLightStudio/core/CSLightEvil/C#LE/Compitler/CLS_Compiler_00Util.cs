@@ -841,7 +841,7 @@ namespace CSLE
                         max = 10;
                         break;
                     case "=>":
-                        max = 11;
+                        max = 8;
                         break;
                     case "[":
                         max = 10;

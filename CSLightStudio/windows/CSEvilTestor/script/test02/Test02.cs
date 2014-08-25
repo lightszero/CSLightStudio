@@ -9,6 +9,12 @@ class Test02
     public static void Run()
     
     {
+
+        Action<int> t = (int a) =>
+        {
+            //Debug.Log("a=" + a);
+        };
+
         TestDele.instance.onUpdateD = Test;
         Action<int> deleTest = Test2;
 
@@ -38,10 +44,6 @@ class Test02
         ttt.deleTest3 = deleTest;
         ttt.deleTest3(3334);
 
-        Action < int > t = (a) =>
-            {
-                Debug.Log("a=" + a);
-            };
         TestDele.instance.onUpdate2 += t;
 
         TestDele.instance.onUpdate2 += (b) =>

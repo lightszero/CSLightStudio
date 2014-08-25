@@ -68,17 +68,19 @@ namespace CSLE
             DeleFunction _func = delefunc;
             Action dele = () =>
             {
-
-                content.DepthAdd();
-                content.CallThis = _func.callthis;
-                content.CallType = _func.calltype;
-                content.function = _func.function;
                 var func = _func.calltype.functions[_func.function];
+                if (func.expr_runtime != null)
+                {
+                    content.DepthAdd();
+                    content.CallThis = _func.callthis;
+                    content.CallType = _func.calltype;
+                    content.function = _func.function;
 
-                //content.DefineAndSet(function._paramnames[0], function._paramtypes[0].type, param0);
+                    //content.DefineAndSet(function._paramnames[0], function._paramtypes[0].type, param0);
 
-                func.expr_runtime.ComputeValue(content);
-                content.DepthRemove();
+                    func.expr_runtime.ComputeValue(content);
+                    content.DepthRemove();
+                }
             };
             Delegate d = dele as Delegate;
             if ((Type)this.type != typeof(Action))
@@ -99,14 +101,17 @@ namespace CSLE
             var expr = lambda.expr_func;
             Action dele = () =>
             {
-                content.DepthAdd();
+                if (expr != null)
+                {
+                    content.DepthAdd();
 
 
-                //content.DefineAndSet(pnames[0], typeof(T), param0);
+                    //content.DefineAndSet(pnames[0], typeof(T), param0);
 
-                expr.ComputeValue(content);
+                    expr.ComputeValue(content);
 
-                content.DepthRemove();
+                    content.DepthRemove();
+                }
             };
             Delegate d = dele as Delegate;
             if ((Type)this.type != typeof(Action))
