@@ -100,6 +100,7 @@ public class ScriptEnv
         scriptEnv.RegType(new CSLE.RegHelper_Type(typeof(ScriptInstanceState)));
         scriptEnv.RegType(new CSLE.RegHelper_Type(typeof(PrimitiveType)));
         scriptEnv.RegType(new CSLE.RegHelper_Type(typeof(App)));
+        scriptEnv.RegType(new CSLE.RegHelper_Type(typeof(CLComponent)));
 
     }
 

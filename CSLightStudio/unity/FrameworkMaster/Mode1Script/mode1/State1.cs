@@ -16,6 +16,7 @@ class State1 : IState
     GameObject root = null;
     public void OnInit()
     {
+        CLComponent c = new CLComponent();
         Debug.Log("Init");
         root = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 

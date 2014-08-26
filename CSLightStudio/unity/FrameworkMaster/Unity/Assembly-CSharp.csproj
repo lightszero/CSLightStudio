@@ -122,6 +122,7 @@
      <Compile Include="Assets\C#LE\_Interface\CLS_Function.cs" />
      <Compile Include="Assets\C#LE\_Interface\CLS_Loger.cs" />
      <Compile Include="Assets\C#LE\_Interface\CLS_Type.cs" />
+     <Compile Include="Assets\CLComponent.cs" />
      <Compile Include="Assets\IScripte.cs" />
      <Compile Include="Assets\ScriptMgr.cs" />
      <Compile Include="Assets\StateMgr.cs" />

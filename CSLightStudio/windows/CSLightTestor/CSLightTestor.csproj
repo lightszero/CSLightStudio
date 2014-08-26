@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CLComponent.cs" />
     <Compile Include="CLScriptExt\Country.cs" />
     <Compile Include="CLScriptExt\Student.cs" />
     <Compile Include="CLScriptExt\Vector3.cs" />
