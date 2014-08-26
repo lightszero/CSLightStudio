@@ -12,7 +12,7 @@ Platform assembly: E:\github\CSLightStudio\CSLightStudio\unity\FrameworkMaster\B
 Loading E:\github\CSLightStudio\CSLightStudio\unity\FrameworkMaster\Bin\mode2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: E:\github\CSLightStudio\CSLightStudio\unity\FrameworkMaster\Bin\mode2_Data\Managed\CSLightEvil35.dll (this message is harmless)
 Loading E:\github\CSLightStudio\CSLightStudio\unity\FrameworkMaster\Bin\mode2_Data\Managed\CSLightEvil35.dll into Unity Child Domain
-- Completed reload, in  0.043 seconds
+- Completed reload, in  0.045 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1680x1050 59Hz; virtual: 1680x1050 at 0,0
@@ -21,7 +21,7 @@ filename=script02.CSLEDll.bytes
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-(NotScript)findclass:Program(30,476)
+(NotScript)findclass:Program(30,458)
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
@@ -49,7 +49,7 @@ File_CompilerToken:Program.cs
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-(NotScript)findclass:Program(30,476)
+(NotScript)findclass:Program(30,458)
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
@@ -223,6 +223,10 @@ File_CompilerToken:State3.cs
 
 Platform assembly: E:\github\CSLightStudio\CSLightStudio\unity\FrameworkMaster\Bin\mode2_Data\Managed\System.dll (this message is harmless)
 ScriptMain Start.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Init
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 

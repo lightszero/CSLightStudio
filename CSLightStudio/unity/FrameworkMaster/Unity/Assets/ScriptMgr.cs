@@ -91,8 +91,8 @@ public class ScriptEnv
 
 
         //每一种回调类型要独立注册
-        scriptEnv.RegDeleType(new CSLE.RegHelper_DeleAction("Action")); //unity 用的dotnet 2.0 没有Action
-        scriptEnv.RegDeleType(new CSLE.RegHelper_DeleAction<int>("Action<int>")); ;
+        scriptEnv.RegType(new CSLE.RegHelper_DeleAction(typeof(Action),"Action")); //unity 用的dotnet 2.0 没有Action
+        scriptEnv.RegType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>")); ;
 
 
         scriptEnv.RegType(new CSLE.RegHelper_Type(typeof(StateMgr)));

@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_5_2;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -39,20 +39,97 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor46/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor46/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\C#LE\CLS_Environment.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_00Util.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_01Block.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_02Value.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_03DefineSet.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_04Math.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_05Function.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_06Loop.cs" />
+     <Compile Include="Assets\C#LE\Compitler\CLS_Compiler_07OO.cs" />
+     <Compile Include="Assets\C#LE\Delegate\Delegate.cs" />
+     <Compile Include="Assets\C#LE\Expression\CLS_Expression_Block.cs" />
+     <Compile Include="Assets\C#LE\Expression\CLS_Expression_Define.cs" />
+     <Compile Include="Assets\C#LE\Expression\CLS_Expression_GetValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\CLS_Expression_SetValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_Function.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_FunctionNew.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_FunctionNewArray.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_IndexFind.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_IndexSetValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_Lambda.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_MemberFind.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_MemberFunction.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_MemberSetValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_StaticFind.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_StaticFunction.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_StaticSetValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Function\CLS_Expression_Throw.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopBreak.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopContinue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopDowhile.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopFor.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopForEach.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopIf.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopReturn.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopTry.cs" />
+     <Compile Include="Assets\C#LE\Expression\Loop\CLS_Expression_LoopWhile.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_Math2Value.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_Math2ValueAndOR.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_Math2ValueLogic.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_Math3Value.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_NegativeLogic.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_NegativeValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_SelfOp.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_SelfOpWithValue.cs" />
+     <Compile Include="Assets\C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\FunctionTrace.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_DeleAction.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_DeleAction1Param.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_DeleAction2Param.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_DeleAction3Param.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_Function.cs" />
+     <Compile Include="Assets\C#LE\RegHelper\RegHelper_Type.cs" />
+     <Compile Include="Assets\C#LE\Token\CLS_Token.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Bool.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Class.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Delegate.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Double.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Float.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Lambda.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Null.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_String.cs" />
+     <Compile Include="Assets\C#LE\Type\CLS_Type_Var.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Byte.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Char.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Int.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Sbyte.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Short.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_UInt.cs" />
+     <Compile Include="Assets\C#LE\Type\ints\CLS_Type_Ushort.cs" />
+     <Compile Include="Assets\C#LE\Value\CLS_Value_Value.cs" />
+     <Compile Include="Assets\C#LE\_Interface\CLS_Content.cs" />
+     <Compile Include="Assets\C#LE\_Interface\CLS_Expression.cs" />
+     <Compile Include="Assets\C#LE\_Interface\CLS_Function.cs" />
+     <Compile Include="Assets\C#LE\_Interface\CLS_Loger.cs" />
+     <Compile Include="Assets\C#LE\_Interface\CLS_Type.cs" />
      <Compile Include="Assets\IScripte.cs" />
      <Compile Include="Assets\ScriptMgr.cs" />
      <Compile Include="Assets\StateMgr.cs" />
      <Compile Include="Assets\mode1.cs" />
      <Compile Include="Assets\mode2.cs" />
- <Reference Include="CSLightEvil35">
- <HintPath>E:/github/CSLightStudio/CSLightStudio/unity/FrameworkMaster/Unity/Assets/CSLightEvil35.dll</HintPath>
+     <None Include="Assets\C#LE\Log.txt" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files (x86)/Unity/Editor46/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
