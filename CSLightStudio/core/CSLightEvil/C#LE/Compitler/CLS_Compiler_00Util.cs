@@ -799,43 +799,43 @@ namespace CSLE
                         max = 0;
                         break;
                     case "<":
-                        max = 6;
+                        max = 5;
                         break;
                     case ">":
-                        max = 6;
+                        max = 5;
                         break;
                     case "<=":
-                        max = 6;
+                        max = 5;
                         break;
                     case ">=":
-                        max = 6;
+                        max = 5;
                         break;
                     case "&&":
-                        max = 5;
+                        max = 4;
                         break;
                     case "||":
-                        max = 5;
+                        max = 4;
                         break;
                     case "==":
                         max = 1;
                         break;
                     case "!=":
-                        max = 4;
+                        max = 3;
                         break;
                     case "*":
-                        max = 3;
+                        max = 7;
                         break;
                     case "/":
-                        max = 3;
+                        max = 7;
                         break;
                     case "%":
-                        max = 3;
+                        max = 7;
                         break;
                     case "+":
-                        max = 2;
+                        max = 6;
                         break;
                     case "-":
-                        max = 2;
+                        max = 6;
                         break;
                     case ".":
                         max = 10;
