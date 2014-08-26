@@ -48,21 +48,29 @@ namespace CSLE
             ICLS_Expression expr_while = listParam[1] as ICLS_Expression;
             ICLS_Expression expr_block = listParam[0] as ICLS_Expression;
 
-            CLS_Content.Value v = null;
+            CLS_Content.Value vrt = null;
             do
             {
                 if (expr_block != null)
                 {
                     if (expr_block is CLS_Expression_Block)
                     {
-                        v = expr_block.ComputeValue(content);
-                        if (v != null && v.breakBlock > 1) break; ;
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null)
+                        {
+                            if (v.breakBlock > 2) vrt = v;
+                            if (v.breakBlock > 1) break;
+                        }
                     }
                     else
                     {
                         content.DepthAdd();
-                        v = expr_block.ComputeValue(content);
-                        if (v != null && v.breakBlock > 1) break; ;
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null)
+                        {
+                            if (v.breakBlock > 2) vrt = v;
+                            if (v.breakBlock > 1) break;
+                        }
                         content.DepthRemove();
                     }
                     //if (v.breakBlock == 1) continue;
@@ -72,7 +80,7 @@ namespace CSLE
             } while ((bool)expr_while.ComputeValue(content).value);
             content.DepthRemove();
             content.OutStack(this);
-            return v;
+            return vrt;
             //for 逻辑
             //做数学计算
             //从上下文取值
