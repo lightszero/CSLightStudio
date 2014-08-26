@@ -1,0 +1,48 @@
+﻿0.44Beta
+修正了int[] 作为成员变量的问题
+修正了模板类型的空格兼容性，现在随便多个空格少个空格,不敏感
+
+0.43Beta
+bool型oo漏了，补上
+
+
+0.42Beta
+加入了新的基本类型 byte sbyte short ushort 
+见C#LightTestor _3002_ 测试
+
+0.41Beta 调整了委托的实现机制，注册使用更便捷
+
+0.40Beta 经各平台测试,特修改为Beta版
+
+0.39.4Alpha 怀疑一处属性调用方法修改可以解决AOT问题，尝试之
+
+0.39.3Alpha 匿名函数Lambda表达式支持
+
+0.39.2 修改了回调机制
+脚本也可以调用回调
+
+0.39.1 脚本定义类型bug修正
+
+0.39Alpha
+支持了 while表达式与do while表达式
+加入了unity的一些例子
+
+0.38Alpha
+完整支持了数组
+
+0.37Alpha
+修改了不少小的问题
+另外完成了try catch throw，和C#的用法一致
+
+0.36.3Alpha
+加入interface继承机制
+
+0.36.2Alpha
+修改脚本类型==null表达式bug
+0.36.1Alpha
+Buf fixed:
+for(xxx)
+{
+   int i;
+}
+for循环里只有一行变量定义会导致作用域问题，此bug已修正
