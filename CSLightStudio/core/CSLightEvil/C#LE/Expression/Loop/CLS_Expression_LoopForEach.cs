@@ -56,13 +56,14 @@ namespace CSLE
             ICLS_Expression expr_block = listParam[2] as ICLS_Expression;
 
             var it = emu.GetEnumerator();
+            CLS_Content.Value v = null;
             while (it.MoveNext())
             {
                 content.Set(define.value_name, it.Current);
 
                 if (expr_block != null)
                 {
-                    var v = expr_block.ComputeValue(content);
+                    v = expr_block.ComputeValue(content);
                     if (v != null && v.breakBlock > 1) break; ;
                 }
             }
@@ -84,7 +85,7 @@ namespace CSLE
             //}
             content.DepthRemove();
             content.OutStack(this);
-            return null;
+            return v;
             //for 逻辑
             //做数学计算
             //从上下文取值
