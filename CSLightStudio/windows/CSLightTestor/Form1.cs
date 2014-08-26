@@ -51,7 +51,7 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(DateTime)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(TimeSpan)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(Form1)));
-               scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLComponent)));
+
 
             scriptService.RegType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>"));
             //CLScriptExt.Type_Vector3());
@@ -60,7 +60,10 @@ namespace CLScriptTestor
 
         }
         public static event Action<int> onact;
-
+        public static int Cell(double v)
+        {
+            return (int)v;
+        }
         delegate int _call(int a, int b);
         public static void Try()
         {

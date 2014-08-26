@@ -27,6 +27,7 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_Type(typeof(List<List<List<int>>>), "List<List<List<int>>>"));
 
             env.RegType(new CSLE.RegHelper_Type(typeof(config)));
+            env.RegType(new CSLE.RegHelper_Type(typeof(Math)));
 
             env.RegType(new CSLE.RegHelper_Type(typeof(Exception)));
             env.RegType(new CSLE.RegHelper_Type(typeof(NotSupportedException)));
@@ -38,6 +39,9 @@ namespace CSEvilTestor
     }
     class config
     {
-
+        public static int Cell(double i)
+        {
+            return (int)i;
+        }
     }
 }

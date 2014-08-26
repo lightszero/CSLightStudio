@@ -507,7 +507,7 @@ namespace CSLE
                                 }
                                 else
                                 {
-                                    return i;
+                                    //return i;
                                 }
                             }
                         }
