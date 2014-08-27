@@ -5,6 +5,17 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
 
+2014-08-27 0.48Beta（IOS未测）
+泛型类型可以如此注册一次，编译时自动注册实做类型（IOS未测）
+Type t =Type.GetType("System.Collections.Generic.List`1");
+scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));
+
+0.47Beta
+脚本类型可丢容器 List<object>
+
+0.46Beta
+模板函数调用（IOS未测）
+如GameObject.AddComponent<T>();
 
 2014-08-25 0.45Beta
 修正了lambda表达式 显示声明类型的语法
