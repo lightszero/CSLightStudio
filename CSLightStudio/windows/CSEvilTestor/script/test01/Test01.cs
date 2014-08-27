@@ -9,15 +9,15 @@ public class Script_TestConstructor
 
     private int[] a = new int[] { 1, 3, 4 };
     public static int[] b = new int[234];
-    public static List<object> objs = new List<object>();
+    public static Dictionary<string, object> objs = new Dictionary<string, object>();
     public Script_TestConstructor()
     {
         bool a = Test();
         //Debug.Log(null);
         Test2();
         Test3(22, 33, 44);
-        objs.Add(this);
-        Script_TestConstructor thisislist= objs[0] as Script_TestConstructor;
+        objs.Add("abb",this);
+        Script_TestConstructor thisislist= objs["abb"] as Script_TestConstructor;
         thisislist.LogtT();
     }
     public void LogtT()

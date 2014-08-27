@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -38,6 +39,11 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Country)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Vector3)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Student)));
+
+            Type t =Type.GetType("System.Collections.Generic.List`1");
+            scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));
+
+           
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<CLScriptExt.Student>), "List<Student>"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<CLScriptExt.Vector3>), "List<Vector3>"));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(List<int>), "List<int>"));

@@ -335,11 +335,12 @@ namespace CSLE
                                     break;
                                 }
                             }
-                            if (types.Contains(t.text))
+                            //if (types.Contains(t.text))//自动注册
                             {
                                 t.type = TokenType.TYPE;
                                 return i;
                             }
+
 
                         }
                         else

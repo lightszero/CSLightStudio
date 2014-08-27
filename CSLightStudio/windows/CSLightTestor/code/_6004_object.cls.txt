@@ -1,6 +1,8 @@
 ﻿//6004 object
 //array
 
+List<float> list =new List<float>();
+
 Vector3 vec=new Vector3(1,0,0);
 Vector3 vec2=Vector3.One;
 

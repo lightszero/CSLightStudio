@@ -18,7 +18,7 @@ namespace CSLE
         {
             get
             {
-                return "0.47Beta";
+                return "0.48Beta";
             }
         }
         public CLS_Environment(ICLS_Logger logger)
@@ -108,9 +108,31 @@ namespace CSLE
         {
             if (typess.ContainsKey(keyword) == false)
             {
+                if(keyword[keyword.Length-1]=='>')
+                {
+                    var funk = keyword.Split(new char[] { '<', '>', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    if(typess.ContainsKey(funk[0]))
+                    {
+                        Type gentype= GetTypeByKeyword(funk[0]).type;
+                        if(gentype.IsGenericTypeDefinition)
+                        {
+                            Type[] types =new Type[funk.Length-1];
+                            for(int i=1;i<funk.Length;i++)
+                            {
+                                Type rt = GetTypeByKeyword(funk[i]).type;
+                                types[i - 1] = rt;
+                            }
+                            Type IType = gentype.MakeGenericType(types);
+                            RegType(new RegHelper_Type(IType, keyword));
+                            return GetTypeByKeyword(keyword);
+                        }
+
+                    }
+                }
                 logger.Log_Error("(CLScript)类型未注册:" + keyword);
 
             }
+            
             return typess[keyword];
         }
         public ICLS_Type GetTypeByKeywordQuiet(string keyword)

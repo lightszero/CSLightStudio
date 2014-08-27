@@ -6,6 +6,7 @@ using System.Text;
 
 class Test04
 {
+    public static Dictionary<string, object> objs = new Dictionary<string, object>();
     public static void Run()
     {
         IT4 impl1 = new IT4_Impl();
@@ -15,6 +16,8 @@ class Test04
         Test04.impl2.Call1();
         Test04 t4 = new Test04();
         t4.Run1();
+        objs.Add("t1", impl1);
+        objs.Add("t4", t4);
     }
     void Run1()
     {
