@@ -6,7 +6,7 @@
 有问题可以加QQ群研讨：223823428
 
 2014-08-27 0.48Beta
-泛型类型可以如此注册一次，编译时自动注册实做类型（IOS未测）
+泛型类型可以如此注册一次，编译时自动注册实做类型
 Type t =Type.GetType("System.Collections.Generic.List`1");
 scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));
 
