@@ -1,12 +1,4 @@
-﻿0.46Beta
-修正了一些小bug
-加入了模板函数的自动调用
-如 GameObject.GetComponent<T>(string name);
-尚未测试IOS兼容性,是否存在问题。
-鉴于Unity5已经砍掉了GameObject.GetComponent(string)
-所以加入此语法，以适应将来的Unity5.
-
-0.45Beta
+﻿0.45Beta
 修正了lambda表达式 显示声明类型的语法
 修正了lambda表达式空函数和脚本空函数作为delegate的情况
 

@@ -156,25 +156,7 @@ namespace CSLE
             CLS_Content.Value v = new CLS_Content.Value();
             if (targetop == null)
             {
-                if (func[func.Length - 1] == '>')//这是一个临时的模板函数调用,这个还没测试过IOS兼容性
-                {
-
-                    string[] sf = func.Split(new char[] { '<', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
-                    string tfunc = sf[0];
-                    //+"~" + (sf.Length - 1).ToString();
-                    var ms = type.GetMethods();
-                    targetop = type.GetMethod(tfunc);
-                    Type[] gtypes = new Type[sf.Length - 1];
-                    for (int i = 1; i < sf.Length; i++)
-                    {
-                        gtypes[i - 1] = environment.environment.GetTypeByKeyword(sf[i]).type;
-                    }
-                    targetop = targetop.MakeGenericMethod(gtypes);
-                }
-                else
-                {
-                    throw new Exception("函数不存在function:" + type.ToString() + "." + func);
-                }
+                throw new Exception("函数不存在function:" + type.ToString() + "." + func);
             }
             v.value = targetop.Invoke(object_this, _oparams.ToArray());
             v.type = targetop.ReturnType;
