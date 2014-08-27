@@ -56,15 +56,13 @@ namespace CSLE
 
                     string[] sf = function.Split(new char[] { '<', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
                     string tfunc = sf[0];
-                    //+"~" + (sf.Length - 1).ToString();
-                    var ms = type.GetMethods();
-                    targetop = type.GetMethod(tfunc);
                     Type[] gtypes = new Type[sf.Length - 1];
                     for (int i = 1; i < sf.Length; i++)
                     {
                         gtypes[i - 1] = environment.environment.GetTypeByKeyword(sf[i]).type;
                     }
-                    targetop = targetop.MakeGenericMethod(gtypes);
+                    targetop = FindTMethod(type, tfunc, _params, gtypes);
+                    
                 }
                 else
                 {
@@ -153,7 +151,59 @@ namespace CSLE
 
             throw new NotImplementedException();
         }
-
+        Dictionary<int, System.Reflection.MethodInfo> cacheT ;//= new Dictionary<string, System.Reflection.MethodInfo>();
+        System.Reflection.MethodInfo FindTMethod(Type type, string func, IList<CLS_Content.Value> _params, Type[] gtypes)
+        {
+            string hashkey = func + "_" + _params.Count + ":";
+            foreach (var p in _params)
+            {
+                hashkey += p.type.ToString();
+            }
+            foreach (var t in gtypes)
+            {
+                hashkey += t.ToString();
+            }
+            int hashcode = hashkey.GetHashCode();
+            if(cacheT!=null)
+            {
+                if (cacheT.ContainsKey(hashcode))
+                {
+                    return cacheT[hashcode];
+                }
+            }
+            //+"~" + (sf.Length - 1).ToString();
+            var ms = type.GetMethods();
+            foreach (var t in ms)
+            {
+                if (t.Name == func && t.IsGenericMethodDefinition)
+                {
+                    var pp = t.GetParameters();
+                    if (pp.Length != _params.Count) continue;
+                    bool match = true;
+                    for (int i = 0; i < pp.Length; i++)
+                    {
+                        if (pp[i].ParameterType.IsGenericParameter) continue;
+                        if (pp[i].ParameterType != (Type)_params[0].type)
+                        {
+                            match = false;
+                            break;
+                        }
+                    }
+                    if(match)
+                    {
+                        var targetop = t.MakeGenericMethod(gtypes);
+                        if (cacheT == null)
+                            cacheT = new Dictionary<int, System.Reflection.MethodInfo>();
+                        cacheT[hashcode] = targetop;
+                        return targetop;
+                    }
+                }
+            }
+            //targetop = type.GetMethod(tfunc, types.ToArray());
+            //var pp =targetop.GetParameters();
+            //targetop = targetop.MakeGenericMethod(gtypes);
+            return null;
+        }
         public virtual CLS_Content.Value MemberCall(CLS_Content environment, object object_this, string func, IList<CLS_Content.Value> _params)
         {
 
@@ -164,7 +214,7 @@ namespace CSLE
                 {
                     _oparams.Add(p.value);
                 }
-                if((SType )p.type!=null)
+                if ((SType)p.type != null)
                 {
                     types.Add(typeof(object));
                 }
@@ -183,15 +233,15 @@ namespace CSLE
 
                     string[] sf = func.Split(new char[] { '<', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
                     string tfunc = sf[0];
-                    //+"~" + (sf.Length - 1).ToString();
-                    var ms = type.GetMethods();
-                    targetop = type.GetMethod(tfunc);
+
                     Type[] gtypes = new Type[sf.Length - 1];
+
                     for (int i = 1; i < sf.Length; i++)
                     {
                         gtypes[i - 1] = environment.environment.GetTypeByKeyword(sf[i]).type;
                     }
-                    targetop = targetop.MakeGenericMethod(gtypes);
+                    targetop = FindTMethod(type, tfunc, _params, gtypes);
+
                 }
                 else
                 {
@@ -329,7 +379,7 @@ namespace CSLE
             function = new RegHelper_TypeFunction(type);
             if (setkeyword != null)
             {
-                keyword = setkeyword.Replace(" ","");
+                keyword = setkeyword.Replace(" ", "");
             }
             else
             {

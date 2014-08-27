@@ -15,9 +15,17 @@ namespace CLScriptExt
         public List<int> vs = new List<int>();
         public int[] vs2 = new int[] { 1, 2, 3, 4 };
 
+        public void ToString2()
+        {
+
+        }
         public void ToString2<T>(T obj)
         {
             Console.WriteLine(obj.ToString());
         }
+
+
+
     }
+
 }
