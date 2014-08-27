@@ -35,7 +35,14 @@ namespace CSLE
             foreach (var p in _params)
             {
                 _oparams.Add(p.value);
-                types.Add(p.type);
+                if ((SType)p.type != null)
+                {
+                    types.Add(typeof(object));
+                }
+                else
+                {
+                    types.Add(p.type);
+                }
             }
             var targetop = type.GetMethod(function, types.ToArray());
             if (targetop == null && type.BaseType != null)//加上父类型静态函数查找,典型的现象是 GameObject.Destory
@@ -135,7 +142,14 @@ namespace CSLE
                 {
                     _oparams.Add(p.value);
                 }
-                types.Add(p.type);
+                if((SType )p.type!=null)
+                {
+                    types.Add(typeof(object));
+                }
+                else
+                {
+                    types.Add(p.type);
+                }
             }
 
             var targetop = type.GetMethod(func, types.ToArray());

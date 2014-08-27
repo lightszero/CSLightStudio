@@ -2,19 +2,27 @@
 using CSEvilTestor;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Script_TestConstructor
 {
 
     private int[] a = new int[] { 1, 3, 4 };
     public static int[] b = new int[234];
-
+    public static List<object> objs = new List<object>();
     public Script_TestConstructor()
     {
         bool a = Test();
-        Debug.Log("direct." + a);
+        //Debug.Log(null);
         Test2();
         Test3(22, 33, 44);
+        objs.Add(this);
+        Script_TestConstructor thisislist= objs[0] as Script_TestConstructor;
+        thisislist.LogtT();
+    }
+    public void LogtT()
+    {
+        Debug.Log("LogtT");
     }
     public static void Test3(int a, int b, int c)
     {
