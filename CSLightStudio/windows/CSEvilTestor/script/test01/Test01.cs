@@ -10,6 +10,7 @@ public class Script_TestConstructor
     private int[] a = new int[] { 1, 3, 4 };
     public static int[] b = new int[234];
     public static Dictionary<string, object> objs = new Dictionary<string, object>();
+    public static HashSet<object> objs2 = new HashSet<object>();
     public Script_TestConstructor()
     {
         bool a = Test();
@@ -17,6 +18,7 @@ public class Script_TestConstructor
         Test2();
         Test3(22, 33, 44);
         objs.Add("abb",this);
+        objs2.Add(this);
         Script_TestConstructor thisislist= objs["abb"] as Script_TestConstructor;
         thisislist.LogtT();
     }

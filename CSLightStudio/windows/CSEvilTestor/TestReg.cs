@@ -27,6 +27,8 @@ namespace CSEvilTestor
             Type t2 = Type.GetType("System.Collections.Generic.Dictionary`2");
             env.RegType(new CSLE.RegHelper_Type(t2, "Dictionary"));
 
+            env.RegType(new CSLE.RegHelper_Type(typeof(HashSet<object>), "HashSet<object>"));
+
             env.RegType(new CSLE.RegHelper_Type(typeof(List<string>), "List<string>"));
             env.RegType(new CSLE.RegHelper_Type(typeof(int[]), "int[]"));
 

@@ -160,9 +160,9 @@
     <Content Include="UniLua.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\core\CSLightEvil\CSLightEvil.csproj">
-      <Project>{a750aa17-e057-4c4a-9d79-be4f81bc7765}</Project>
-      <Name>CSLightEvil</Name>
+    <ProjectReference Include="..\..\core\CSLightEvil\CSLightEvil35.csproj">
+      <Project>{8d3c48f1-dfb1-4344-8962-5d09cb02bac2}</Project>
+      <Name>CSLightEvil35</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
