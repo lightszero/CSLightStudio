@@ -57,27 +57,47 @@ namespace CSLE
                 {
                     bleft = (bool)listParam[0].ComputeValue(content).value;
                 }
-
-                if (listParam[1] is ICLS_Value)
-                {
-                    bright = (bool)((listParam[1] as ICLS_Value).value);
-                }
-                else
-                {
-                    bright = (bool)listParam[1].ComputeValue(content).value;
-                }
                 result.type = typeof(bool);
-
-
-                if (mathop == '&')
+                if(mathop=='&')
                 {
-
-                    result.value = (bool)(bleft && bright);
+                    if (!bleft)
+                    {
+                        result.value = false;
+                    }
+                    else
+                    {
+                        if (listParam[1] is ICLS_Value)
+                        {
+                            bright = (bool)((listParam[1] as ICLS_Value).value);
+                        }
+                        else
+                        {
+                            bright = (bool)listParam[1].ComputeValue(content).value;
+                        }
+                        result.value = (bool)(bleft && bright);
+                    }
                 }
                 else if (mathop == '|')
                 {
-                    result.value = (bool)(bleft || bright);
+                    if (bleft)
+                    {
+                        result.value = true;
+                    }
+                    else
+                    {
+                        if (listParam[1] is ICLS_Value)
+                        {
+                            bright = (bool)((listParam[1] as ICLS_Value).value);
+                        }
+                        else
+                        {
+                            bright = (bool)listParam[1].ComputeValue(content).value;
+                        }
+                        result.value = (bool)(bleft || bright);
+                    }
+
                 }
+
             }
             content.OutStack(this);
             return result;

@@ -811,16 +811,16 @@ namespace CSLE
                         max = 5;
                         break;
                     case "&&":
-                        max = 4;
+                        max = 3;
                         break;
                     case "||":
-                        max = 4;
+                        max = 3;
                         break;
                     case "==":
-                        max = 1;
+                        max = 4;
                         break;
                     case "!=":
-                        max = 3;
+                        max = 4;
                         break;
                     case "*":
                         max = 7;
