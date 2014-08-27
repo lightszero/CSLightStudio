@@ -1,0 +1,6 @@
+﻿    float s = 0.2f;
+    if (s <= 0f || s >= 2f) {
+        trace(1);
+    } else {
+        trace(2);
+    }

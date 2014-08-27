@@ -360,19 +360,32 @@ namespace CSLE
                     string text = t.text;
                     while (i < line.Length)
                     {
-                        if (line[i] == '<') dep++;
-                        if (line[i] == '>') dep--;
-                        if(line[i]==';'||line[i]=='('||line[i]=='{')
+                        if (line[i] == '<')
+                        {
+                            dep++;
+                            i++;
+                            text += '<';
+                            continue;
+                        }
+                        if (line[i] == '>')
+                        {
+                            dep--;
+                            i++;
+                            if (dep == 0)
+                            {
+                                t.text = text+'>';
+                                break;
+                            }
+                            continue;
+                        }
+                        Token tt;
+                        int nnstart = FindStart(line, i);
+                        i = GetToken(line, nnstart, out tt);
+                        if(tt.type!= TokenType.IDENTIFIER&&tt.type!= TokenType.TYPE)
                         {
                             break;
                         }
-                        if (line[i] != ' ') text += line[i];
-                        i++;
-                        if (dep == 0)
-                        {
-                            t.text = text;
-                            break;
-                        }
+                        text += tt.text;
                     }
                     if (types.Contains(t.text))
                     {
