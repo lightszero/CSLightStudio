@@ -11,7 +11,11 @@ namespace CLScriptExt
             public int size = 10;
 
         }
-        public string name;
+        public string name
+        {
+            get;
+            set;
+        }
         public int age;
         public class S1
         {

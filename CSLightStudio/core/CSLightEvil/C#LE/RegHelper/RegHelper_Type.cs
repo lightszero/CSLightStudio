@@ -140,7 +140,12 @@ namespace CSLE
                 var methodf = type.GetMethod("set_" + valuename);
                 if (methodf != null)
                 {
+                    var ptype = methodf.GetParameters()[0].ParameterType;
+                    if (value != null && value.GetType() != ptype)
+                    {
 
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, ptype);
+                    }
                     methodf.Invoke(null, new object[] { value });
 
                     return;
@@ -326,7 +331,12 @@ namespace CSLE
                 var methodf = type.GetMethod("set_" + valuename);
                 if (methodf != null)
                 {
+                    var ptype = methodf.GetParameters()[0].ParameterType;
+                    if (value != null && value.GetType() != ptype)
+                    {
 
+                        value = content.environment.GetType(value.GetType()).ConvertTo(content, value, ptype);
+                    }
                     methodf.Invoke(object_this, new object[] { value });
 
                     return;
