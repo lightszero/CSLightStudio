@@ -406,7 +406,7 @@ namespace CSLE
                 return tokens.Count - 1;
         }
 
-        int FindCodeAny2(IList<Token> tokens, ref int pos, out int depstyle)
+        int FindCodeInBlock(IList<Token> tokens, ref int pos, out int depstyle)
         {
             int dep = 0;
             Token? start = null;
@@ -428,8 +428,8 @@ namespace CSLE
                     {
                         if (start.Value.text == "{")
                             depstyle = 2;
-                        //if (start.Value.text == "(")
-                        //    depstyle = 1;
+                        if (start.Value.text == "(")
+                            depstyle = 1;
                         if (start.Value.text == "[")
                             depstyle = 1;
                         //bdepstart = true;
@@ -490,30 +490,35 @@ namespace CSLE
                         if (dep < 0)
                             return i - 1;
                     }
-                    //if (tokens[i].text == "(")
-                    //{
-                    //    dep++;
-                    //}
-                    //if (tokens[i].text == ")")
-                    //{
-                    //    dep--;
-                    //    if (depstyle == 1 && dep == 0)
-                    //    {
-                    //        if (start.Value.text == "(" && dep == 0)
-                    //        {
-                    //            //if (i == (pos + 2) && tokens[i - 1].type == TokenType.TYPE)
-                    //            //{
-                    //            //    depstyle = 0;
-                    //            //}
-                    //            //else
-                    //            {
-                    //                return i;
-                    //            }
-                    //        }
-                    //    }
-                    //    if (dep < 0)
-                    //        return i - 1;
-                    //}
+                    if (tokens[i].text == "(")
+                    {
+                        dep++;
+                    }
+                    if (tokens[i].text == ")")
+                    {
+                        dep--;
+                        if (depstyle == 1 && dep == 0)
+                        {
+                            if (start.Value.text == "(" && dep == 0)
+                            {
+                                if(i<tokens.Count&&tokens[i+1].text==".")
+                                {
+                                    depstyle = 0;
+                                }
+                               
+                                //if (i == (pos + 2) && tokens[i - 1].type == TokenType.TYPE)
+                                //{
+                                //    depstyle = 0;
+                                //}
+                                else
+                                {
+                                    return i;
+                                }
+                            }
+                        }
+                        if (dep < 0)
+                            return i - 1;
+                    }
                     if (tokens[i].text == "[")
                     {
                         dep++;

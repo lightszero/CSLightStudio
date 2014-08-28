@@ -35,7 +35,7 @@ namespace CSLE
                 }
                 int bdep;
                 //脱一次壳
-                end = FindCodeAny(tlist, ref begin, out bdep);
+                end = FindCodeInBlock(tlist, ref begin, out bdep);
 
                 if (end > posend)
                 {
