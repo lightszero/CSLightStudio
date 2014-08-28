@@ -1,4 +1,8 @@
-﻿0.48Beta（IOS未测）
+﻿0.48.1Beta
+模板函数调用 和 泛型类型注册 IOS已测，可用。
+另外修改泛型类型注册导致过去的注册方法失效的bug
+
+0.48Beta（IOS未测）
 泛型类型可以如此注册一次，编译时自动注册实做类型（IOS未测）
 Type t =Type.GetType("System.Collections.Generic.List`1");
 scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));
