@@ -106,7 +106,7 @@ namespace CSEvilTestor
         bool builded = false;
         public void Build(string path, bool useTry)
         {
-            if (builded) return;
+            //if (builded) return;
 
 
             string[] allfile = System.IO.Directory.GetFiles(path, "*.cs", System.IO.SearchOption.AllDirectories);
@@ -202,6 +202,8 @@ namespace CSEvilTestor
         }
         private void button3_Click(object sender, EventArgs e)
         {//Build Only
+            env = new CSLE.CLS_Environment(this);//如果要启用命名空间，第二个参数要打开
+            TestReg.Reg(env);
             Item i = listItem.SelectedItem as Item;
             if (i == null) return;
             Build(i.path, true);
@@ -209,6 +211,8 @@ namespace CSEvilTestor
 
         private void button1_Click(object sender, EventArgs e)
         {//Build &Run
+            env = new CSLE.CLS_Environment(this);//如果要启用命名空间，第二个参数要打开
+            TestReg.Reg(env);
             Item i = listItem.SelectedItem as Item;
             if (i == null) return;
             Build(i.path, true);
@@ -216,6 +220,8 @@ namespace CSEvilTestor
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            env = new CSLE.CLS_Environment(this);//如果要启用命名空间，第二个参数要打开
+            TestReg.Reg(env);
             Item i = listItem.SelectedItem as Item;
             if (i == null) return;
             Build(i.path, false);
@@ -229,6 +235,9 @@ namespace CSEvilTestor
 
         private void button5_Click(object sender, EventArgs e)
         {
+            env = new CSLE.CLS_Environment(this);//如果要启用命名空间，第二个参数要打开
+            TestReg.Reg(env);
+
             int succ = 0;
             for(int i=0;i<listItem.Items.Count;i++)
             {

@@ -172,12 +172,17 @@ namespace CSLE
                     //var value = this.functions[function].expr_runtime.ComputeValue(content);
                     CLS_Content.Value value = null;
                     if (this.functions[function].expr_runtime != null)
+                    {
                         value = this.functions[function].expr_runtime.ComputeValue(content);
+                        if(value!=null)
+                            value.breakBlock = 0;
+                    }
                     else
                     {
 
                     }
                     contentParent.OutStack(content);
+
                     return value;
                 }
             }
@@ -198,7 +203,7 @@ namespace CSLE
                         value.value = dele.DynamicInvoke(objs);
                         if (value.value != null)
                             value.type = value.value.GetType();
-
+                        value.breakBlock = 0;
                         return value;
                     }
                 }
@@ -274,9 +279,13 @@ namespace CSLE
                         funcobj = (object_this as SInstance).type.functions[func];
                     }
                     if (funcobj.expr_runtime != null)
+                    {
                         value = funcobj.expr_runtime.ComputeValue(content);
-
+                        if (value != null)
+                            value.breakBlock = 0;
+                    }
                     contentParent.OutStack(content);
+
                     return value;
                 }
             }
@@ -297,7 +306,7 @@ namespace CSLE
                         value.value = dele.DynamicInvoke(objs);
                         if (value.value != null)
                             value.type = value.value.GetType();
-
+                        value.breakBlock = 0;
                         return value;
                     }
                 }
