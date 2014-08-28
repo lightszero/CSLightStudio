@@ -381,7 +381,7 @@ namespace CSLE
                         Token tt;
                         int nnstart = FindStart(line, i);
                         i = GetToken(line, nnstart, out tt);
-                        if(tt.type!= TokenType.IDENTIFIER&&tt.type!= TokenType.TYPE)
+                        if(tt.type!= TokenType.IDENTIFIER&&tt.type!= TokenType.TYPE&&tt.text!=",")
                         {
                             break;
                         }

@@ -406,6 +406,157 @@ namespace CSLE
                 return tokens.Count - 1;
         }
 
+        int FindCodeAny2(IList<Token> tokens, ref int pos, out int depstyle)
+        {
+            int dep = 0;
+            Token? start = null;
+
+            depstyle = 0;
+            for (int i = pos; i < tokens.Count; i++)
+            {
+
+                if (tokens[i].type == TokenType.COMMENT) //注释忽略
+                {
+                    continue;
+                }
+                if (start == null)
+                {
+                    start = tokens[i];
+
+                    pos = i;
+                    if (start.Value.type == TokenType.PUNCTUATION)
+                    {
+                        if (start.Value.text == "{")
+                            depstyle = 2;
+                        //if (start.Value.text == "(")
+                        //    depstyle = 1;
+                        if (start.Value.text == "[")
+                            depstyle = 1;
+                        //bdepstart = true;
+                    }
+                    if (start.Value.type == TokenType.KEYWORD)
+                    {
+                        if (start.Value.text == "for")
+                        {
+                            return FindCodeKeyWord_For(tokens, i);
+                        }
+                        if (start.Value.text == "foreach")
+                        {
+                            return FindCodeKeyWord_ForEach(tokens, i);
+                        }
+                        if (start.Value.text == "while")
+                        {
+                            return FindCodeKeyWord_While(tokens, i);
+                        }
+                        if (start.Value.text == "do")
+                        {
+                            return FindCodeKeyWord_Dowhile(tokens, i);
+                        }
+                        if (start.Value.text == "if")
+                        {
+                            return FindCodeKeyWord_If(tokens, i);
+
+                        }
+                        if (start.Value.text == "return")
+                        {
+                            return FindCodeKeyWord_Return(tokens, i);
+
+                        }
+                    }
+                    //if (start.Value.type == TokenType.TYPE && i < tokens.Count-1)
+                    //{
+                    //    if(tokens[i+1].type== TokenType.PUNCTUATION&&tokens[i+1].text==".")
+                    //    {
+                    //        //staticcall = true;
+                    //        i++;
+                    //        continue;
+                    //    }
+                    //}
+                }
+
+                if (tokens[i].type == TokenType.PUNCTUATION)
+                {
+                    if (tokens[i].text == "{")
+                    {
+                        dep++;
+                    }
+                    if (tokens[i].text == "}")
+                    {
+                        dep--;
+                        if (depstyle == 2 && dep == 0)
+                        {
+                            return i;
+                        }
+                        if (dep < 0)
+                            return i - 1;
+                    }
+                    //if (tokens[i].text == "(")
+                    //{
+                    //    dep++;
+                    //}
+                    //if (tokens[i].text == ")")
+                    //{
+                    //    dep--;
+                    //    if (depstyle == 1 && dep == 0)
+                    //    {
+                    //        if (start.Value.text == "(" && dep == 0)
+                    //        {
+                    //            //if (i == (pos + 2) && tokens[i - 1].type == TokenType.TYPE)
+                    //            //{
+                    //            //    depstyle = 0;
+                    //            //}
+                    //            //else
+                    //            {
+                    //                return i;
+                    //            }
+                    //        }
+                    //    }
+                    //    if (dep < 0)
+                    //        return i - 1;
+                    //}
+                    if (tokens[i].text == "[")
+                    {
+                        dep++;
+                    }
+                    if (tokens[i].text == "]")
+                    {
+                        dep--;
+                        if (depstyle == 1 && dep == 0)
+                        {
+                            if (start.Value.text == "[" && dep == 0)
+                            {
+                                return i;
+                            }
+                        }
+                        if (dep < 0)
+                            return i - 1;
+                    }
+                    if (depstyle == 0)
+                    {
+                        //if (tokens[i].text =="."&& start.Value.type == TokenType.TYPE)
+                        //{
+                        //    if (dep == 0)
+                        //        return i - 1;
+                        //}
+                        if (tokens[i].text == ",")//，结束的表达式
+                        {
+                            if (dep == 0)
+                                return i - 1;
+                        }
+                        if (tokens[i].text == ";")
+                        {
+                            if (dep == 0)
+                                return i - 1;
+                        }
+                    }
+                }
+            }
+            if (dep != 0)
+                return -1;
+            else
+                return tokens.Count - 1;
+        }
+
         int FindCodeAnyInFunc(IList<Token> tokens, ref int pos, out int depstyle)
         {
             int dep = 0;

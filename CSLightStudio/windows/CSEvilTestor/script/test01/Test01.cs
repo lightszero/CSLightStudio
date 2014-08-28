@@ -10,6 +10,8 @@ public class Script_TestConstructor
     private int[] a = new int[] { 1, 3, 4 };
     public static int[] b = new int[234];
     public static Dictionary<string, object> objs = new Dictionary<string, object>();
+    public static Dictionary<int, int> dicHasBlock = new Dictionary<int, int>();
+
     public static HashSet<object> objs2 = new HashSet<object>();
     public Script_TestConstructor()
     {

@@ -20,12 +20,13 @@ namespace CSEvilTestor
 
             env.RegType(new CSLE.RegHelper_Type(typeof(object), "object"));
             //env.RegType(new CSLE.RegHelper_Type(typeof(List<object>), "List<object>"));
-            //env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<string, object>), "Dictionary<string,object>"));
+            env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<int,int>), "Dictionary<int,int>"));
+            env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<string, object>), "Dictionary<string,object>"));
 
             Type t = Type.GetType("System.Collections.Generic.List`1");
             env.RegType(new CSLE.RegHelper_Type(t, "List"));
-            Type t2 = Type.GetType("System.Collections.Generic.Dictionary`2");
-            env.RegType(new CSLE.RegHelper_Type(t2, "Dictionary"));
+            //Type t2 = Type.GetType("System.Collections.Generic.Dictionary`2");
+            //env.RegType(new CSLE.RegHelper_Type(t2, "Dictionary"));
 
             env.RegType(new CSLE.RegHelper_Type(typeof(HashSet<object>), "HashSet<object>"));
 
