@@ -40,7 +40,12 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Vector3)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Student)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Student.StudentAss), "Student.StudentAss"));
-
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson), "MyJson"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson.JsonNode_ValueNumber), "MyJson.JsonNode_ValueNumber"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson.IJsonNode), "MyJson.IJsonNode"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson.JsonNode_ValueString), "MyJson.JsonNode_ValueString"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson.JsonNode_Object), "MyJson.JsonNode_Object"));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(MyJson.JsonNode_Array), "MyJson.JsonNode_Array"));
             Type t =Type.GetType("System.Collections.Generic.List`1");
             scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));
 
