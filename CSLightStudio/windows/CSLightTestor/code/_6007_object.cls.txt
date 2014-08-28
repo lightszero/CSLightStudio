@@ -4,7 +4,8 @@ obj["n"] = new MyJson.JsonNode_ValueString("fuck");
 //outicon2.spriteName = view.values[ii] as MyJson.JsonNode_ValueString
 
 Student s =new Student();
-s.name = obj["n"] as MyJson.JsonNode_ValueString;
+string key ="n";
+s.name = obj[key] as MyJson.JsonNode_ValueString;
 int i=s.vs2[1];
 
 s.ToString2<int>(22);
