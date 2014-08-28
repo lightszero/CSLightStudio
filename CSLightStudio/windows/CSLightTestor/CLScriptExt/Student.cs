@@ -6,6 +6,11 @@ namespace CLScriptExt
 {
     class Student
     {
+        public class StudentAss
+        {
+            public int size = 10;
+
+        }
         public string name;
         public int age;
         public class S1

@@ -39,6 +39,7 @@ namespace CLScriptTestor
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Country)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Vector3)));
             scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Student)));
+            scriptService.RegType(new CSLE.RegHelper_Type(typeof(CLScriptExt.Student.StudentAss), "Student.StudentAss"));
 
             Type t =Type.GetType("System.Collections.Generic.List`1");
             scriptService.RegType(new CSLE.RegHelper_Type(t, "List"));

@@ -1,2 +1,4 @@
 ﻿//1002 _1002_expression
-return (2+55)*3434
+Vector3 v3 =new Vector3((252.0f / 255.0f), (207.0f / 255.0f), (20.0f / 255.0f));
+
+return (2+55)*3434;

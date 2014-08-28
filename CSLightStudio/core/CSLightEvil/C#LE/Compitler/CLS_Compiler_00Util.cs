@@ -657,11 +657,11 @@ namespace CSLE
                         {
                             if (start.Value.text == "(" && dep == 0)
                             {
-                                if (i == (pos + 2) && tokens[i - 1].type == TokenType.TYPE)
+                                //if (i == (pos + 2) && tokens[i - 1].type == TokenType.TYPE)
                                 {
                                     depstyle = 0;
                                 }
-                                else
+                                //else
                                 {
                                     //return i;
                                 }
