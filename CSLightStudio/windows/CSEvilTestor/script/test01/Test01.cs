@@ -24,6 +24,10 @@ public class Script_TestConstructor
         Script_TestConstructor thisislist= objs["abb"] as Script_TestConstructor;
         thisislist.LogtT();
     }
+    public int[] TTT(int[] ttt)
+    {
+        return ttt;
+    }
     public void LogtT()
     {
         Debug.Log("LogtT");

@@ -276,18 +276,22 @@ namespace CSLE
                             {
 
 
+                                int start = funcparambegin + 1;
                                 //Dictionary<string, ICLS_Type> _params = new Dictionary<string, ICLS_Type>();
-                                for (int j = funcparambegin; j <= funcparamend; j++)
+                                for (int j = funcparambegin +1; j <= funcparamend; j++)
                                 {
                                     if (tokens[j].text == "," || tokens[j].text == ")")
                                     {
-                                        var ptype = tokens[j - 2].text;
+                                        string ptype = "";
+                                        for(int k=start;k<=j-2;k++)
+                                            ptype+=tokens[k].text;
                                         var pid = tokens[j - 1].text;
                                         var type = env.GetTypeByKeyword(ptype);
                                         // _params[pid] = type;
                                         //func._params.Add(pid, type);
                                         func._paramnames.Add(pid);
                                         func._paramtypes.Add(type);
+                                        start = j + 1;
                                     }
                                 }
                             }
