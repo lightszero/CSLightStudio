@@ -51,7 +51,7 @@ namespace CSLE
             }
             if (targetop == null)
             {
-                if (function[function.Length - 1] == '>')//这是一个临时的模板函数调用,这个还没测试过IOS兼容性
+                if (function[function.Length - 1] == '>')//这是一个临时的模板函数调用
                 {
 
                     string[] sf = function.Split(new char[] { '<', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
@@ -233,7 +233,7 @@ namespace CSLE
             CLS_Content.Value v = new CLS_Content.Value();
             if (targetop == null)
             {
-                if (func[func.Length - 1] == '>')//这是一个临时的模板函数调用,这个还没测试过IOS兼容性
+                if (func[func.Length - 1] == '>')//这是一个临时的模板函数调用
                 {
 
                     string[] sf = func.Split(new char[] { '<', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
