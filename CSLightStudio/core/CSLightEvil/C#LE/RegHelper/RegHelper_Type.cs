@@ -357,7 +357,9 @@ namespace CSLE
             var targetop = type.GetMethod("get_Item");
             if (targetop == null)
             {
-                targetop = type.GetMethod("Get");
+                //targetop = type.GetMethod("Get");
+                targetop = type.GetMethod("GetValue", new Type[] { typeof(int) });
+
             }
 
             CLS_Content.Value v = new CLS_Content.Value();
@@ -369,7 +371,7 @@ namespace CSLE
 
         public virtual void IndexSet(CLS_Content environment, object object_this, object key, object value)
         {
-            var m = type.GetMethods();
+            //var m = type.GetMethods();
             var targetop = type.GetMethod("set_Item");
             if (targetop == null)
             {
