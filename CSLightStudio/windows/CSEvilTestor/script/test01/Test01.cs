@@ -15,6 +15,7 @@ public class Script_TestConstructor
     public static HashSet<object> objs2 = new HashSet<object>();
     public Script_TestConstructor()
     {
+        Dictionary<string, object> objs = new Dictionary<string, object>();
         Test();
         //Debug.Log(null);
         Test2();

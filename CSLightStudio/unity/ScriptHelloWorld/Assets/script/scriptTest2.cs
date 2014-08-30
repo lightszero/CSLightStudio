@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// 这里演示一个脚本项目的使用
@@ -19,6 +20,11 @@ public class scriptTest2 : MonoBehaviour {
         //将函数Today()注册给脚本使用
         //Script.env.RegFunction(new CSLE.RegHelper_Function((deleToday)Today));
         //让脚本能用UnityEngine.Debug
+
+        Type t2 = Type.GetType("System.Collections.Generic.Dictionary`2");
+        Script.env.RegType(new CSLE.RegHelper_Type(t2, "Dictionary"));
+        //Script.env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<string, GameObject>), "Dictionary<string,GameObject>"));
+
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(UnityEngine.Debug)));
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(System.DateTime)));
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(System.DayOfWeek)));

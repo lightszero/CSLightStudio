@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 /// <summary>
@@ -17,6 +17,9 @@ public class scriptTest1_02 : MonoBehaviour {
         //将函数Today()注册给脚本使用
         //Script.env.RegFunction(new CSLE.RegHelper_Function((deleToday)Today));
         //让脚本能用UnityEngine.Debug
+
+
+
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(UnityEngine.Debug)));
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(System.DateTime)));
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(System.DayOfWeek)));

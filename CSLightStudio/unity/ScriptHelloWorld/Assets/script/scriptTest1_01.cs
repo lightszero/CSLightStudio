@@ -14,6 +14,10 @@ public class scriptTest1_01 : MonoBehaviour {
         script1 = (Resources.Load("script01") as TextAsset).text;
         Script.Init();
         //将函数Today()注册给脚本使用
+        Type tt = typeof(UnityEngine.GameObject);
+
+        Type t = Type.GetType("UnityEngine.GameObject");
+        Debug.Log(t+":"+tt.FullName);
         Script.env.RegFunction(new CSLE.RegHelper_Function((deleToday)Today));
         //让脚本能用UnityEngine.Debug
         Script.env.RegType(new CSLE.RegHelper_Type(typeof(UnityEngine.Debug)));

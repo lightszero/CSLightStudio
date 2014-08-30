@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class ScriptMain1 
 {
 
     static void Start()
     {
+        Dictionary<string, GameObject> objs = new Dictionary<string, GameObject>();
         root = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 
         for (int i = 0; i < 10; i++)
@@ -13,10 +14,11 @@ public class ScriptMain1
             GameObject sub = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sub.transform.parent = root.transform;
             sub.transform.localPosition = new Vector3(i, 0, 0);
-            sub.GetComponent("Transform");
+            sub.GetComponent<Transform>();
         }
 
     }
+    Dictionary<string, GameObject> bobjs = new Dictionary<string, GameObject>();
 	static scriptFun1  f1 = new scriptFun1 ();
     static GameObject root =null;
     static void Update()
