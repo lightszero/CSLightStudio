@@ -58,7 +58,7 @@ namespace CSLE
             //_value = null;
             content.OutStack(this);
 
-            return null;
+            return content.Get(value_name);
         }
 
   
