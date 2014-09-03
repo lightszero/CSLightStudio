@@ -211,16 +211,6 @@ namespace CSLE
         }
         public virtual CLS_Content.Value MemberCall(CLS_Content environment, object object_this, string func, IList<CLS_Content.Value> _params)
         {
-            /// 请注意这里的处理!!
-            /// 成员系Member类型的方法调用，在有些情况下是不能直接用 [this.type.GetMethod()] 的方式来获取特定方法的。
-            /// 比如 string[] strArray = new string[] { "0", "1", "2" };
-            /// 如下的脚本会有运行时错误：
-            /// bool result = strArray[0].Contains("1");
-            /// 因为这里的 strArray[0] 返回的值类型是 System.Object，而通过 System.Object 这个类型显然是无法 GetMethod 出 Contains 方法的。
-            /// 所以这里用GetType()来获得真正的类型.
-            /// 下面的几个方法也做了类似的处理。
-            Type type = object_this.GetType();
-
             List<Type> types = new List<Type>();
             List<object> _oparams = new List<object>();
             foreach (var p in _params)
@@ -269,9 +259,6 @@ namespace CSLE
 
         public virtual CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename)
         {
-            //!!!=>注释见 MemberCall() 方法.
-            Type type = object_this.GetType();
-
             //var m = type.GetMethods();
             var targetf = type.GetField(valuename);
             if (targetf != null)
@@ -326,9 +313,6 @@ namespace CSLE
 
         public virtual void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
-            //!!!=>注释见 MemberCall() 方法.
-            Type type = object_this.GetType();
-
             //先操作File
             var targetf = type.GetField(valuename);
             if (targetf != null)

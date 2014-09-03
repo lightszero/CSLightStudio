@@ -49,6 +49,11 @@ namespace CSLE
 
             var value = type.function.IndexGet(content, parent.value, key.value);
             content.OutStack(this);
+
+            //IndexGet返回的值类型是 System.Object.
+            //在这里需要将类型明确化.
+            value.type = value.value.GetType();
+
             return value;
             //return type.function.MemberValueGet(content.environment, parent.value, membername);
             //做数学计算
