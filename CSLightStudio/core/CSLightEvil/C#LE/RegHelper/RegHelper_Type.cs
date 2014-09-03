@@ -361,6 +361,7 @@ namespace CSLE
 
             }
 
+
             CLS_Content.Value v = new CLS_Content.Value();
             v.type = targetop.ReturnType;
             v.value = targetop.Invoke(object_this, new object[] { key });
@@ -432,6 +433,11 @@ namespace CSLE
 
             //type.get
             //var m =type.GetMembers();
+            if(_type.IsEnum)
+            {
+                int v =( (int)src);
+                return v;
+            }
             var ms = _type.GetMethods();
             foreach (var m in ms)
             {
