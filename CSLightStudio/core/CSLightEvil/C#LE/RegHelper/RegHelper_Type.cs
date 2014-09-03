@@ -364,10 +364,11 @@ namespace CSLE
             
             if (targetop == null)
             {
+                targetop = type.GetMethod("GetValue", new Type[] { typeof(int) });
                 if (targetop != null)
                 {
                     //targetop = type.GetMethod("Get");
-                    targetop = type.GetMethod("GetValue", new Type[] { typeof(int) });
+                 
                     CLS_Content.Value v = new CLS_Content.Value();
                     v.type = type.GetElementType();
                     v.value = targetop.Invoke(object_this, new object[] { key });
