@@ -49,15 +49,37 @@ namespace CSLE
             var right = listParam[1].ComputeValue(content);
             ICLS_Type type = content.environment.GetType(left.type);
             //if (mathop == "+=")
-            
+
             {
                 CLType returntype;
                 object value = type.Math2Value(content, mathop, left.value, right, out returntype);
                 value = type.ConvertTo(content, value, left.type);
                 left.value = value;
 
+                Type t = right.type;
                 //content.Set(value_name, value);
+                if (t == typeof(CSLE.DeleLambda) || t == typeof(CSLE.DeleFunction) || t == typeof(CSLE.DeleEvent))
+                {
+
+                }
+                else
+                {
+                    if (listParam[0] is CLS_Expression_MemberFind)
+                    {
+                        CLS_Expression_MemberFind f = listParam[0] as CLS_Expression_MemberFind;
+
+                        var parent = f.listParam[0].ComputeValue(content);
+                        var ptype = content.environment.GetType(parent.type);
+                        ptype.function.MemberValueSet(content, parent.value, f.membername, value);
+                    }
+                    if (listParam[0] is CLS_Expression_StaticFind)
+                    {
+                        CLS_Expression_StaticFind f = listParam[0] as CLS_Expression_StaticFind;
+                        f.type.function.StaticValueSet(content, f.staticmembername, value);
+                    }
+                }
             }
+
 
             //操作变量之
             //做数学计算
@@ -74,7 +96,7 @@ namespace CSLE
 
         public override string ToString()
         {
-            return "MathSelfOp|" +  mathop;
+            return "MathSelfOp|" + mathop;
         }
     }
 }
