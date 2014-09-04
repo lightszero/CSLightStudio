@@ -18,7 +18,7 @@ namespace CSLE
         {
             get
             {
-                return "0.48.3Beta";
+                return "0.48.5Beta";
             }
         }
         public CLS_Environment(ICLS_Logger logger)
@@ -76,10 +76,16 @@ namespace CSLE
             //        typename = type._namespace + "." + type.keyword;
             //    }
             //}
-            typess[typename] = type;
-            if (tokenParser.types.Contains(typename) == false)
+            if (string.IsNullOrEmpty(typename))
+            {//匿名自动注册
+            }
+            else
             {
-                tokenParser.types.Add(typename);
+                typess[typename] = type;
+                if (tokenParser.types.Contains(typename) == false)
+                {
+                    tokenParser.types.Add(typename);
+                }
             }
         }
 
@@ -90,7 +96,9 @@ namespace CSLE
             if (types.ContainsKey(type) == false)
             {
                 logger.Log_Error("(CLScript)类型未注册:" + type.ToString());
+                RegType(new RegHelper_Type(type, ""));
             }
+
             return types[type];
         }
         //public ICLS_Type_Dele GetDeleTypeBySign(string sign)

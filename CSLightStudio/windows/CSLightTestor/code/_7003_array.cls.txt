@@ -1,0 +1,11 @@
+﻿//7003 array
+
+Dictionary<int,string> hip =new Dictionary<int,string>();
+hip[3]="ff";
+hip[5]="fff";
+hip[6]="ffff";
+
+foreach(var i in hip)
+{
+  trace("key="+i.Key+",v="+i.Value);
+}
