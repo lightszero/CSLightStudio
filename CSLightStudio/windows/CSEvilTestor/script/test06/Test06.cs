@@ -13,12 +13,12 @@ public class Block
         layer = inLayer;
         move = canMove;
         spriteName = imgName;
-        Dictionary<int, Action<int>> dic = new Dictionary<int, Action<int>>();
-        Action<int> function = Function;
-        dic.Add((short)1, function);
+        Dictionary<int, Action<MyClass2>> dic = new Dictionary<int, Action<MyClass2>>();
+        Action<MyClass2> function = Function;
+        dic.Add(1, function);
     }
 
-    public static void Function(int i)
+    public static void Function(MyClass2 i)
     {
     }
     public string blockName;

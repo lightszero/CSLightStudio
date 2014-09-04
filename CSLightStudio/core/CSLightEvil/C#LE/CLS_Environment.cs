@@ -18,7 +18,7 @@ namespace CSLE
         {
             get
             {
-                return "0.48.5Beta";
+                return "0.48.6Beta";
             }
         }
         public CLS_Environment(ICLS_Logger logger)
@@ -40,10 +40,10 @@ namespace CSLE
             RegType(new CLS_Type_Bool());
             RegType(new CLS_Type_Lambda());
             RegType(new CLS_Type_Delegate());
-            RegType(new CLS_Type_Byte()); 
-            RegType(new CLS_Type_Char()); 
+            RegType(new CLS_Type_Byte());
+            RegType(new CLS_Type_Char());
             RegType(new CLS_Type_UShort());
-            RegType(new CLS_Type_Sbyte()); 
+            RegType(new CLS_Type_Sbyte());
             RegType(new CLS_Type_Short());
 
             typess["null"] = new CLS_Type_NULL();
@@ -116,19 +116,52 @@ namespace CSLE
         {
             if (typess.ContainsKey(keyword) == false)
             {
-                if(keyword[keyword.Length-1]=='>')
+                if (keyword[keyword.Length - 1] == '>')
                 {
-                    var funk = keyword.Split(new char[] { '<', '>', ',' }, StringSplitOptions.RemoveEmptyEntries);
-                    if(typess.ContainsKey(funk[0]))
+                    int iis = keyword.IndexOf('<');
+                    string func = keyword.Substring(0, iis);
+                    List<string> _types = new List<string>();
+                    int istart = iis + 1;
+                    int inow = istart;
+                    int dep = 0;
+                    while (inow < keyword.Length)
                     {
-                        Type gentype= GetTypeByKeyword(funk[0]).type;
-                        if(gentype.IsGenericTypeDefinition)
+                        if (keyword[inow] == '<')
                         {
-                            Type[] types =new Type[funk.Length-1];
-                            for(int i=1;i<funk.Length;i++)
+                            dep++;
+                        }
+                        if (keyword[inow] == '>')
+                        {
+                            dep--;
+                            if (dep < 0)
                             {
-                                Type rt = GetTypeByKeyword(funk[i]).type;
-                                types[i - 1] = rt;
+                                _types.Add(keyword.Substring(istart, inow - istart));
+                                break;
+                            }
+                        }
+
+                        if (keyword[inow] == ','&&dep==0)
+                        {
+                            _types.Add(keyword.Substring(istart, inow - istart));
+                            istart = inow + 1;
+                            inow = istart;
+                            continue; ;
+                        }
+
+                        inow++;
+                    }
+
+                    //var funk = keyword.Split(new char[] { '<', '>', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (typess.ContainsKey(func))
+                    {
+                        Type gentype = GetTypeByKeyword(func).type;
+                        if (gentype.IsGenericTypeDefinition)
+                        {
+                            Type[] types = new Type[_types.Count];
+                            for (int i = 0; i < types.Length; i++)
+                            {
+                                Type rt = GetTypeByKeyword(_types[i]).type;
+                                types[i] = rt;
                             }
                             Type IType = gentype.MakeGenericType(types);
                             RegType(new RegHelper_Type(IType, keyword));
@@ -140,7 +173,7 @@ namespace CSLE
                 logger.Log_Error("(CLScript)类型未注册:" + keyword);
 
             }
-            
+
             return typess[keyword];
         }
         public ICLS_Type GetTypeByKeywordQuiet(string keyword)

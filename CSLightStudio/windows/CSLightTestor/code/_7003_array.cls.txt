@@ -9,3 +9,5 @@ foreach(var i in hip)
 {
   trace("key="+i.Key+",v="+i.Value);
 }
+
+return 0;
