@@ -59,27 +59,30 @@ namespace CSLE
             CLS_Content.Value vrt = null;
             while (it.MoveNext())
             {
-                content.Set(define.value_name, it.Current);
 
-                if (expr_block is CLS_Expression_Block)
+                content.Set(define.value_name, it.Current);
+                if (expr_block != null)
                 {
-                    var v = expr_block.ComputeValue(content);
-                    if (v != null)
+                    if (expr_block is CLS_Expression_Block)
                     {
-                        if (v.breakBlock > 2) vrt = v;
-                        if (v.breakBlock > 1) break;
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null)
+                        {
+                            if (v.breakBlock > 2) vrt = v;
+                            if (v.breakBlock > 1) break;
+                        }
                     }
-                }
-                else
-                {
-                    content.DepthAdd();
-                    var v = expr_block.ComputeValue(content);
-                    if (v != null)
+                    else
                     {
-                        if (v.breakBlock > 2) vrt = v;
-                        if (v.breakBlock > 1) break;
+                        content.DepthAdd();
+                        var v = expr_block.ComputeValue(content);
+                        if (v != null)
+                        {
+                            if (v.breakBlock > 2) vrt = v;
+                            if (v.breakBlock > 1) break;
+                        }
+                        content.DepthRemove();
                     }
-                    content.DepthRemove();
                 }
             }
             //ICLS_Expression expr_continue = listParam[1] as ICLS_Expression;
