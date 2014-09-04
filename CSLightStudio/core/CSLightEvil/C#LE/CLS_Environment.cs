@@ -95,7 +95,7 @@ namespace CSLE
                 return typess["null"];
             if (types.ContainsKey(type) == false)
             {
-                logger.Log_Error("(CLScript)类型未注册:" + type.ToString());
+                logger.Log_Warn("(CLScript)类型未注册:" + type.ToString());
                 RegType(new RegHelper_Type(type, ""));
             }
 
