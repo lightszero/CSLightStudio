@@ -54,6 +54,8 @@
     <Compile Include="C#LE\Expression\Function\CLS_Expression_FunctionNew.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_IndexSetValue.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberMath.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticMath.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_Throw.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFunction.cs" />

@@ -256,19 +256,26 @@ namespace CLScriptTestor
             {
                 tokensResult = this.scriptService.tokenParser.ReadTokenList(fiels);
             }
-            if (tokensResult != null && tokensResult.Count > 0)
-            {
-                compilerResult = scriptService.Expr_CompilerToken(tokensResult);
+            //try
+            //{
+                if (tokensResult != null && tokensResult.Count > 0)
+                {
+                    compilerResult = scriptService.Expr_CompilerToken(tokensResult);
 
 
-                //if (compilerResult == null)
-                //{
-                //    Log("尝试作为表达式编译");
-                //    compilerResult = scriptService.CompilerToken(tokens, true);
-                //}
-                //compilerResult = compiler.Optimize(compilerResult);
-                ShowExp(compilerResult);
-            }
+                    //if (compilerResult == null)
+                    //{
+                    //    Log("尝试作为表达式编译");
+                    //    compilerResult = scriptService.CompilerToken(tokens, true);
+                    //}
+                    //compilerResult = compiler.Optimize(compilerResult);
+                    ShowExp(compilerResult);
+                }
+            //}
+            //catch(Exception err)
+            //{
+            //    Log_Error("编译失败");
+            //}
         }
         void ShowExp(CSLE.ICLS_Expression value)
         {
