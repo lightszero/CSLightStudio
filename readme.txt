@@ -5,6 +5,25 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
 
+2014-09-04 0.48.5Beta
+Graphic 增加了一组带返回值委托
+修正了访问未注册过类型的问题
+修正了index get 为object的问题
+还有其他，忘记了...
+
+0.48.3Beta
+修正了数组[] 作为参数的问题
+修正了数组在IOS下的异常
+
+0.48.2Beta
+修正了一系列bug
+(a).b=1;
+return 异常的传递
+
+0.48.1Beta
+模板函数调用 和 泛型类型注册 IOS已测，可用。
+另外修改泛型类型注册导致过去的注册方法失效的bug
+
 2014-08-27 0.48Beta
 泛型类型可以如此注册一次，编译时自动注册实做类型
 Type t =Type.GetType("System.Collections.Generic.List`1");
