@@ -13,7 +13,7 @@ public class Block
         layer = inLayer;
         move = canMove;
         spriteName = imgName;
-        Dictionary<short, Action<int>> dic = new Dictionary<short, Action<int>>();
+        Dictionary<int, Action<int>> dic = new Dictionary<int, Action<int>>();
         Action<int> function = Function;
         dic.Add((short)1, function);
     }
