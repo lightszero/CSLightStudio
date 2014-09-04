@@ -49,7 +49,7 @@ namespace CSLE
             var right = listParam[1].ComputeValue(content);
             ICLS_Type type = content.environment.GetType(left.type);
             //if (mathop == "+=")
-
+            
             {
                 CLType returntype;
                 object value = type.Math2Value(content, mathop, left.value, right, out returntype);

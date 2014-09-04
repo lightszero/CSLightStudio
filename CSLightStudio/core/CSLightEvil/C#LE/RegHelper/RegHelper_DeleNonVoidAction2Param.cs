@@ -48,7 +48,7 @@ namespace CSLE
                 }
                 else if (code == '-')
                 {
-                    info._event.AddEventHandler(info.source, calldele);
+                    info._event.RemoveEventHandler(info.source, calldele);
                     return null;
                 }
 

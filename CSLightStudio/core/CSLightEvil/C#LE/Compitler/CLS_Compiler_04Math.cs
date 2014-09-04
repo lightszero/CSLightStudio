@@ -233,27 +233,27 @@ namespace CSLE
                     else if (tlist[oppos].text == "+=" || tlist[oppos].text == "-=" || tlist[oppos].text == "*=" || tlist[oppos].text == "/=" || tlist[oppos].text == "%=")
                     {
 
-                        if (valueleft is CLS_Expression_MemberFind)
-                        {
-                            CLS_Expression_MemberFind vf = valueleft as CLS_Expression_MemberFind;
-                            CLS_Expression_MemberMath value = new CLS_Expression_MemberMath(left, rightend, tlist[left].line, tlist[rightend].line);
-                            value.listParam.Add(vf.listParam[0]);
-                            value.membername = vf.membername;
-                            value.mathop = tlist[oppos].text[0];
-                            value.listParam.Add(valueright);
-                            return value;
-                        }
-                        if (valueleft is CLS_Expression_StaticFind)
-                        {
-                            CLS_Expression_StaticFind vf = valueleft as CLS_Expression_StaticFind;
-                            CLS_Expression_StaticMath value = new CLS_Expression_StaticMath(left, rightend, tlist[left].line, tlist[rightend].line);
-                            value.type = vf.type;
-                            value.staticmembername = vf.staticmembername;
-                            value.mathop = tlist[oppos].text[0];
-                            value.listParam.Add(valueright);
-                            return value;
-                        }
-                        else
+                        //if (valueleft is CLS_Expression_MemberFind)
+                        //{
+                        //    CLS_Expression_MemberFind vf = valueleft as CLS_Expression_MemberFind;
+                        //    CLS_Expression_MemberMath value = new CLS_Expression_MemberMath(left, rightend, tlist[left].line, tlist[rightend].line);
+                        //    value.listParam.Add(vf.listParam[0]);
+                        //    value.membername = vf.membername;
+                        //    value.mathop = tlist[oppos].text[0];
+                        //    value.listParam.Add(valueright);
+                        //    return value;
+                        //}
+                        //if ((valueright is CLS_Expression_Lambda ==false) && valueleft is CLS_Expression_StaticFind)
+                        //{
+                        //    CLS_Expression_StaticFind vf = valueleft as CLS_Expression_StaticFind;
+                        //    CLS_Expression_StaticMath value = new CLS_Expression_StaticMath(left, rightend, tlist[left].line, tlist[rightend].line);
+                        //    value.type = vf.type;
+                        //    value.staticmembername = vf.staticmembername;
+                        //    value.mathop = tlist[oppos].text[0];
+                        //    value.listParam.Add(valueright);
+                        //    return value;
+                        //}
+                        //else
                         {
                             CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left, rightend, tlist[left].line, tlist[rightend].line);
                             //value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
