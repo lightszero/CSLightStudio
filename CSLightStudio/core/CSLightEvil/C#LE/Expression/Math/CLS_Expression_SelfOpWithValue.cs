@@ -57,8 +57,12 @@ namespace CSLE
                 left.value = value;
 
                 Type t = right.type;
+                if(t.IsSubclassOf(typeof(MulticastDelegate))||t.IsSubclassOf(typeof(Delegate)))
+                {
+
+                }
                 //content.Set(value_name, value);
-                if (t == typeof(CSLE.DeleLambda) || t == typeof(CSLE.DeleFunction) || t == typeof(CSLE.DeleEvent))
+                else if (t == typeof(CSLE.DeleLambda) || t == typeof(CSLE.DeleFunction) || t == typeof(CSLE.DeleEvent))
                 {
 
                 }
