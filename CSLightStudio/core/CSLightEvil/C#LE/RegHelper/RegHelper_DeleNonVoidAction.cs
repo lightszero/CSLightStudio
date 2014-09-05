@@ -33,40 +33,59 @@ namespace CSLE
         {
             returntype = null;
 
-            if (left is DeleEvent)
-            {
+            if (left is DeleEvent) {
                 DeleEvent info = left as DeleEvent;
                 Delegate calldele = null;
-                if (right.value is DeleFunction) calldele = CreateDelegate(env.environment, right.value as DeleFunction);
+
+                //!--exist bug.
+                /*if (right.value is DeleFunction) calldele = CreateDelegate(env.environment, right.value as DeleFunction);
                 else if (right.value is DeleLambda) calldele = CreateDelegate(env.environment, right.value as DeleLambda);
-                else if (right.value is Delegate) calldele = right.value as Delegate;
+                else if (right.value is Delegate) calldele = right.value as Delegate;*/
 
-                if (code == '+')
-                {
+                object rightValue = right.value;
+                if (rightValue is DeleFunction) {
+                    if (code == '+') {
+                        calldele = CreateDelegate(env.environment, rightValue as DeleFunction);
+                    } else if (code == '-') {
+                        calldele = Dele_Map_Delegate.GetDelegate(rightValue as IDeleBase);
+                    }
+                } else if (rightValue is DeleLambda) {
+                    if (code == '+') {
+                        calldele = CreateDelegate(env.environment, rightValue as DeleLambda);
+                    } else if (code == '-') {
+                        calldele = Dele_Map_Delegate.GetDelegate(rightValue as IDeleBase);
+                    }
+                } else if (rightValue is Delegate) {
+                    calldele = rightValue as Delegate;
+                }
+
+                if (code == '+') {
                     info._event.AddEventHandler(info.source, calldele);
+                    if (!(rightValue is Delegate)) {
+                        Dele_Map_Delegate.Map(rightValue as IDeleBase, calldele);
+                    }
                     return null;
-                }
-                else if (code == '-')
-                {
+                } else if (code == '-') {
                     info._event.RemoveEventHandler(info.source, calldele);
+                    if (!(rightValue is Delegate)) {
+                        Dele_Map_Delegate.Destroy(rightValue as IDeleBase);
+                    }
                     return null;
                 }
 
-            }
-            else if(left is Delegate)
-            {
+            } else if (left is Delegate) {
                 Delegate info = left as Delegate;
                 Delegate calldele = null;
-                if (right.value is DeleFunction) calldele = CreateDelegate(env.environment, right.value as DeleFunction);
-                else if (right.value is DeleLambda) calldele = CreateDelegate(env.environment, right.value as DeleLambda);
-                else if (right.value is Delegate) calldele = right.value as Delegate;
-                if (code == '+')
-                {
+                if (right.value is DeleFunction)
+                    calldele = CreateDelegate(env.environment, right.value as DeleFunction);
+                else if (right.value is DeleLambda)
+                    calldele = CreateDelegate(env.environment, right.value as DeleLambda);
+                else if (right.value is Delegate)
+                    calldele = right.value as Delegate;
+                if (code == '+') {
                     Delegate.Combine(info, calldele);
                     return null;
-                }
-                else if (code == '-')
-                {
+                } else if (code == '-') {
                     Delegate.Remove(info, calldele);
                 }
             }
