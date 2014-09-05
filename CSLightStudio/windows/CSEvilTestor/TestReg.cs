@@ -14,6 +14,9 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_Type(typeof(Program)));
 
             env.RegType(new CSLE.RegHelper_DeleAction<int,string>(typeof(Action<int,string>),"Action<int,string>"));
+            env.RegType(new CSLE.RegHelper_Type(typeof(MyClass2)));
+            env.RegType(new CSLE.RegHelper_DeleAction<MyClass2>(typeof(Action<MyClass2>), "Action<MyClass2>"));
+
             env.RegType(new CSLE.RegHelper_DeleAction<int>(typeof(Action<int>), "Action<int>"));
             env.RegType(new CSLE.RegHelper_DeleAction(typeof(Action),"Action"));
             env.RegType(new CSLE.RegHelper_DeleAction(typeof(TestDele.myup), "TestDele.myup"));
@@ -21,14 +24,16 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_Type(typeof(object), "object"));
             //env.RegType(new CSLE.RegHelper_Type(typeof(List<object>), "List<object>"));
             //env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<int,int>), "Dictionary<int,int>"));
-            //env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<string, object>), "Dictionary<string,object>"));
+            //env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<short, Action<int>>), " Dictionary<short, Action<int>> "));
+            //env.RegType(new CSLE.RegHelper_Type(typeof(Dictionary<int, Action<int>>), " Dictionary<int, Action<int>> "));
 
 
             Type t = Type.GetType("System.Collections.Generic.List`1");
             env.RegType(new CSLE.RegHelper_Type(t, "List"));
             Type t2 = Type.GetType("System.Collections.Generic.Dictionary`2");
             env.RegType(new CSLE.RegHelper_Type(t2, "Dictionary"));
-
+            Type t3 = Type.GetType("System.Collections.Generic.KeyValuePair`2");
+            env.RegType(new CSLE.RegHelper_Type(t3, "KeyValuePair"));
             env.RegType(new CSLE.RegHelper_Type(typeof(HashSet<object>), "HashSet<object>"));
 
             env.RegType(new CSLE.RegHelper_Type(typeof(List<string>), "List<string>"));
@@ -49,6 +54,10 @@ namespace CSEvilTestor
 
         }
         
+    }
+    public class MyClass2
+    {
+
     }
     class config
     {

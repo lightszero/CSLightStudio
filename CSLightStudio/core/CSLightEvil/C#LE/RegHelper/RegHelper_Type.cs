@@ -352,19 +352,30 @@ namespace CSLE
 
         public virtual CLS_Content.Value IndexGet(CLS_Content environment, object object_this, object key)
         {
-            //var m =type.GetMembers();
+            var m =type.GetMembers();
             var targetop = type.GetMethod("get_Item");
+            if(targetop!=null)
+            {
+                CLS_Content.Value v = new CLS_Content.Value();
+                v.type = targetop.ReturnType;
+                v.value = targetop.Invoke(object_this, new object[] { key });
+                return v;
+            }
+            
             if (targetop == null)
             {
-                //targetop = type.GetMethod("Get");
                 targetop = type.GetMethod("GetValue", new Type[] { typeof(int) });
-
+                if (targetop != null)
+                {
+                    //targetop = type.GetMethod("Get");
+                 
+                    CLS_Content.Value v = new CLS_Content.Value();
+                    v.type = type.GetElementType();
+                    v.value = targetop.Invoke(object_this, new object[] { key });
+                    return v;
+                }
             }
-
-            CLS_Content.Value v = new CLS_Content.Value();
-            v.type = targetop.ReturnType;
-            v.value = targetop.Invoke(object_this, new object[] { key });
-            return v;
+            throw new NotImplementedException();
 
         }
 
@@ -432,6 +443,11 @@ namespace CSLE
 
             //type.get
             //var m =type.GetMembers();
+            if(_type.IsEnum)
+            {
+                int v =( (int)src);
+                return v;
+            }
             var ms = _type.GetMethods();
             foreach (var m in ms)
             {

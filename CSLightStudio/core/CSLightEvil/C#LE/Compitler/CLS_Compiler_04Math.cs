@@ -84,6 +84,17 @@ namespace CSLE
                         value.listParam.AddRange(vf.listParam.ToArray());
                         return value;
                     }
+                    else if (valueright is CLS_Expression_SelfOp)
+                    {
+                        CLS_Expression_SelfOp vr = valueright as CLS_Expression_SelfOp;
+
+                        CLS_Expression_StaticMath value = new CLS_Expression_StaticMath(pos, rightend, tlist[pos].line, tlist[rightend].line);
+                        value.type = content.GetTypeByKeyword(tlist[pos].text);
+                        value.staticmembername = vr.value_name;
+                        value.mathop = vr.mathop;
+                        return value;
+                    }
+
                     else
                     {
                         throw new Exception("不可识别的表达式");
@@ -200,11 +211,20 @@ namespace CSLE
                             return value;
                         }
 
-                        else
+                        else if (valueright is CLS_Expression_SelfOp)
                         {
-                            throw new Exception("不可识别的表达式" + valueleft + "." + valueright);
+                            CLS_Expression_SelfOp vr = valueright as CLS_Expression_SelfOp;
+
+                            CLS_Expression_MemberMath value = new CLS_Expression_MemberMath(left, rightend, tlist[left].line, tlist[rightend].line);
+                            value.listParam.Add(valueleft);
+                            value.membername = vr.value_name;
+                            value.mathop = vr.mathop;
+                            return value;
                         }
 
+
+
+                        throw new Exception("不可识别的表达式" + valueleft + "." + valueright);
                         //value.listParam.Add(valueright);
 
 
@@ -212,12 +232,36 @@ namespace CSLE
                     }
                     else if (tlist[oppos].text == "+=" || tlist[oppos].text == "-=" || tlist[oppos].text == "*=" || tlist[oppos].text == "/=" || tlist[oppos].text == "%=")
                     {
-                        CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left, rightend, tlist[left].line, tlist[rightend].line);
-                        //value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
-                        value.listParam.Add(valueleft);
-                        value.listParam.Add(valueright);
-                        value.mathop = tlist[oppos].text[0];
-                        return value;
+
+                        //if (valueleft is CLS_Expression_MemberFind)
+                        //{
+                        //    CLS_Expression_MemberFind vf = valueleft as CLS_Expression_MemberFind;
+                        //    CLS_Expression_MemberMath value = new CLS_Expression_MemberMath(left, rightend, tlist[left].line, tlist[rightend].line);
+                        //    value.listParam.Add(vf.listParam[0]);
+                        //    value.membername = vf.membername;
+                        //    value.mathop = tlist[oppos].text[0];
+                        //    value.listParam.Add(valueright);
+                        //    return value;
+                        //}
+                        //if ((valueright is CLS_Expression_Lambda ==false) && valueleft is CLS_Expression_StaticFind)
+                        //{
+                        //    CLS_Expression_StaticFind vf = valueleft as CLS_Expression_StaticFind;
+                        //    CLS_Expression_StaticMath value = new CLS_Expression_StaticMath(left, rightend, tlist[left].line, tlist[rightend].line);
+                        //    value.type = vf.type;
+                        //    value.staticmembername = vf.staticmembername;
+                        //    value.mathop = tlist[oppos].text[0];
+                        //    value.listParam.Add(valueright);
+                        //    return value;
+                        //}
+                        //else
+                        {
+                            CLS_Expression_SelfOpWithValue value = new CLS_Expression_SelfOpWithValue(left, rightend, tlist[left].line, tlist[rightend].line);
+                            //value.value_name = ((CLS_Expression_GetValue)valueleft).value_name;
+                            value.listParam.Add(valueleft);
+                            value.listParam.Add(valueright);
+                            value.mathop = tlist[oppos].text[0];
+                            return value;
+                        }
                     }
                     else if (tlist[oppos].text == "&&" || tlist[oppos].text == "||")
                     {

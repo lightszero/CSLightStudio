@@ -52,7 +52,7 @@ namespace CSLE
 
             //IndexGet返回的值类型是 System.Object.
             //在这里需要将类型明确化.
-            value.type = value.value.GetType();
+            //value.type = value.value.GetType();
 
             return value;
             //return type.function.MemberValueGet(content.environment, parent.value, membername);

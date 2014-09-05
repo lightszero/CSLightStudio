@@ -16,6 +16,7 @@ namespace CLScriptExt
             get;
             set;
         }
+        public static int page;
         public int age;
         public class S1
         {

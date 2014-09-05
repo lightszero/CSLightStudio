@@ -59,9 +59,11 @@
     <Compile Include="C#LE\Expression\Function\CLS_Expression_Lambda.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberFunction.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberMath.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_MemberSetValue.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticFind.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticFunction.cs" />
+    <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticMath.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_StaticSetValue.cs" />
     <Compile Include="C#LE\Expression\Function\CLS_Expression_Throw.cs" />
     <Compile Include="C#LE\Expression\Loop\CLS_Expression_LoopBreak.cs" />
@@ -87,6 +89,10 @@
     <Compile Include="C#LE\RegHelper\RegHelper_DeleAction1Param.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_DeleAction2Param.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_DeleAction3Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleNonVoidAction.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleNonVoidAction1Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleNonVoidAction2Param.cs" />
+    <Compile Include="C#LE\RegHelper\RegHelper_DeleNonVoidAction3Param.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_Function.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
