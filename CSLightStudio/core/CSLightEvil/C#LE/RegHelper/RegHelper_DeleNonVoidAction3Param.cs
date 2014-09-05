@@ -94,12 +94,13 @@ namespace CSLE
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
         {
-            CLS_Content content = new CLS_Content(env);
             DeleFunction _func = delefunc;
 
             NonVoidDelegate dele = delegate(T param0, T1 param1, T2 param2) {
                 var func = _func.calltype.functions[_func.function];
                 if (func.expr_runtime != null) {
+                    CLS_Content content = new CLS_Content(env);
+
                     content.DepthAdd();
                     content.CallThis = _func.callthis;
                     content.CallType = _func.calltype;
@@ -123,12 +124,13 @@ namespace CSLE
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleLambda lambda)
         {
-            CLS_Content content = lambda.content.Clone();
             var pnames = lambda.paramNames;
             var expr = lambda.expr_func;
 
             NonVoidDelegate dele = delegate(T param0, T1 param1, T2 param2) {
                 if (expr != null) {
+                    CLS_Content content = lambda.content.Clone();
+
                     content.DepthAdd();
 
                     content.DefineAndSet(pnames[0], typeof(T), param0);

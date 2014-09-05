@@ -80,13 +80,14 @@ namespace CSLE
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
         {
-            CLS_Content content = new CLS_Content(env);
             DeleFunction _func = delefunc;
             Action<T> dele = (T param0) =>
             {
                 var func = _func.calltype.functions[_func.function];
                 if (func.expr_runtime != null)
                 {
+                    CLS_Content content = new CLS_Content(env);
+
                     content.DepthAdd();
                     content.CallThis = _func.callthis;
                     content.CallType = _func.calltype;
