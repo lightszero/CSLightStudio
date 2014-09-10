@@ -45,6 +45,7 @@ namespace CSLE
             RegType(new CLS_Type_UShort());
             RegType(new CLS_Type_Sbyte());
             RegType(new CLS_Type_Short());
+            RegType(new CLS_Type_Long());
 
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();
