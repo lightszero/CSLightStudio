@@ -108,10 +108,12 @@
     <Compile Include="C#LE\Type\ints\CLS_Type_Byte.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Char.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Int.cs" />
+    <Compile Include="C#LE\Type\ints\CLS_Type_Long.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Sbyte.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Short.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_UInt.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Ushort.cs" />
+    <Compile Include="C#LE\Type\utils\NumericTypeUtils.cs" />
     <Compile Include="C#LE\Value\CLS_Value_Value.cs" />
     <Compile Include="C#LE\_Interface\CLS_Content.cs" />
     <Compile Include="C#LE\_Interface\CLS_Expression.cs" />
