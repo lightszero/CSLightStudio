@@ -94,6 +94,7 @@
     <Compile Include="C#LE\RegHelper\RegHelper_Type.cs" />
     <Compile Include="C#LE\Token\CLS_Token.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Bool.cs" />
+    <Compile Include="C#LE\Type\ints\CLS_Type_Long.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Ushort.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Short.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Char.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="C#LE\Type\CLS_Type_String.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_UInt.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Var.cs" />
+    <Compile Include="C#LE\Type\utils\NumericTypeUtils.cs" />
     <Compile Include="C#LE\Value\CLS_Value_Value.cs" />
     <Compile Include="C#LE\_Interface\CLS_Content.cs" />
     <Compile Include="C#LE\_Interface\CLS_Expression.cs" />
