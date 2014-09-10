@@ -112,25 +112,25 @@ namespace CSLE {
         private static decimal GetDecimalValue(Type type, object value) {
 
             if (type == typeof(double))
-                return (decimal)(double)value;
+                return (decimal)Convert.ToDouble(value);
             if (type == typeof(float))
-                return (decimal)(float)value;
+                return (decimal)Convert.ToSingle(value);
             if (type == typeof(long))
-                return (long)value;
+                return Convert.ToInt64(value);
             if (type == typeof(int))
-                return (int)value;
+                return Convert.ToInt32(value);
             if (type == typeof(uint))
-                return (uint)value;
+                return Convert.ToUInt32(value);
             if (type == typeof(short))
-                return (short)value;
+                return Convert.ToInt16(value);
             if (type == typeof(ushort))
-                return (ushort)value;
+                return Convert.ToUInt16(value);
             if (type == typeof(sbyte))
-                return (sbyte)value;
+                return Convert.ToSByte(value);
             if (type == typeof(byte))
-                return (byte)value;
+                return Convert.ToByte(value);
             if (type == typeof(char))
-                return (char)value;
+                return Convert.ToChar(value);
 
             throw new Exception("unknown decimal type...");
         }
