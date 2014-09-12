@@ -4,7 +4,7 @@
 Country c=Country.Chinese;
 Country c2=Country.English;
 Country c3=Country.Japnese;
-
-trace(c,c2);
+int i =(c3);
+trace(c,c2,c3);
 
 return c3;

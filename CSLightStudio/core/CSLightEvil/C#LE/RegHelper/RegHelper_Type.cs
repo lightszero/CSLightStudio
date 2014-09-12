@@ -62,7 +62,7 @@ namespace CSLE
                         gtypes[i - 1] = environment.environment.GetTypeByKeyword(sf[i]).type;
                     }
                     targetop = FindTMethod(type, tfunc, _params, gtypes);
-                    
+
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace CSLE
 
             throw new NotImplementedException();
         }
-        Dictionary<int, System.Reflection.MethodInfo> cacheT ;//= new Dictionary<string, System.Reflection.MethodInfo>();
+        Dictionary<int, System.Reflection.MethodInfo> cacheT;//= new Dictionary<string, System.Reflection.MethodInfo>();
         System.Reflection.MethodInfo FindTMethod(Type type, string func, IList<CLS_Content.Value> _params, Type[] gtypes)
         {
             string hashkey = func + "_" + _params.Count + ":";
@@ -169,7 +169,7 @@ namespace CSLE
                 hashkey += t.ToString();
             }
             int hashcode = hashkey.GetHashCode();
-            if(cacheT!=null)
+            if (cacheT != null)
             {
                 if (cacheT.ContainsKey(hashcode))
                 {
@@ -194,7 +194,7 @@ namespace CSLE
                             break;
                         }
                     }
-                    if(match)
+                    if (match)
                     {
                         var targetop = t.MakeGenericMethod(gtypes);
                         if (cacheT == null)
@@ -352,23 +352,23 @@ namespace CSLE
 
         public virtual CLS_Content.Value IndexGet(CLS_Content environment, object object_this, object key)
         {
-            var m =type.GetMembers();
+            var m = type.GetMembers();
             var targetop = type.GetMethod("get_Item");
-            if(targetop!=null)
+            if (targetop != null)
             {
                 CLS_Content.Value v = new CLS_Content.Value();
                 v.type = targetop.ReturnType;
                 v.value = targetop.Invoke(object_this, new object[] { key });
                 return v;
             }
-            
+
             if (targetop == null)
             {
                 targetop = type.GetMethod("GetValue", new Type[] { typeof(int) });
                 if (targetop != null)
                 {
                     //targetop = type.GetMethod("Get");
-                 
+
                     CLS_Content.Value v = new CLS_Content.Value();
                     v.type = type.GetElementType();
                     v.value = targetop.Invoke(object_this, new object[] { key });
@@ -386,8 +386,8 @@ namespace CSLE
             if (targetop == null)
             {
                 //targetop = type.GetMethod("Set");
-                targetop = type.GetMethod("SetValue",new Type[]{typeof(object),typeof(int)});
-                targetop.Invoke(object_this, new object[]{value, key});
+                targetop = type.GetMethod("SetValue", new Type[] { typeof(object), typeof(int) });
+                targetop.Invoke(object_this, new object[] { value, key });
                 return;
             }
             targetop.Invoke(object_this, new object[] { key, value });
@@ -442,11 +442,23 @@ namespace CSLE
         {
 
             //type.get
-            //var m =type.GetMembers();
-            if(_type.IsEnum)
+
+            if (_type.IsEnum)
             {
-                int v =( (int)src);
-                return v;
+
+
+                if ((Type)targetType == typeof(int))
+                    return System.Convert.ToInt32(src);
+                else if ((Type)targetType == typeof(uint))
+                    return System.Convert.ToUInt32(src);
+                else if ((Type)targetType == typeof(short))
+                    return System.Convert.ToInt16(src);
+                else if ((Type)targetType == typeof(ushort))
+                    return System.Convert.ToUInt16(src);
+                else
+                {
+                    return System.Convert.ToInt32(src);
+                }
             }
             var ms = _type.GetMethods();
             foreach (var m in ms)

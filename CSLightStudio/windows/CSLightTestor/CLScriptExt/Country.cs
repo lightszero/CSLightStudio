@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CLScriptExt
 {
-    enum Country
+    enum Country:ushort
     {
         Chinese,
         English,
