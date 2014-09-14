@@ -235,10 +235,7 @@ namespace CSLE
                 {
                     if (value is SInstance)
                     {
-                        if ((value as SInstance).type != (SType)this.members[valuename].type.type)
-                        {
-                            value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
-                        }
+                        value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
                     }
                     else if (value is DeleEvent)
                     {
@@ -340,10 +337,7 @@ namespace CSLE
                 {
                     if (value is SInstance)
                     {
-                        if ((value as SInstance).type != (SType)this.members[valuename].type.type)
-                        {
-                            value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
-                        }
+                        value = content.environment.GetType((value as SInstance).type).ConvertTo(content, value, this.members[valuename].type.type);
                     }
                     else if (value is DeleEvent)
                     {
