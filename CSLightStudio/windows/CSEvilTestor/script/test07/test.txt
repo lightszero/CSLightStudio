@@ -1,2 +1,0 @@
-﻿//这个测试测试try catch throw
-Test07.Run();

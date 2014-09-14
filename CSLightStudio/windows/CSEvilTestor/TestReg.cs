@@ -51,14 +51,9 @@ namespace CSEvilTestor
             env.RegType(new CSLE.RegHelper_Type(typeof(NotSupportedException)));
             env.RegType(new CSLE.RegHelper_Type(typeof(NotImplementedException)));
             env.RegType(new CSLE.RegHelper_Type(typeof(TestClass)));
-            env.RegType(new CSLE.RegHelper_Type(typeof(StateMgr)));
 
         }
         
-    }
-    public class StateMgr
-    {
-
     }
     public class MyClass2
     {
