@@ -6,74 +6,32 @@ using System.Text;
 
 class Test07
 {
-    public static void Run()
+    public void Run()
     {
-		StateManager.Method1("eventName","eventName2","eventName3");
-		
-		StateManager.Instance.DoMethod1("eventName","eventName2","eventName3");
-		
-        try
-        {
-
-
-            throw new NotImplementedException("E2");
-        }
-        catch (NotSupportedException err)
-        {
-            Debug.Log("not here.");
-        }
-        catch (NotImplementedException err)
-        {
-            Debug.Log("Got.");
-        }
-        catch (Exception err)
-        {
-            Debug.Log("Got 2.");
-        }
+        Debug.Log("===-----------===");
+        Fun1();
     }
     //static C5 c5 = null;
-}
 
-/// <summary>
-/// 状态中心
-/// </summary>
-public class StateManager
-{
-    public static StateManager Instance
+    public void Fun1()
     {
-        get
+        Debug.Log("Fun1 in");
+        Fun2();
+        Debug.Log("Fun1 out");
+    }
+
+
+    int _pix = int.MinValue;
+    int _piy = int.MinValue;
+    public void Fun2()
+    {
+        Debug.Log("Fun3 in"); // !!!!!!!!!!!!!!没有了
+        int pix = 0;
+        int piy = 0;
+        if (pix == _pix && piy == _piy)
         {
-            if (g_this == null)
-                g_this = new StateManager();
-            return g_this;
-
+            return;
         }
-    }
-
-    public static StateManager g_this;
-
-    public StateMgr mgr
-    {
-        get;
-        private set;
-    }
-
-    public void OnInit(StateMgr _mgr)
-    {
-        Debug.Log("StateManager Init");
-
-        this.mgr = _mgr;
-
-        StateManager inst = StateManager.Instance;
-    }
-
-    public static void Method1(string eventName,string scriptTypeName, string method)
-    {
-        Debug.Log("Method1");
-    }
-
-    public void DoMethod1(string eventName, string scriptTypeName, string method)
-    {
-        Debug.Log("DoMethod1");
+        Debug.Log("Fun3");
     }
 }

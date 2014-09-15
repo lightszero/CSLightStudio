@@ -85,6 +85,11 @@ namespace CSLE
                         }
                     }
                     int iend = FindBlock(env, tokens, ibegin);
+                    if(iend==-1)
+                    {
+                        env.logger.Log_Error("查找文件尾失败。");
+                        return null;
+                    }
                     if (bJumpClass)
                     {
                         env.logger.Log("(NotScript)findclass:" + name + "(" + ibegin + "," + iend + ")");
@@ -301,7 +306,10 @@ namespace CSLE
                             {
                                 int funcend = FindBlock(env, tokens, funcbegin);
                                 this.Compiler_Expression_Block(tokens, env, funcbegin, funcend, out func.expr_runtime);
-
+                                if(func.expr_runtime==null)
+                                {
+                                    logger.Log_Warn("警告，该函数编译为null，请检查");
+                                }
                                 (stype.function as SType).functions.Add(idname, func);
 
                                 i = funcend;
