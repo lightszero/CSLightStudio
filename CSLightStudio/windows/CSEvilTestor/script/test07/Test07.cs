@@ -32,7 +32,6 @@ class Test07
         {
             return;
         }
-        
         Debug.Log("Fun3");
     }
 }
