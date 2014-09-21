@@ -46,8 +46,16 @@ namespace CSLE
         {
             returntype = typeof(string);
             if (code == '+')
-                return (string)left + right.value.ToString();
-         
+            {
+                if (right.value == null)
+                {
+                    return (string)left + "null";
+                }
+                else
+                {
+                    return (string)left + right.value.ToString();
+                }
+            }
             throw new NotImplementedException();
         }
 
