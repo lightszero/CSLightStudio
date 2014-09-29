@@ -51,7 +51,18 @@ namespace CSLE
                 result.type = typeof(bool);
                 var left = listParam[0].ComputeValue(content);
                 var right = listParam[1].ComputeValue(content);
-                if ((Type)left.type == typeof(bool) && (Type)right.type == typeof(bool))
+                if(left.type==null||right.type==null)
+                {
+                    if (mathop == logictoken.equal)
+                    {
+                        result.value = left.value == right.value;
+                    }
+                    if(mathop== logictoken.not_equal)
+                    {
+                        result.value = left.value != right.value;
+                    }
+                }
+                else if ((Type)left.type == typeof(bool) && (Type)right.type == typeof(bool))
                 {
                     if (mathop == logictoken.equal)
                     {
