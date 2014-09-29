@@ -157,6 +157,7 @@ namespace CSLE
                 func.listParam.Add(count);
                 if (tlist[valuebegin].text == "{")//InitValue
                 {
+                    int[] v = new int[0];
                     int nbegin = valuebegin + 1;
                     do
                     {
@@ -166,10 +167,12 @@ namespace CSLE
                         bool succ = Compiler_Expression(tlist, content, nbegin, nend, out valueI);
                         if (!succ)
                         {
-                            throw new Exception("数组初始值无法识别");
+                            //throw new Exception("数组初始值无法识别");
                         }
-                        func.listParam.Add(valueI);
-                      
+                        else
+                        {
+                            func.listParam.Add(valueI);
+                        }
                         if (tlist[nend + 1].text != ",")
                             break;
                         nbegin = nend + 2;
