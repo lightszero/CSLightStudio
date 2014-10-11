@@ -5,6 +5,9 @@
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
 
+2014-10-11 0.49.5Beta【Graphics修改】
+加入了ulong
+
 2014-09-29 0.49.4Beta 
 修正了if(null==xxx)这种表达式 
 修正了用子类访问父类的静态成员的问题
