@@ -95,6 +95,7 @@
     <Compile Include="C#LE\Token\CLS_Token.cs" />
     <Compile Include="C#LE\Type\CLS_Type_Bool.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Long.cs" />
+    <Compile Include="C#LE\Type\ints\CLS_Type_ULong.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Ushort.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Short.cs" />
     <Compile Include="C#LE\Type\ints\CLS_Type_Char.cs" />
