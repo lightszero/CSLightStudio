@@ -117,6 +117,8 @@ namespace CSLE {
                 return (decimal)Convert.ToSingle(value);
             if (type == typeof(long))
                 return Convert.ToInt64(value);
+            if (type == typeof(ulong))
+                return Convert.ToUInt64(value);
             if (type == typeof(int))
                 return Convert.ToInt32(value);
             if (type == typeof(uint))
@@ -142,6 +144,8 @@ namespace CSLE {
                 return (float)value;
             if (type == typeof(long))
                 return (long)value;
+            if (type == typeof(ulong))
+                return (ulong)value;
             if (type == typeof(int))
                 return (int)value;
             if (type == typeof(uint))
@@ -177,22 +181,27 @@ namespace CSLE {
                 return typeof(float);
             }
 
-            //1. 整数运算时，long 类型优先级最高.
+            //1. 整数运算中，ulong 类型优先级最高.
+            if (ltIndex == T_ULong || rtIndex == T_ULong) {
+                return typeof(ulong);
+            }
+
+            //2. 整数运算中，除了ulong外，就属 long 类型优先级最高了.
             if (ltIndex == T_Long || rtIndex == T_Long) {
                 return typeof(long);
             }
 
-            //2. int 和 uint 结合会返回 long.
+            //3. 注意：int 和 uint 结合会返回 long.
             if ((ltIndex == T_Int && rtIndex == T_UInt) || (ltIndex == T_UInt && rtIndex == T_Int)) { 
                 return typeof(long);
             }
 
-            //3. uint 和 非int结合会返回 uint.
+            //4. uint 和 非int结合会返回 uint.
             if ((ltIndex == T_UInt && rtIndex != T_Int) || (rtIndex == T_UInt && ltIndex != T_Int)) {
                 return typeof(uint);
             }
 
-            //其他统一返回 int.
+            //其他统一返回 int即可.
             //在C#类型系统中，即使是两个 ushort 结合返回的也是int类型。
             return typeof(int);
         }
@@ -201,6 +210,7 @@ namespace CSLE {
             typeof(double),
             typeof(float),
             typeof(long),
+            typeof(ulong),
             typeof(int),
             typeof(uint),
             typeof(short),
@@ -213,12 +223,13 @@ namespace CSLE {
         private const int T_Double = 0;
         private const int T_Float = 1;
         private const int T_Long = 2;
-        private const int T_Int = 3;
-        private const int T_UInt = 4;
-        private const int T_Short = 5;
-        private const int T_UShort = 6;
-        private const int T_SByte = 7;
-        private const int T_Byte = 8;
-        private const int T_Char = 9;
+        private const int T_ULong = 3;
+        private const int T_Int = 4;
+        private const int T_UInt = 5;
+        private const int T_Short = 6;
+        private const int T_UShort = 7;
+        private const int T_SByte = 8;
+        private const int T_Byte = 9;
+        private const int T_Char = 10;
     }
 }
