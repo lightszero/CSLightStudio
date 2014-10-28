@@ -25,7 +25,14 @@ namespace CSLE
                 else
                 {
                     CLS_Value_Value<int> number = new CLS_Value_Value<int>();
-                    number.value_value = int.Parse(value.text);
+                    if (value.text.Contains("'"))
+                    {
+                        number.value_value = (int)value.text[1];
+                    }
+                    else
+                    {
+                        number.value_value = int.Parse(value.text);
+                    }
                     return number;
                 }
             }
@@ -123,18 +130,30 @@ namespace CSLE
             int expend2 = FindCodeAny(tlist, ref expbegin, out bdep);
             if (expend2 != posend)
             {
+                //expend2 = posend;
                 LogError(tlist, "无法识别的取反表达式:", expbegin, posend);
                 return null;
             }
-            else
+            //else
             {
                 ICLS_Expression subvalue;
                 bool succ = Compiler_Expression(tlist, content,expbegin, expend2, out subvalue);
                 if (succ && subvalue != null)
                 {
-                    CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pos, expend2, tlist[pos].line, tlist[expend2].line);
-                    v.listParam.Add(subvalue);
-                    return v;
+                    if (subvalue is CLS_Expression_Math2Value || subvalue is CLS_Expression_Math2ValueAndOr || subvalue is CLS_Expression_Math2ValueLogic)
+                    {
+                        var pp= subvalue.listParam[0];
+                        CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pp.tokenBegin,pp.tokenEnd,pp.lineBegin,pp.lineEnd);
+                        v.listParam.Add(pp);
+                        subvalue.listParam[0] = v;
+                        return subvalue;
+                    }
+                    else
+                    {
+                        CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pos, expend2, tlist[pos].line, tlist[expend2].line);
+                        v.listParam.Add(subvalue);
+                        return v;
+                    }
                 }
                 else
                 {

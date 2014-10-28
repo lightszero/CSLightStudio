@@ -9,5 +9,6 @@ bool boolc=boola;
 string stra;
 string strb="oo中o";
 string strc=stra;
+char ca ='d';
 
 return;

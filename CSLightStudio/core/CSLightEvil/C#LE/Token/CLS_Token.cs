@@ -161,6 +161,42 @@ namespace CSLE
                 }
                 return pos;
             }
+            else if(line[nstart]=='\'')//char
+            {
+                int nend = line.IndexOf('\'', nstart + 1);
+                int nsub = line.IndexOf('\\', nstart + 1);
+                while (nsub > 0 && nsub < nend)
+                {
+                    nend = line.IndexOf('\'', nsub + 2);
+                    nsub = line.IndexOf('\\', nsub + 2);
+
+                }
+                if (nend - nstart + 1 < 1) throw new Exception("查找字符失败");
+                t.type = TokenType.VALUE;
+                int pos = nend + 1;
+                t.text = line.Substring(nstart, nend - nstart + 1);
+                t.text = t.text.Replace("\\\"", "\"");
+                t.text = t.text.Replace("\\\'", "\'");
+                t.text = t.text.Replace("\\\\", "\\");
+                t.text = t.text.Replace("\\0", "\0");
+                t.text = t.text.Replace("\\a", "\a");
+                t.text = t.text.Replace("\\b", "\b");
+                t.text = t.text.Replace("\\f", "\f");
+                t.text = t.text.Replace("\\n", "\n");
+                t.text = t.text.Replace("\\r", "\r");
+                t.text = t.text.Replace("\\t", "\t");
+                t.text = t.text.Replace("\\v", "\v");
+                int sp = t.text.IndexOf('\\');
+                if (sp > 0)
+                {
+                    throw new Exception("不可识别的转义序列:" + t.text.Substring(sp));
+                }
+                if(t.text.Length>3)
+                {
+                    throw new Exception("char 不可超过一个字节("+t.line+")");
+                }
+                return pos;
+            }
             else if (line[nstart] == '/')// / /= 注释
             {
 

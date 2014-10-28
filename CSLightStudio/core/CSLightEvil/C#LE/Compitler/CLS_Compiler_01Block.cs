@@ -263,11 +263,13 @@ namespace CSLE
                     }
                     if (tlist[expbegin].type == TokenType.PUNCTUATION && tlist[expbegin].text == "!")
                     {//逻辑反表达式
-                        ICLS_Expression subvalue = Compiler_Expression_NegativeLogic(tlist,content, expbegin + 1, expend);
-                        if (null == subvalue) return false;
-                        else
-                            values.Add(subvalue);
-                        bTest = true;
+                        {
+                            ICLS_Expression subvalue = Compiler_Expression_NegativeLogic(tlist, content, expbegin + 1, expend);
+                            if (null == subvalue) return false;
+                            else
+                                values.Add(subvalue);
+                            bTest = true;
+                        }
                     }
                     if (!bTest && tlist[expbegin].type == TokenType.TYPE)
                     {
