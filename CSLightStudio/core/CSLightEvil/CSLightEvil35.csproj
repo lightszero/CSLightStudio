@@ -83,6 +83,7 @@
     <Compile Include="C#LE\Expression\Math\CLS_Expression_NegativeValue.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOp.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_SelfOpWithValue.cs" />
+    <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeCheck.cs" />
     <Compile Include="C#LE\Expression\Math\CLS_Expression_TypeConvert.cs" />
     <Compile Include="C#LE\RegHelper\FunctionTrace.cs" />
     <Compile Include="C#LE\RegHelper\RegHelper_DeleAction.cs" />

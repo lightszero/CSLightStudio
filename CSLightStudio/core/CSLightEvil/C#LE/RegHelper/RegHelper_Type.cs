@@ -467,6 +467,7 @@ namespace CSLE
 
         public virtual object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
+            if (this._type == (Type)targetType) return src;
 
             //type.get
 
@@ -495,8 +496,20 @@ namespace CSLE
                     return m.Invoke(null, new object[] { src });
                 }
             }
+            if ((Type)targetType!=null)
+               
+            {
+                if(((Type)targetType).IsAssignableFrom(_type))
+                    return src;
+                if(src!=null&&((Type)targetType).IsInstanceOfType(src))
+                    return src;
+            }
+            else
+            {
+                return src;
+            }
 
-            return src;
+            return null;
         }
 
         public virtual object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out CLType returntype)

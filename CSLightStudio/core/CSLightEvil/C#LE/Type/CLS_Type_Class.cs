@@ -462,11 +462,14 @@ namespace CSLE
 
         public object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
+           
             var type = env.environment.GetType(targetType);
+            if (this.type == type||(Type)targetType==typeof(object)) return src;
             if (this.types.Contains(type))
             {
                 return src;
             }
+
             throw new NotImplementedException();
         }
 

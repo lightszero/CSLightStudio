@@ -144,6 +144,15 @@ namespace CSLE
 
                     return convert;
                 }
+                else if (tlist[oppos].text == "is")
+                {
+                    CLS_Expression_TypeCheck check = new CLS_Expression_TypeCheck(left, oppos + 1, tlist[left].line, tlist[oppos + 1].line);
+                    check.listParam.Add(valueleft);
+                    check.targettype = content.GetTypeByKeyword(tlist[oppos + 1].text).type;
+
+
+                    return check;
+                }
                 bool succ2 = Compiler_Expression(tlist, content, right, rightend, out valueright);
                 if (succ1 && succ2 && valueright != null && valueleft != null)
                 {

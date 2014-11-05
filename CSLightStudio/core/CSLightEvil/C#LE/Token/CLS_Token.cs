@@ -67,6 +67,7 @@ namespace CSLE
 
             keywords.Add("if");
             keywords.Add("as");
+            keywords.Add("is");
             keywords.Add("else");
             keywords.Add("break");
             keywords.Add("continue");

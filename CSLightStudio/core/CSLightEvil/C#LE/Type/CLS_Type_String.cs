@@ -34,12 +34,17 @@ namespace CSLE
 
         public object ConvertTo(CLS_Content env, object src, CLType targetType)
         {
-            if (targetType == type) return src;
+            if ((Type)targetType == typeof(string)) return src;
             if ((Type)targetType == typeof(void))
             {
                 return null;
             }
-            throw new NotImplementedException();
+            if (((Type)targetType).IsAssignableFrom(typeof(string)))
+            //if((Type)targetType== typeof(object))
+            {
+                return src;
+            }
+            return null;
         }
 
         public object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out CLType returntype)

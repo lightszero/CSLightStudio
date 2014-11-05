@@ -882,7 +882,7 @@ namespace CSLE
             int skip = 0;
             for (int i = pos; i <= posend; i++)
             {
-                if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as"))
+                if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as") || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "is"))
                 {
                     if (tokens[i].text == "(")
                     {
@@ -922,7 +922,7 @@ namespace CSLE
 
                 if (dep == 0 && i > pos && i < posend && i != skip)
                 {
-                    if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as"))
+                    if (tokens[i].type == TokenType.PUNCTUATION || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "as") || (tokens[i].type == TokenType.KEYWORD && tokens[i].text == "is"))
                     {
                         if (tokens[i].text == "." && tokens[i - 1].type == TokenType.TYPE)
                         {
@@ -1006,6 +1006,9 @@ namespace CSLE
                         max = 9;
                         break;
                     case "as":
+                        max = 9;
+                        break;
+                    case "is":
                         max = 9;
                         break;
                 }
