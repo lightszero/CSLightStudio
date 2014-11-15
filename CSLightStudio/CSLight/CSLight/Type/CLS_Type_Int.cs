@@ -144,6 +144,21 @@ namespace CSLight
                 else if (code == logictoken.not_equal)
                     return (int)left != (uint)right.value;
             }
+            else if (right.type == typeof(long))
+            {
+                if (code == logictoken.equal)
+                    return (int)left == (long)right.value;
+                else if (code == logictoken.less)
+                    return (int)left < (long)right.value;
+                else if (code == logictoken.less_equal)
+                    return (int)left <= (long)right.value;
+                else if (code == logictoken.more)
+                    return (int)left > (long)right.value;
+                else if (code == logictoken.more_equal)
+                    return (int)left >= (long)right.value;
+                else if (code == logictoken.not_equal)
+                    return (int)left != (long)right.value;
+            }
             else if (right.type == typeof(double))
             {
                 if (code == logictoken.equal)

@@ -86,6 +86,7 @@
     <Compile Include="CSLight\Type\CLS_Type_Double.cs" />
     <Compile Include="CSLight\Type\CLS_Type_Float.cs" />
     <Compile Include="CSLight\Type\CLS_Type_Int.cs" />
+    <Compile Include="CSLight\Type\CLS_Type_Long.cs" />
     <Compile Include="CSLight\Type\CLS_Type_Null.cs" />
     <Compile Include="CSLight\Type\CLS_Type_String.cs" />
     <Compile Include="CSLight\Type\CLS_Type_UInt.cs" />

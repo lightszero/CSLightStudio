@@ -25,7 +25,13 @@ namespace CSLight
                 else
                 {
                     CLS_Value_Value<int> number = new CLS_Value_Value<int>();
-                    number.value_value = int.Parse(value.text);
+                    var b = int.TryParse(value.text, out number.value_value);
+                    if (!b)
+                    {
+                        CLS_Value_Value<long> number2 = new CLS_Value_Value<long>();
+                        long.TryParse(value.text, out number2.value_value);
+                        return number2;
+                    }// = int.Parse(value.text);
                     return number;
                 }
             }

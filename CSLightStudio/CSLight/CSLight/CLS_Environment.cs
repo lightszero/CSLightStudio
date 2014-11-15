@@ -19,6 +19,7 @@ namespace CSLight
             tokenParser = new CLS_TokenParser();
             compiler = new CLS_Expression_Compiler(logger);
             RegType(new CLS_Type_Int());
+            RegType(new CLS_Type_Long());
             RegType(new CLS_Type_UInt());
             RegType(new CLS_Type_Float());
             RegType(new CLS_Type_Double());
