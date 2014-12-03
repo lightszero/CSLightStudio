@@ -1,9 +1,12 @@
 ﻿C#Light/Evil 是一组pure C#写成的脚本语言
-项目主页http://www.cltri.com/ 或者http://lightszero.github.io/
-能够对Unity等的逻辑热更新提供莫大的帮助
-你可以在
+项目主页http://git.cltri.com/ 或者http://lightszero.github.io/
+能够对Unity等的逻辑热更新提供帮助
+
 具体信息可移步http://crazylights.cnblogs.com/
 有问题可以加QQ群研讨：223823428
+
+最新版核心已移至https://github.com/lightszero/cslightcore
+此处的代码定期更新，比最新版会晚一些
 
 2014-11-05 0.50Beta
 修改了 as 表达式的一些不严谨问题 增加了 is 表达式
