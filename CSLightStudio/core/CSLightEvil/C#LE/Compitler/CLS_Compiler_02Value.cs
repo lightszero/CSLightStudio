@@ -6,14 +6,14 @@ namespace CSLE
     public partial class CLS_Expression_Compiler : ICLS_Expression_Compiler
     {
 
-        public ICLS_Expression Compiler_Expression_Value(Token value,int pos)
+        public ICLS_Expression Compiler_Expression_Value(Token value, int pos)
         {
             if (value.type == TokenType.VALUE)
             {
-                if(value.text[value.text.Length-1]=='f')
+                if (value.text[value.text.Length - 1] == 'f')
                 {
                     CLS_Value_Value<float> number = new CLS_Value_Value<float>();
-                    number.value_value = float.Parse(value.text.Substring(0,value.text.Length-1));
+                    number.value_value = float.Parse(value.text.Substring(0, value.text.Length - 1));
                     return number;
                 }
                 else if (value.text.Contains("."))
@@ -24,22 +24,27 @@ namespace CSLE
                 }
                 else
                 {
-                    CLS_Value_Value<int> number = new CLS_Value_Value<int>();
                     if (value.text.Contains("'"))
                     {
-                        number.value_value = (int)value.text[1];
+                        CLS_Value_Value<char> number = new CLS_Value_Value<char>();
+                        number.value_value = (char)value.text[1];
+                        return number;
                     }
+
                     else
                     {
+                        CLS_Value_Value<int> number = new CLS_Value_Value<int>();
+
                         number.value_value = int.Parse(value.text);
+                        return number;
                     }
-                    return number;
+
                 }
             }
             else if (value.type == TokenType.STRING)
             {
                 CLS_Value_Value<string> str = new CLS_Value_Value<string>();
-                str.value_value = value.text.Substring(1,value.text.Length-2);
+                str.value_value = value.text.Substring(1, value.text.Length - 2);
                 return str;
             }
             else if (value.type == TokenType.IDENTIFIER)
@@ -48,16 +53,16 @@ namespace CSLE
                 getvalue.value_name = value.text;
                 return getvalue;
             }
-            else if(value.type == TokenType.TYPE)
+            else if (value.type == TokenType.TYPE)
             {
                 CLS_Expression_GetValue getvalue = new CLS_Expression_GetValue(pos, pos, value.line, value.line);
                 int l = value.text.LastIndexOf('.');
-                if(l>=0)
+                if (l >= 0)
                 {
-                    getvalue.value_name = value.text.Substring(l+1);
+                    getvalue.value_name = value.text.Substring(l + 1);
                 }
                 else
-                                    getvalue.value_name = value.text;
+                    getvalue.value_name = value.text;
                 return getvalue;
             }
             else
@@ -103,13 +108,13 @@ namespace CSLE
             int expend2 = FindCodeAny(tlist, ref expbegin, out bdep);
             if (expend2 != posend)
             {
-                LogError(tlist,"无法识别的负号表达式:" ,expbegin , posend);
+                LogError(tlist, "无法识别的负号表达式:", expbegin, posend);
                 return null;
             }
             else
             {
                 ICLS_Expression subvalue;
-                bool succ = Compiler_Expression(tlist,content, expbegin, expend2, out subvalue);
+                bool succ = Compiler_Expression(tlist, content, expbegin, expend2, out subvalue);
                 if (succ && subvalue != null)
                 {
                     CLS_Expression_NegativeValue v = new CLS_Expression_NegativeValue(pos, expend2, tlist[pos].line, tlist[expend2].line);
@@ -137,13 +142,13 @@ namespace CSLE
             //else
             {
                 ICLS_Expression subvalue;
-                bool succ = Compiler_Expression(tlist, content,expbegin, expend2, out subvalue);
+                bool succ = Compiler_Expression(tlist, content, expbegin, expend2, out subvalue);
                 if (succ && subvalue != null)
                 {
                     if (subvalue is CLS_Expression_Math2Value || subvalue is CLS_Expression_Math2ValueAndOr || subvalue is CLS_Expression_Math2ValueLogic)
                     {
-                        var pp= subvalue.listParam[0];
-                        CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pp.tokenBegin,pp.tokenEnd,pp.lineBegin,pp.lineEnd);
+                        var pp = subvalue.listParam[0];
+                        CLS_Expression_NegativeLogic v = new CLS_Expression_NegativeLogic(pp.tokenBegin, pp.tokenEnd, pp.lineBegin, pp.lineEnd);
                         v.listParam.Add(pp);
                         subvalue.listParam[0] = v;
                         return subvalue;

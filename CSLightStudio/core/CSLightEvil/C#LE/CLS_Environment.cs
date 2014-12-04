@@ -18,7 +18,7 @@ namespace CSLE
         {
             get
             {
-                return "0.49.7Beta";
+                return "0.60.1Beta";
             }
         }
         public CLS_Environment(ICLS_Logger logger)
@@ -47,6 +47,10 @@ namespace CSLE
             RegType(new CLS_Type_Short());
             RegType(new CLS_Type_Long());
             RegType(new CLS_Type_ULong());
+
+            RegType(new RegHelper_Type(typeof(object),"object"));
+            RegType(new RegHelper_Type(typeof(List<>), "List"));
+            RegType(new RegHelper_Type(typeof(Dictionary<,>), "Dictionary"));
 
             typess["null"] = new CLS_Type_NULL();
             //contentGloabl = CreateContent();
@@ -162,7 +166,12 @@ namespace CSLE
                             Type[] types = new Type[_types.Count];
                             for (int i = 0; i < types.Length; i++)
                             {
-                                Type rt = GetTypeByKeyword(_types[i]).type;
+                                CLType t = GetTypeByKeyword(_types[i]).type;
+                                Type rt = t;
+                                if(rt==null&&t!=null)
+                                {
+                                    rt = typeof(object);
+                                }
                                 types[i] = rt;
                             }
                             Type IType = gentype.MakeGenericType(types);
@@ -247,6 +256,12 @@ namespace CSLE
                 {
                     if (f.Value[i].type == TokenType.IDENTIFIER && this.tokenParser.types.Contains(f.Value[i].text))
                     {//有可能预处理导致新的类型
+                        if(i>0
+                            &&
+                            (f.Value[i-1].type== TokenType.TYPE||f.Value[i-1].text=="."))
+                        {
+                            continue;
+                        }
                         Token rp = f.Value[i];
                         rp.type = TokenType.TYPE;
                         f.Value[i] = rp;

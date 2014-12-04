@@ -9,7 +9,7 @@ namespace CSLE
     public class RegHelper_DeleAction<T> : RegHelper_Type, ICLS_Type_Dele
     {
         public RegHelper_DeleAction(Type type, string setkeyword)
-            : base(type, setkeyword)
+            : base(type, setkeyword, true)
         {
 
         }
@@ -32,13 +32,13 @@ namespace CSLE
                     if (code == '+') {
                         calldele = CreateDelegate(env.environment, rightValue as DeleFunction);
                     } else if (code == '-') {
-                        calldele = Dele_Map_Delegate.GetDelegate(rightValue as IDeleBase);
+                        calldele = CreateDelegate(env.environment, rightValue as DeleFunction);
                     }
                 } else if (rightValue is DeleLambda) {
                     if (code == '+') {
                         calldele = CreateDelegate(env.environment, rightValue as DeleLambda);
                     } else if (code == '-') {
-                        calldele = Dele_Map_Delegate.GetDelegate(rightValue as IDeleBase);
+                        calldele = CreateDelegate(env.environment, rightValue as DeleLambda);
                     }
                 } else if (rightValue is Delegate) {
                     calldele = rightValue as Delegate;
@@ -46,15 +46,15 @@ namespace CSLE
 
                 if (code == '+') {
                     info._event.AddEventHandler(info.source, calldele);
-                    if (!(rightValue is Delegate)) {
-                        Dele_Map_Delegate.Map(rightValue as IDeleBase, calldele);
-                    }
+                    //if (!(rightValue is Delegate)) {
+                    //    Dele_Map_Delegate.Map(rightValue as IDeleBase, calldele);
+                    //}
                     return null;
                 } else if (code == '-') {
                     info._event.RemoveEventHandler(info.source, calldele);
-                    if (!(rightValue is Delegate)) {
-                        Dele_Map_Delegate.Destroy(rightValue as IDeleBase);
-                    }
+                    //if (!(rightValue is Delegate)) {
+                    //    Dele_Map_Delegate.Destroy(rightValue as IDeleBase);
+                    //}
                     return null;
                 }
 
@@ -81,6 +81,8 @@ namespace CSLE
         public Delegate CreateDelegate(ICLS_Environment env, DeleFunction delefunc)
         {
             DeleFunction _func = delefunc;
+            Delegate _dele = delefunc.cacheFunction(null);
+            if (_dele != null) return _dele;
             Action<T> dele = (T param0) =>
             {
                 var func = _func.calltype.functions[_func.function];
@@ -100,14 +102,15 @@ namespace CSLE
                 }
             };
             Delegate d = dele as Delegate;
-            if ((Type)this.type != typeof(Action<T>))
+            if ((Type)this.type != typeof(Action))
             {
-                return Delegate.CreateDelegate(this.type, d.Target, d.Method);
+                _dele = Delegate.CreateDelegate(this.type, d.Target, d.Method);
             }
             else
             {
-                return dele;
+                _dele = dele;
             }
+            return delefunc.cacheFunction(_dele);
         }
 
 

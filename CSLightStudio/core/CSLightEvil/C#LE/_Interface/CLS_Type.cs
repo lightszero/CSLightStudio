@@ -14,17 +14,25 @@ namespace CSLE
         not_equal       //!=
 
     }
+    public class MethodCache
+    {
+        public System.Reflection.MethodInfo info;
+        public bool cachefail = false;
+        public bool slow = false;
+    }
     public interface ICLS_TypeFunction
     {
         CLS_Content.Value New(CLS_Content environment, IList<CLS_Content.Value> _params);
-        CLS_Content.Value StaticCall(CLS_Content environment, string function, IList<CLS_Content.Value> _params);
+        CLS_Content.Value StaticCall(CLS_Content environment, string function, IList<CLS_Content.Value> _params, MethodCache cache = null);
+        CLS_Content.Value StaticCallCache(CLS_Content environment, IList<CLS_Content.Value> _params, MethodCache cache);
         CLS_Content.Value StaticValueGet(CLS_Content environment, string valuename);
-        void StaticValueSet(CLS_Content environment, string valuename, object value);
-        CLS_Content.Value MemberCall(CLS_Content environment, object object_this, string func, IList<CLS_Content.Value> _params);
+        bool StaticValueSet(CLS_Content environment, string valuename, object value);
+        CLS_Content.Value MemberCall(CLS_Content environment, object object_this, string func, IList<CLS_Content.Value> _params, MethodCache cache = null);
         CLS_Content.Value MemberValueGet(CLS_Content environment, object object_this, string valuename);
+        CLS_Content.Value MemberCallCache(CLS_Content environment, object object_this, IList<CLS_Content.Value> _params, MethodCache cache);
 
 
-        void MemberValueSet(CLS_Content environment, object object_this, string valuename, object value);
+        bool MemberValueSet(CLS_Content environment, object object_this, string valuename, object value);
 
         CLS_Content.Value IndexGet(CLS_Content environment, object object_this, object key);
 
@@ -42,6 +50,8 @@ namespace CSLE
         }
         public static implicit operator Type(CLType m)
         {
+            if (m == null) return null;
+
             return m.type;
         }
         public static implicit operator SType(CLType m)
@@ -124,7 +134,7 @@ namespace CSLE
         {
             get;
         }
-            
+
         ICLS_Value MakeValue(object value);
         //自动转型能力
         object ConvertTo(CLS_Content env, object src, CLType targetType);
@@ -142,12 +152,12 @@ namespace CSLE
 
     }
 
-    public interface ICLS_Type_WithBase:ICLS_Type
+    public interface ICLS_Type_WithBase : ICLS_Type
     {
         void SetBaseType(IList<ICLS_Type> types);
 
     }
-    public interface ICLS_Type_Dele:ICLS_Type
+    public interface ICLS_Type_Dele : ICLS_Type
     {
         //string GetParamSign(ICLS_Environment env);
         //Delegate CreateDelegate(ICLS_Environment env, SType calltype, SInstance callthis, string function);

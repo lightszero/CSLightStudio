@@ -149,8 +149,12 @@ namespace CSLE
                 }
             }
         }
-        public CLS_Content.Value StaticCall(CLS_Content contentParent, string function, IList<CLS_Content.Value> _params)
+        public CLS_Content.Value StaticCall(CLS_Content contentParent, string function, IList<CLS_Content.Value> _params, MethodCache cache = null)
         {
+            if(cache!=null)
+            {
+                cache.cachefail = true;
+            }
             NewStatic(contentParent.environment);
             if (this.functions.ContainsKey(function))
             {
@@ -226,7 +230,7 @@ namespace CSLE
             throw new NotImplementedException();
         }
 
-        public void StaticValueSet(CLS_Content content, string valuename, object value)
+        public bool StaticValueSet(CLS_Content content, string valuename, object value)
         {
             NewStatic(content.environment);
             if (this.staticMemberInstance.ContainsKey(valuename))
@@ -250,13 +254,17 @@ namespace CSLE
                     }
                 }
                 this.staticMemberInstance[valuename].value = value;
-                return;
+                return true;
             }
             throw new NotImplementedException();
         }
 
-        public CLS_Content.Value MemberCall(CLS_Content contentParent, object object_this, string func, IList<CLS_Content.Value> _params)
+        public CLS_Content.Value MemberCall(CLS_Content contentParent, object object_this, string func, IList<CLS_Content.Value> _params,MethodCache cache=null)
         {
+            if (cache != null)
+            {
+                cache.cachefail = true;
+            }
             if (this.functions.ContainsKey(func))
             {
                 if (this.functions[func].bStatic == false)
@@ -331,7 +339,7 @@ namespace CSLE
             throw new NotImplementedException();
         }
 
-        public void MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
+        public bool MemberValueSet(CLS_Content content, object object_this, string valuename, object value)
         {
             SInstance sin = object_this as SInstance;
             if (sin.member.ContainsKey(valuename))
@@ -355,7 +363,7 @@ namespace CSLE
                     }
                 }
                 sin.member[valuename].value = value;
-                return;
+                return true;
             }
             throw new NotImplementedException();
         }
@@ -403,8 +411,22 @@ namespace CSLE
 
         public Dictionary<string, Function> functions = new Dictionary<string, Function>();
         public Dictionary<string, Member> members = new Dictionary<string, Member>();
+        public Dictionary<string, Delegate> deles = new Dictionary<string, Delegate>();
         public Dictionary<string, CLS_Content.Value> staticMemberInstance = null;
 
+
+
+
+        public CLS_Content.Value StaticCallCache(CLS_Content environment, IList<CLS_Content.Value> _params, MethodCache cache)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public CLS_Content.Value MemberCallCache(CLS_Content environment, object object_this, IList<CLS_Content.Value> _params, MethodCache cache)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 
@@ -412,6 +434,7 @@ namespace CSLE
     {
         public SType type;
         public Dictionary<string, CLS_Content.Value> member = new Dictionary<string, CLS_Content.Value>();//成员
+        public Dictionary<string, Delegate> dele = new Dictionary<string, Delegate>();
     }
     public class CLS_Type_Class : ICLS_Type_WithBase
     {

@@ -40,17 +40,35 @@ namespace CSLE
             get;
             private set;
         }
+        MethodCache cache = null;
         public CLS_Content.Value ComputeValue(CLS_Content content)
         {
             content.InStack(this);
             var parent = listParam[0].ComputeValue(content);
-            var type = content.environment.GetType(parent.type);
+            var typefunction = content.environment.GetType(parent.type).function;
+            if(parent.type is object)
+            {
+                SInstance s = parent.value as SInstance;
+                if(s!=null)
+                {
+                    typefunction = s.type;
+                }
+            }
             List<CLS_Content.Value> _params = new List<CLS_Content.Value>();
             for (int i = 1; i < listParam.Count; i++)
             {
                 _params.Add(listParam[i].ComputeValue(content));
             }
-            var value = type.function.MemberCall(content, parent.value, functionName, _params);
+            CLS_Content.Value value = null;
+            if (cache == null||cache.cachefail)
+            {
+                cache = new MethodCache();
+                value = typefunction.MemberCall(content, parent.value, functionName, _params,cache);
+            }
+            else
+            {
+                value = typefunction.MemberCallCache(content, parent.value, _params, cache);
+            }
             content.OutStack(this);
             return value;
             //做数学计算

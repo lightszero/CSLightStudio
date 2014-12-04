@@ -51,8 +51,16 @@ namespace CSLE
             //    var vtype = content.environment.GetType(value.type);
             //    setv = vtype.ConvertTo(content.environment, setv, parent.type);
             //}
-            var type = content.environment.GetType(parent.type);
-            type.function.MemberValueSet(content, parent.value, membername, setv);
+            var typefunction = content.environment.GetType(parent.type).function;
+            if(parent.type is object)
+            {
+                SInstance s = parent.value as SInstance;
+                if(s!=null)
+                {
+                    typefunction = s.type;
+                }
+            }
+            typefunction.MemberValueSet(content, parent.value, membername, setv);
             //做数学计算
             //从上下文取值
             //_value = null;

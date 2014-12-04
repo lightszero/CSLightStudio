@@ -34,6 +34,12 @@ namespace CSLE
 
         public object Math2Value(CLS_Content env, char code, object left, CLS_Content.Value right, out CLType returntype)
         {
+           
+            if ((Type)right.type == typeof(string))
+            {
+                returntype = typeof(String);
+                return "null" + right.value;
+            }
             throw new NotImplementedException();
         }
 

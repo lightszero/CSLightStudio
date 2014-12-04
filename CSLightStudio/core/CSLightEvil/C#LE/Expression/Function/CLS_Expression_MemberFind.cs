@@ -44,8 +44,17 @@ namespace CSLE
         {
             content.InStack(this);
             var parent = listParam[0].ComputeValue(content);
-            var type = content.environment.GetType(parent.type);
-            var value=type.function.MemberValueGet(content, parent.value, membername);
+            ICLS_TypeFunction typefunction = content.environment.GetType(parent.type).function;
+            if(parent.type is object)
+            {
+                SInstance s =parent.value as SInstance;
+                if(s!=null)
+                {
+                    typefunction = s.type;
+                }
+            }
+            //var type = content.environment.GetType(parent.type);
+            var value=typefunction.MemberValueGet(content, parent.value, membername);
             content.OutStack(this);
             return value;
             //做数学计算

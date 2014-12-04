@@ -285,6 +285,10 @@ namespace CSLE
                     }
                     if (start.Value.type == TokenType.KEYWORD)
                     {
+                        if(start.Value.text=="new")
+                        {
+                            return FindCodeKeyWord_New(tokens, i);
+                        }
                         if (start.Value.text == "for")
                         {
                             return FindCodeKeyWord_For(tokens, i);
@@ -804,6 +808,18 @@ namespace CSLE
             int fe2 = FindCodeAny(tokens, ref fs2, out b2);
             return fe2;
         }
+        int FindCodeKeyWord_New(IList<Token> tokens, int pos)
+        {
+            int b1;
+            int fs1 = pos + 2;
+            int fe1 = FindCodeAny(tokens, ref fs1, out b1);
+            if(tokens[fe1].text=="]")
+            {
+                fs1 = fe1 + 1;
+                fe1 = FindCodeAny(tokens, ref fs1, out b1);
+            }
+            return fe1;
+        }
         int FindCodeKeyWord_ForEach(IList<Token> tokens, int pos)
         {
             int b1;
@@ -941,6 +957,7 @@ namespace CSLE
         }
         int GetLowestMathOp(IList<Token> tokens, IList<int> list)
         {
+
             int nmax = int.MaxValue;//优先级
             int npos = -1;//字符
             foreach (int i in list)
@@ -1012,10 +1029,21 @@ namespace CSLE
                         max = 9;
                         break;
                 }
-                if (max <= nmax)
+                if (tokens[i].text == "(")//(int)(xxx) //这种表达式要优先处理前一个
                 {
-                    nmax = max;
-                    npos = i;
+                    if (max < nmax)
+                    {
+                        nmax = max;
+                        npos = i;
+                    }
+                }
+                else
+                {
+                    if (max <= nmax)
+                    {
+                        nmax = max;
+                        npos = i;
+                    }
                 }
             }
 

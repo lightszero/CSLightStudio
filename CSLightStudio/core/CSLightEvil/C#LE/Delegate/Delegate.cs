@@ -56,11 +56,11 @@ namespace CSLE
     /// 2. GetKey() 方法返回字符串类型的Key，作为维持映射关系的字典Key。
     ///    至于为何不用其他形式的Key，比如用DeleFunction的对象引用来做Key，那就说来话长了。
     /// </summary>
-    public interface IDeleBase {
-        string GetKey();
-    }
+    //public interface IDeleBase {
+    //    string GetKey();
+    //}
 
-    public class DeleFunction : IDeleBase //指向脚本中的函数
+    public class DeleFunction// : IDeleBase //指向脚本中的函数
     {
         public DeleFunction(SType stype, SInstance _this, string function)
         {
@@ -69,16 +69,46 @@ namespace CSLE
             this.function = function;
         }
 
-        public string GetKey() {
-            return calltype.Name + "_" + function;
-        }
+        //public string GetKey() {
+        //    return calltype.Name + "_" + function;
+        //}
 
         public SType calltype;
         public SInstance callthis;
         public string function;
+        public Delegate cacheFunction(Delegate dele)
+        {
+            if(dele==null)
+            {
+                Delegate v = null;
+                if(callthis!=null)
+                {
+                    callthis.dele.TryGetValue(function, out v);
+
+                }
+                else
+                {
+                    calltype.deles.TryGetValue(function, out v);
+                }
+                return v;
+            }
+            else
+            {
+                if (callthis != null)
+                {
+                    callthis.dele[function] = dele;
+                }
+                else
+                {
+                    calltype.deles[function] = dele;
+                }
+                return dele;
+            }
+
+        }
     }
 
-    public class DeleLambda : IDeleBase //指向Lambda表达式
+    public class DeleLambda// : IDeleBase //指向Lambda表达式
     {
         public DeleLambda(CLS_Content content,IList<ICLS_Expression> param,ICLS_Expression func)
         {
@@ -124,62 +154,62 @@ namespace CSLE
     /// <summary>
     /// 一个维持 [DeleFunction or DeleLambda] 和 [Delegate] 之间映射关系的类.
     /// </summary>
-    public class Dele_Map_Delegate {
-        /// <summary>
-        /// Dictonary:
-        /// Key   => string.
-        /// Value => Delegate Object.
-        /// </summary>
-        private static Dictionary<string, Delegate> m_Dict = new Dictionary<string, Delegate>();
+    //public class Dele_Map_Delegate {
+    //    /// <summary>
+    //    /// Dictonary:
+    //    /// Key   => string.
+    //    /// Value => Delegate Object.
+    //    /// </summary>
+    //    private static Dictionary<string, Delegate> m_Dict = new Dictionary<string, Delegate>();
 
-        /// <summary>
-        /// 进行映射操作。
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        public static void Map(IDeleBase key, Delegate value) {
-            if (key == null) {
-                throw new Exception("[Dele_Map_Delegate::GetDelegate()] key == null.");
-            }
-            string strKey = key.GetKey();
-            m_Dict[strKey] = value;
-        }
+    //    /// <summary>
+    //    /// 进行映射操作。
+    //    /// </summary>
+    //    /// <param name="key"></param>
+    //    /// <param name="value"></param>
+    //    public static void Map(IDeleBase key, Delegate value) {
+    //        if (key == null) {
+    //            throw new Exception("[Dele_Map_Delegate::GetDelegate()] key == null.");
+    //        }
+    //        string strKey = key.GetKey();
+    //        m_Dict[strKey] = value;
+    //    }
 
-        /// <summary>
-        /// 获取 Delegate.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static Delegate GetDelegate(IDeleBase key) {
-            if (key == null) {
-                throw new Exception("[Dele_Map_Delegate::GetDelegate()] key == null.");
-            }
-            string strKey = key.GetKey();
-            if (!m_Dict.ContainsKey(strKey)) {
-                //throw new Exception("[Dele_Map_Delegate::GetDelegate()] Count not find the key => " + key);
-                return null;
-            }
-            return m_Dict[strKey];
-        }
+    //    /// <summary>
+    //    /// 获取 Delegate.
+    //    /// </summary>
+    //    /// <param name="key"></param>
+    //    /// <returns></returns>
+    //    public static Delegate GetDelegate(IDeleBase key) {
+    //        if (key == null) {
+    //            throw new Exception("[Dele_Map_Delegate::GetDelegate()] key == null.");
+    //        }
+    //        string strKey = key.GetKey();
+    //        if (!m_Dict.ContainsKey(strKey)) {
+    //            //throw new Exception("[Dele_Map_Delegate::GetDelegate()] Count not find the key => " + key);
+    //            return null;
+    //        }
+    //        return m_Dict[strKey];
+    //    }
 
-        /// <summary>
-        /// 销毁单个映射关系.
-        /// </summary>
-        public static void Destroy(IDeleBase key) {
-            if (key == null) {
-                throw new Exception("[Dele_Map_Delegate::Destriy()] key == null.");
-            }
-            string strKey = key.GetKey();
-            if (m_Dict.ContainsKey(strKey)) {
-                m_Dict.Remove(strKey);
-            }
-        }
+    //    /// <summary>
+    //    /// 销毁单个映射关系.
+    //    /// </summary>
+    //    public static void Destroy(IDeleBase key) {
+    //        if (key == null) {
+    //            throw new Exception("[Dele_Map_Delegate::Destriy()] key == null.");
+    //        }
+    //        string strKey = key.GetKey();
+    //        if (m_Dict.ContainsKey(strKey)) {
+    //            m_Dict.Remove(strKey);
+    //        }
+    //    }
 
-        /// <summary>
-        /// 销毁全部映射关系.
-        /// </summary>
-        public static void Destroy() {
-            m_Dict.Clear();
-        }
-    }
+    //    /// <summary>
+    //    /// 销毁全部映射关系.
+    //    /// </summary>
+    //    public static void Destroy() {
+    //        m_Dict.Clear();
+    //    }
+    //}
 }

@@ -202,7 +202,7 @@ namespace CSLE
 
         public List<ICLS_Expression> listParam
         {
-            get { throw new NotImplementedException(); }
+            get { return null; }
         }
         public int tokenBegin
         {
