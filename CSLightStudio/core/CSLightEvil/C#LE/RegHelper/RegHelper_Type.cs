@@ -445,6 +445,7 @@ namespace CSLE
                         else
                         {
                             myparams.Add(pp[i].DefaultValue);
+                            continue;
                         }
                     }
                     else
