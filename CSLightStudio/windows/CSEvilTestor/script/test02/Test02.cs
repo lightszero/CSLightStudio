@@ -66,6 +66,7 @@ class Test02
     static void Test2(int v)
     {
         Debug.Log("Test2 i=" + v);
+        //throw new Exception("dd");
         i--;
     }
 

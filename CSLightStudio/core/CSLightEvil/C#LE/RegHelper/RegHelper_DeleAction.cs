@@ -112,15 +112,24 @@ namespace CSLE
                 if (func.expr_runtime != null)
                 {
                     CLS_Content content = new CLS_Content(env);
-                    content.DepthAdd();
-                    content.CallThis = _func.callthis;
-                    content.CallType = _func.calltype;
-                    content.function = _func.function;
+                    try
+                    {
 
-                    //content.DefineAndSet(function._paramnames[0], function._paramtypes[0].type, param0);
+                        content.DepthAdd();
+                        content.CallThis = _func.callthis;
+                        content.CallType = _func.calltype;
+                        content.function = _func.function;
 
-                    func.expr_runtime.ComputeValue(content);
-                    content.DepthRemove();
+                        //content.DefineAndSet(function._paramnames[0], function._paramtypes[0].type, param0);
+
+                        func.expr_runtime.ComputeValue(content);
+                        content.DepthRemove();
+                    }
+                    catch (Exception err)
+                    {
+                        env.logger.Log(content.Dump());
+                        throw err;
+                    }
                 }
             };
             Delegate d = dele as Delegate;
@@ -138,21 +147,29 @@ namespace CSLE
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleLambda lambda)
         {
+            CLS_Content content = lambda.content.Clone();
             var pnames = lambda.paramNames;
             var expr = lambda.expr_func;
             Action dele = () =>
             {
                 if (expr != null)
                 {
-                    CLS_Content content = lambda.content.Clone();
-                    content.DepthAdd();
+                    try
+                    {
+                        content.DepthAdd();
 
 
-                    //content.DefineAndSet(pnames[0], typeof(T), param0);
+                        //content.DefineAndSet(pnames[0], typeof(T), param0);
 
-                    expr.ComputeValue(content);
+                        expr.ComputeValue(content);
 
-                    content.DepthRemove();
+                        content.DepthRemove();
+                    }
+                    catch (Exception err)
+                    {
+                        env.logger.Log(content.Dump());
+                        throw err;
+                    }
                 }
             };
             Delegate d = dele as Delegate;

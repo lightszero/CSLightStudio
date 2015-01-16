@@ -123,15 +123,22 @@ namespace CSLE
                 if (func.expr_runtime != null)
                 {
                     CLS_Content content = new CLS_Content(env);
+                    try
+                    {
+                        content.DepthAdd();
+                        content.CallThis = _func.callthis;
+                        content.CallType = _func.calltype;
+                        content.function = _func.function;
 
-                    content.DepthAdd();
-                    content.CallThis = _func.callthis;
-                    content.CallType = _func.calltype;
-                    content.function = _func.function;
-
-                    CLS_Content.Value retValue = func.expr_runtime.ComputeValue(content);
-                    content.DepthRemove();
-                    return (ReturnType)retValue.value;
+                        CLS_Content.Value retValue = func.expr_runtime.ComputeValue(content);
+                        content.DepthRemove();
+                        return (ReturnType)retValue.value;
+                    }
+                    catch (Exception err)
+                    {
+                        env.logger.Log(content.Dump());
+                        throw err;
+                    }
                 }
                 return default(ReturnType);
             };
@@ -141,6 +148,7 @@ namespace CSLE
 
         public Delegate CreateDelegate(ICLS_Environment env, DeleLambda lambda)
         {
+            CLS_Content content = lambda.content.Clone();
             var pnames = lambda.paramNames;
             var expr = lambda.expr_func;
 
@@ -148,12 +156,18 @@ namespace CSLE
             {
                 if (expr != null)
                 {
-                    CLS_Content content = lambda.content.Clone();
-
-                    content.DepthAdd();
-                    CLS_Content.Value retValue = expr.ComputeValue(content);
-                    content.DepthRemove();
-                    return (ReturnType)retValue.value;
+                    try
+                    {
+                        content.DepthAdd();
+                        CLS_Content.Value retValue = expr.ComputeValue(content);
+                        content.DepthRemove();
+                        return (ReturnType)retValue.value;
+                    }
+                    catch (Exception err)
+                    {
+                        env.logger.Log(content.Dump());
+                        throw err;
+                    }
                 }
                 return default(ReturnType);
             };
