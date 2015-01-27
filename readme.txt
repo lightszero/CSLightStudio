@@ -7,7 +7,7 @@
 
 最新版核心已移至https://github.com/lightszero/cslightcore
 此处的代码定期更新，比最新版会晚一些
-2015-12-04 0.60.1Beta
+2014-12-04 0.60.1Beta
 同步一次核心，核心最新信息，请移步cslightcore
 
 2014-11-05 0.50Beta
